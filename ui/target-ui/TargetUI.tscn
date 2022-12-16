@@ -40,5 +40,5 @@ anchor_bottom = 1.0
 offset_top = -26.0
 offset_right = 348.0
 grow_vertical = 0
-text = "Press ESC or RIGHT CLICK to cancel targeting."
+text = "Press RIGHT CLICK to cancel targeting."
 label_settings = SubResource("LabelSettings_2qs08")

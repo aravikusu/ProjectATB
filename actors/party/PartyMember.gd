@@ -108,6 +108,7 @@ func playDeadAnimation():
 	setDeadSprite()
 
 func _on_input_event(_viewport, event, _shape_idx):
+	if CHARACTER_BATTLE_STATE != Enums.CHARACTER_BATTLE_STATE.DEAD:
 		if Global.BATTLE_TARGETING_MODE:
 			if (event is InputEventMouseButton && event.pressed && event.button_index == MOUSE_BUTTON_LEFT) \
 			or (event.is_action_pressed("ui_select")):
@@ -116,17 +117,19 @@ func _on_input_event(_viewport, event, _shape_idx):
 					Global.printSignalError("PartyMember", "_on_input_event", "targetedForAction")
 
 func _on_mouse_entered():
-	if Global.BATTLE_TARGETING_MODE && !showOutline:
-		showOutline = true
-		loadedCharacter.showOutline()
-		var s = emit_signal("consideredTarget", self)
-		if s != OK:
-			Global.printSignalError("PartyMember", "_on_mouse_entered", "consideredTarget")
+	if CHARACTER_BATTLE_STATE != Enums.CHARACTER_BATTLE_STATE.DEAD:
+		if Global.BATTLE_TARGETING_MODE && !showOutline:
+			showOutline = true
+			loadedCharacter.showOutline()
+			var s = emit_signal("consideredTarget", self)
+			if s != OK:
+				Global.printSignalError("PartyMember", "_on_mouse_entered", "consideredTarget")
 
 func _on_mouse_exited():
-	if showOutline:
-		showOutline = false
-		loadedCharacter.hideOutline()
-		var s = emit_signal("noLongerConsideredTarget")
-		if s != OK:
-			Global.printSignalError("PartyMember", "_on_mouse_exited", "noLongerConsideredTarget")
+	if CHARACTER_BATTLE_STATE != Enums.CHARACTER_BATTLE_STATE.DEAD:
+		if showOutline:
+			showOutline = false
+			loadedCharacter.hideOutline()
+			var s = emit_signal("noLongerConsideredTarget")
+			if s != OK:
+				Global.printSignalError("PartyMember", "_on_mouse_exited", "noLongerConsideredTarget")
