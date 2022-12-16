@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://byrl8chxsst05"]
+
+[ext_resource type="Script" path="res://scenes/MainScene.gd" id="1_l0gyj"]
+[ext_resource type="PackedScene" uid="uid://dg22ng82i0ycp" path="res://ui/BattleUI/BattleUI.tscn" id="2_67y7r"]
+[ext_resource type="PackedScene" uid="uid://y4m4dmi0x2bc" path="res://ui/target-ui/TargetUI.tscn" id="3_kr3v0"]
+[ext_resource type="PackedScene" uid="uid://dc0lgkp6h4462" path="res://ui/NotificationCenter/NotificationCenter.tscn" id="4_x2m1e"]
+
+[node name="MainScene" type="Node2D"]
+editor_description = "Features all battle code, and loads the map scenes."
+script = ExtResource("1_l0gyj")
+
+[node name="CurrentRoomGoesHere" type="Node2D" parent="."]
+
+[node name="BattleUI" parent="." instance=ExtResource("2_67y7r")]
+
+[node name="TargetUI" parent="." instance=ExtResource("3_kr3v0")]
+
+[node name="NotificationCenter" parent="." instance=ExtResource("4_x2m1e")]
+
+[connection signal="sendCommand" from="BattleUI" to="." method="prepareTargeting"]
+[connection signal="targetingComplete" from="TargetUI" to="." method="confirmTarget"]

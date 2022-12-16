@@ -1,0 +1,12 @@
+res://ui/NotificationCenter
+res://ui/GameOverScreen
+res://actors/party
+res://autoload
+res://ui/MultihitDamageCounter
+res://ui/EffectNumbers
+res://ui/BattleUI/ExtendedCommandMenu
+res://ui/target-ui
+res://assets/materials/outlines/
+res://actors/enemy
+res://scenes/PauseMenu
+res://scenes

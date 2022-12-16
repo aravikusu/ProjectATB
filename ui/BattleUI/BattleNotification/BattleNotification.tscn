@@ -1,0 +1,110 @@
+[gd_scene load_steps=6 format=3 uid="uid://cy2rielifvyl5"]
+
+[ext_resource type="Script" path="res://ui/BattleUI/BattleNotification/BattleNotification.gd" id="1_fnpxb"]
+
+[sub_resource type="Animation" id="Animation_vrmi4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ntiav"]
+resource_name = "fade"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_mwklc"]
+resource_name = "stickMessage"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_end6m"]
+_data = {
+"RESET": SubResource("Animation_vrmi4"),
+"fade": SubResource("Animation_ntiav"),
+"stickMessage": SubResource("Animation_mwklc")
+}
+
+[node name="BattleNotification" type="Control"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(250, 75)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1030.0
+offset_bottom = -645.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fnpxb")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer"]
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 245.0
+offset_bottom = 70.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.133333, 0.537255, 0.611765, 1)
+
+[node name="Label" type="Label" parent="MarginContainer"]
+offset_left = 5.0
+offset_top = 24.0
+offset_right = 245.0
+offset_bottom = 50.0
+text = "[MESSAGE]"
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_end6m")
+}

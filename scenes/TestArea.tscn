@@ -1,0 +1,183 @@
+[gd_scene load_steps=19 format=3 uid="uid://dlhbbjymn511w"]
+
+[ext_resource type="Script" path="res://scenes/TestArea.gd" id="1_m6kas"]
+[ext_resource type="Texture2D" uid="uid://t6s3nu21tv57" path="res://assets/backgrounds/testbg.png" id="2_7lugr"]
+[ext_resource type="Shader" path="res://scenes/bg-slide.gdshader" id="2_hhwvk"]
+[ext_resource type="PackedScene" uid="uid://dj82b3yeg7qrj" path="res://actors/enemy/SpiceLord.tscn" id="4_afl33"]
+[ext_resource type="Script" path="res://actors/enemy/enemy-trigger.gd" id="5_q05rj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mdq7d"]
+shader = ExtResource("2_hhwvk")
+shader_parameter/direction = Vector2(0.005, 0.005)
+shader_parameter/speed = null
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_dymov"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_h8lcm"]
+distance = 0.01
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_l23q5"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_k2ek4"]
+normal = Vector2(0, 1)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_6tdw8"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_bo8cs"]
+normal = Vector2(1, 0)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_cy3we"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_spo2h"]
+normal = Vector2(-1, 0)
+
+[sub_resource type="Animation" id="Animation_v4gya"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(641, 360)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpiceLord:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1608, 1258)]
+}
+
+[sub_resource type="Animation" id="Animation_gh3ef"]
+resource_name = "triggerSpiceLord"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(641, 360), Vector2(800, 360)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpiceLord:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1608, 1258), Vector2(1266, 378)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3fetl"]
+_data = {
+"RESET": SubResource("Animation_v4gya"),
+"triggerSpiceLord": SubResource("Animation_gh3ef")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0eat8"]
+size = Vector2(633, 563)
+
+[node name="TestArea" type="Node2D"]
+script = ExtResource("1_m6kas")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_mdq7d")
+offset_left = -342.0
+offset_top = -682.0
+offset_right = 1658.0
+offset_bottom = 1318.0
+mouse_filter = 2
+texture = ExtResource("2_7lugr")
+stretch_mode = 1
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 1160.0
+offset_top = 632.0
+offset_right = 1200.0
+offset_bottom = 672.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(-26.75, -14.4517)
+mouse_filter = 2
+color = Color(0.662745, 0.521569, 0.858824, 1)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(641, 360)
+current = true
+zoom = Vector2(0.8, 0.8)
+
+[node name="WorldBottom" type="StaticBody2D" parent="."]
+position = Vector2(640, 632)
+physics_material_override = SubResource("PhysicsMaterial_dymov")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBottom"]
+shape = SubResource("WorldBoundaryShape2D_h8lcm")
+
+[node name="WorldTop" type="StaticBody2D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_l23q5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldTop"]
+position = Vector2(617, 55)
+shape = SubResource("WorldBoundaryShape2D_k2ek4")
+
+[node name="WorldLeft" type="StaticBody2D" parent="."]
+position = Vector2(86, 305)
+physics_material_override = SubResource("PhysicsMaterial_6tdw8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldLeft"]
+position = Vector2(4, 1)
+shape = SubResource("WorldBoundaryShape2D_bo8cs")
+
+[node name="WorldRight" type="StaticBody2D" parent="."]
+position = Vector2(1012, 351)
+physics_material_override = SubResource("PhysicsMaterial_cy3we")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldRight"]
+position = Vector2(146, -11)
+shape = SubResource("WorldBoundaryShape2D_spo2h")
+
+[node name="SpiceLord" parent="." groups=["spicelord"] instance=ExtResource("4_afl33")]
+position = Vector2(1608, 1258)
+displayName = "spicelord"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_3fetl")
+}
+
+[node name="SpiceTrigger" type="Area2D" parent="."]
+script = ExtResource("5_q05rj")
+enemyGroup = "spicelord"
+partyPositions = [Vector2(424, 316), Vector2(281, 194), Vector2(281, 498)]
+battleInitMessage = "The Spice Lord Comes!"
+canRun = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpiceTrigger"]
+position = Vector2(825.5, 342.5)
+shape = SubResource("RectangleShape2D_0eat8")
+
+[connection signal="body_entered" from="SpiceTrigger" to="." method="_on_spice_trigger_body_entered"]
+[connection signal="triggerBattle" from="SpiceTrigger" to="." method="_on_spice_trigger_trigger_battle"]

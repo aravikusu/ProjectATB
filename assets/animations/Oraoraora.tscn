@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://6lfynktu1s4p"]
+
+[ext_resource type="Script" path="res://assets/animations/Oraoraora.gd" id="1_mc643"]
+
+[node name="Oraoraora" type="Node2D"]
+script = ExtResource("1_mc643")

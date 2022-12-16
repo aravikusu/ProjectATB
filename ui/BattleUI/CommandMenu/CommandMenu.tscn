@@ -1,0 +1,76 @@
+[gd_scene load_steps=3 format=3 uid="uid://c3xo6bcpbrxck"]
+
+[ext_resource type="Script" path="res://ui/BattleUI/CommandMenu/CommandMenu.gd" id="1_ylqdd"]
+[ext_resource type="PackedScene" uid="uid://drdoo65uyb747" path="res://ui/BattleUI/ExtendedCommandMenu/ExtendedCommandMenu.tscn" id="2_kbbwg"]
+
+[node name="CommandMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 75.0
+offset_bottom = 155.0
+script = ExtResource("1_ylqdd")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CommandMenu" type="MarginContainer" parent="HBoxContainer"]
+offset_right = 65.0
+offset_bottom = 155.0
+
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer/CommandMenu"]
+offset_right = 65.0
+offset_bottom = 155.0
+color = Color(0, 0, 0, 0.392157)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/CommandMenu"]
+offset_right = 65.0
+offset_bottom = 155.0
+theme_override_constants/separation = 0
+
+[node name="Attack" type="Button" parent="HBoxContainer/CommandMenu/VBoxContainer"]
+unique_name_in_owner = true
+offset_right = 65.0
+offset_bottom = 31.0
+text = "Attack"
+
+[node name="Defend" type="Button" parent="HBoxContainer/CommandMenu/VBoxContainer"]
+unique_name_in_owner = true
+offset_top = 31.0
+offset_right = 65.0
+offset_bottom = 62.0
+text = "Defend"
+
+[node name="Skills" type="Button" parent="HBoxContainer/CommandMenu/VBoxContainer"]
+unique_name_in_owner = true
+offset_top = 62.0
+offset_right = 65.0
+offset_bottom = 93.0
+text = "Skills"
+
+[node name="Special" type="Button" parent="HBoxContainer/CommandMenu/VBoxContainer"]
+unique_name_in_owner = true
+offset_top = 93.0
+offset_right = 65.0
+offset_bottom = 124.0
+text = "Special"
+
+[node name="Run" type="Button" parent="HBoxContainer/CommandMenu/VBoxContainer"]
+unique_name_in_owner = true
+offset_top = 124.0
+offset_right = 65.0
+offset_bottom = 155.0
+text = "Run"
+
+[node name="ExtendedMenu" parent="HBoxContainer" instance=ExtResource("2_kbbwg")]
+unique_name_in_owner = true
+offset_left = 69.0
+offset_right = 289.0
+offset_bottom = 155.0
+
+[connection signal="pressed" from="HBoxContainer/CommandMenu/VBoxContainer/Attack" to="." method="_on_attack_pressed"]
+[connection signal="pressed" from="HBoxContainer/CommandMenu/VBoxContainer/Defend" to="." method="_on_defend_pressed"]
+[connection signal="pressed" from="HBoxContainer/CommandMenu/VBoxContainer/Skills" to="." method="_on_skills_pressed"]
+[connection signal="pressed" from="HBoxContainer/CommandMenu/VBoxContainer/Special" to="." method="_on_special_pressed"]
+[connection signal="pressed" from="HBoxContainer/CommandMenu/VBoxContainer/Run" to="." method="_on_run_pressed"]
+[connection signal="selected" from="HBoxContainer/ExtendedMenu" to="." method="extendedCommandSelected"]

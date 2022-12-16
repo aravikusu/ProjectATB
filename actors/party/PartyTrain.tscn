@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://nlaqkbrvie5b"]
+
+[ext_resource type="Script" path="res://actors/party/PartyTrain.gd" id="1_ohdcv"]
+
+[node name="PartyTrain" type="Node2D"]
+script = ExtResource("1_ohdcv")
+
+[node name="FirstFollower" type="Node2D" parent="."]
+
+[node name="SecondFollower" type="Node2D" parent="."]

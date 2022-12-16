@@ -1,0 +1,63 @@
+extends Node
+
+enum CHARACTER {
+	ARAVIX = 0,
+	AYLIK = 1,
+	TASTY = 2,
+	NONE = 99
+}
+
+enum GAME_STATE {
+	ROAMING = 0,
+	BATTLE = 1,
+	CUTSCENE = 2,
+	TITLE_SCREEN = 99
+}
+
+enum BATTLE_STATE {
+	AWAITING_ACTION = 0,
+	PLAYING_ACTION = 1,
+	DIALOGUE = 2
+}
+
+enum BATTLE_END_STATE {
+	ONGOING = 0,
+	PLAYER_WIN = 1,
+	PLAYER_LOSS = 2,
+	RAN_AWAY = 3,
+	STALEMATE = 4
+}
+
+enum CHARACTER_BATTLE_STATE {
+	CHARGING = 0,
+	READY = 1,
+	WAITING_TO_ACT = 2,
+	DEAD = 3
+}
+
+enum ACTOR_TYPE {
+	PARTYMEMBER = 0,
+	ENEMY = 1
+}
+
+enum TARGET_TYPE {
+	ANY = 0,
+	SELF = 1,
+	LINE = 2,
+	SHAPE = 3,
+	ALL_ENEMIES = 4,
+	ACTUALLY_EVERYONE = 5,
+	NONE = 99
+}
+
+enum TARGET_SHAPE {
+	CIRCLE = 0
+}
+
+enum MULTITECH_TYPE {
+	ARA_AYL = 0,
+	ARA_TAS = 1,
+	AYL_TAS = 2,
+	TRIPLE = 3,
+	NONE = 99
+}

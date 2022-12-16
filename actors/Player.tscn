@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cyfx1xj8crci0"]
+
+[ext_resource type="Script" path="res://actors/Player.gd" id="1_qvpwb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vv4wk"]
+size = Vector2(123, 122)
+
+[node name="Player" type="CharacterBody2D"]
+collision_mask = 5
+script = ExtResource("1_qvpwb")
+
+[node name="SpriteGoesHere" type="Node2D" parent="."]
+
+[node name="CollisionShape2d" type="CollisionShape2D" parent="."]
+position = Vector2(-3.5, 3)
+shape = SubResource("RectangleShape2D_vv4wk")

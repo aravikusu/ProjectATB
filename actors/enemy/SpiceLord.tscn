@@ -1,0 +1,161 @@
+[gd_scene load_steps=12 format=3 uid="uid://dj82b3yeg7qrj"]
+
+[ext_resource type="Texture2D" uid="uid://cgm7qax0707b2" path="res://assets/sprites/spicelord-idle.png" id="1_0b8x1"]
+[ext_resource type="Shader" path="res://assets/materials/outlines/outline.gdshader" id="2_ca4c2"]
+[ext_resource type="Script" path="res://actors/enemy/enemy.gd" id="2_fy4qn"]
+[ext_resource type="Texture2D" uid="uid://khhumxg2u43" path="res://assets/sprites/spicelord-dead.png" id="3_x7jas"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_twjja"]
+shader = ExtResource("2_ca4c2")
+shader_parameter/lineColor = Color(1, 0, 0, 1)
+shader_parameter/lineThickness = 0.0
+shader_parameter/opacity = 1.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jkfe7"]
+animations = [{
+"frames": [ExtResource("3_x7jas")],
+"loop": true,
+"name": &"dead",
+"speed": 5.0
+}, {
+"frames": [ExtResource("1_0b8x1")],
+"loop": true,
+"name": &"overworld",
+"speed": 5.0
+}, {
+"frames": [ExtResource("1_0b8x1")],
+"loop": true,
+"name": &"ready",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dv3yp"]
+size = Vector2(871, 899)
+
+[sub_resource type="Animation" id="Animation_xwr31"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/lineThickness")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:material:shader_parameter/opacity")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_jkdf1"]
+resource_name = "dead"
+length = 2.0
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"setDeadSprite"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(5, 5), Vector2(0, 10), Vector2(-5, 15), Vector2(0, 20), Vector2(5, 25), Vector2(0, 30), Vector2(-5, 35), Vector2(0, 40), Vector2(-5, 50), Vector2(0, 60), Vector2(5, 70), Vector2(0, 80), Vector2(-5, 90), Vector2(0, 100), Vector2(5, 110), Vector2(0, 120), Vector2(-5, 130), Vector2(0, 140), Vector2(5, 150), Vector2(0, 160)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:material:shader_parameter/opacity")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.7, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [1.0, 1.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_uff52"]
+resource_name = "outline"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/lineThickness")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.00611833, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 2.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yevu4"]
+_data = {
+"RESET": SubResource("Animation_xwr31"),
+"dead": SubResource("Animation_jkdf1"),
+"outline": SubResource("Animation_uff52")
+}
+
+[node name="SpiceLord" type="Area2D"]
+collision_layer = 4
+collision_mask = 9
+script = ExtResource("2_fy4qn")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_twjja")
+frames = SubResource("SpriteFrames_jkfe7")
+animation = &"overworld"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(14.5, -0.5)
+shape = SubResource("RectangleShape2D_dv3yp")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../AnimatedSprite2D")
+libraries = {
+"": SubResource("AnimationLibrary_yevu4")
+}
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

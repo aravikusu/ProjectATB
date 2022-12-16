@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://dps2y24gdmjuf"]
+
+[ext_resource type="Script" path="res://assets/animations/Spice Up.gd" id="1_37ew3"]
+[ext_resource type="Texture2D" uid="uid://2pkjf4ofvjlx" path="res://assets/particles/spotlight_1.png" id="2_m24nb"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_lx14j"]
+blend_mode = 1
+
+[sub_resource type="Curve" id="Curve_hontx"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.195531, 1), 0.0, 0.0, 0, 0, Vector2(0.804469, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_wvndt"]
+curve = SubResource("Curve_hontx")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7mudb"]
+emission_shape = 1
+emission_sphere_radius = 300.0
+particle_flag_disable_z = true
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 1.0
+initial_velocity_max = 20.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.2
+scale_max = 0.2
+scale_curve = SubResource("CurveTexture_wvndt")
+color = Color(0.847059, 0.584314, 0.501961, 1)
+hue_variation_max = 0.2
+
+[node name="Spice Up" type="Node2D"]
+script = ExtResource("1_37ew3")
+
+[node name="SpiceParticles" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_lx14j")
+emitting = false
+amount = 150
+lifetime = 2.0
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_7mudb")
+texture = ExtResource("2_m24nb")

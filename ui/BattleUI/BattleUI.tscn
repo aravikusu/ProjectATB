@@ -1,0 +1,134 @@
+[gd_scene load_steps=11 format=3 uid="uid://dg22ng82i0ycp"]
+
+[ext_resource type="Script" path="res://ui/BattleUI/BattleUI.gd" id="1_duoq6"]
+[ext_resource type="Shader" path="res://ui/BattleUI/screen_shockwave.gdshader" id="2_wyegf"]
+[ext_resource type="PackedScene" uid="uid://uucam7rgv78k" path="res://ui/BattleUI/BattleUIPartyContainer/BattleUIPartyContainer.tscn" id="3_1l5cp"]
+[ext_resource type="PackedScene" uid="uid://cy2rielifvyl5" path="res://ui/BattleUI/BattleNotification/BattleNotification.tscn" id="4_0n0py"]
+[ext_resource type="PackedScene" uid="uid://ctw86i6nbjh1b" path="res://ui/MultihitDamageCounter/MultihitDamageCounter.tscn" id="5_722d7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nh5qb"]
+shader = ExtResource("2_wyegf")
+shader_parameter/center = Vector2(0.5, 0.5)
+shader_parameter/force = 0.5
+shader_parameter/size = 1.5
+shader_parameter/thickness = 0.01
+
+[sub_resource type="Animation" id="Animation_742xb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Shockwave:material:shader_parameter/size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/BattleUIPartyContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ff8oo"]
+resource_name = "end"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/BattleUIPartyContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_83vgg"]
+resource_name = "shockwave"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Shockwave:material:shader_parameter/size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.48882),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/BattleUIPartyContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1yvs4"]
+_data = {
+"RESET": SubResource("Animation_742xb"),
+"end": SubResource("Animation_ff8oo"),
+"shockwave": SubResource("Animation_83vgg")
+}
+
+[node name="BattleUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_duoq6")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Shockwave" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_nh5qb")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="BattleUIPartyContainer" parent="CanvasLayer" instance=ExtResource("3_1l5cp")]
+modulate = Color(1, 1, 1, 0)
+
+[node name="BattleNotification" parent="CanvasLayer" instance=ExtResource("4_0n0py")]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.0
+offset_left = -125.0
+offset_top = 20.0
+offset_right = 125.0
+offset_bottom = 95.0
+grow_vertical = 1
+
+[node name="MultihitDamageCounter" parent="CanvasLayer" instance=ExtResource("5_722d7")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_1yvs4")
+}
+
+[connection signal="sendCommand" from="CanvasLayer/BattleUIPartyContainer" to="." method="commandTime"]
