@@ -45,6 +45,6 @@ func calcExtraMovement(direction: Vector2, isPartner: bool):
 		if isPartner:
 			extraMovement.x -= 75
 		else:
-			extraMovement.y += 75
+			extraMovement.x += 75
 	
 	return extraMovement

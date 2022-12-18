@@ -116,7 +116,7 @@ func save_game():
 		@warning_ignore(return_value_discarded)
 		DirAccess.make_dir_absolute("user://saves/")
 	
-	var file = FileAccess.open_encrypted_with_pass(save_path, FileAccess.WRITE, "YunaIsCute")
+	var file = FileAccess.open_encrypted_with_pass(save_path, FileAccess.WRITE, "TastyHasAGreatRack")
 	if file is Object:
 		file.store_var(_save_file)
 		print("Game has successfully been saved")
@@ -125,7 +125,7 @@ func save_game():
 
 func load_game():
 	if FileAccess.file_exists(save_path):
-		var file = FileAccess.open_encrypted_with_pass(save_path, FileAccess.READ, "YunaIsCute")
+		var file = FileAccess.open_encrypted_with_pass(save_path, FileAccess.READ, "TastyHasAGreatRack")
 		if file is Object:
 			_save_file = file.get_var()
 			print("Game was successfully loaded")
@@ -210,7 +210,7 @@ func get_game_config():
 	set_config()
 
 func save_config():
-	var file = FileAccess.open_encrypted_with_pass(config_path, FileAccess.WRITE, "YunaIsCute")
+	var file = FileAccess.open_encrypted_with_pass(config_path, FileAccess.WRITE, "TastyHasAGreatRack")
 	if file is Object:
 		file.store_var(_config_file)
 		print("Settings have been saved.")
@@ -221,7 +221,7 @@ func save_config():
 # Settings like FOV is handled in the Camera3D itself, and SSAO in the Environments
 func load_config():
 	if FileAccess.file_exists(config_path):
-		var file = FileAccess.open_encrypted_with_pass(config_path, FileAccess.READ, "YunaIsCute")
+		var file = FileAccess.open_encrypted_with_pass(config_path, FileAccess.READ, "TastyHasAGreatRack")
 		if file is Object:
 			_config_file = file.get_var()
 			print("Settings were successfully loaded.")
