@@ -22,18 +22,18 @@ func start(action: Dictionary):
 func calcExtraMovement(direction: Vector2, isPartner: bool):
 	var extraMovement = Vector2.ZERO
 	var wentSideways = false
-	if direction.x < 0 && abs(direction.x) > abs(direction.y):
+	if direction.x < 0:
 		wentSideways = true
 		extraMovement.x -= 75
 	
-	if direction.x > 0 and abs(direction.x) > abs(direction.y):
+	if direction.x > 0:
 		wentSideways = true
 		extraMovement.x += 75
 	
-	if direction.y < 0 and abs(direction.y) > abs(direction.x):
+	if direction.y < 0:
 		extraMovement.y -= 75
 	
-	if direction.y > 0 and abs(direction.y) > abs(direction.x):
+	if direction.y > 0:
 		extraMovement.y += 75
 	
 	if wentSideways:
