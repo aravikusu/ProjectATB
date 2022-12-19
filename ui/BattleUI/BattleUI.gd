@@ -18,6 +18,9 @@ func startBattle():
 func end():
 	player.play("end")
 
+func clearPartyUI():
+	partyContainer.clearParty()
+
 func showNotification(message: String, actor = ""):
 	notification.showMessage(message, actor)
 

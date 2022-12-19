@@ -76,6 +76,9 @@ func handleDead(isDead: bool):
 		connectedPartyMember.setSprite("overworld")
 		player.play_backwards("dead")
 
+func clear():
+	connectedPartyMember = null
+
 func _on_gui_input(event):
 	if event is InputEventMouseButton && event.pressed && event.button_index == 1:
 		if canAct:

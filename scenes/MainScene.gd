@@ -43,7 +43,7 @@ func handle_inputs():
 	if Global.BATTLE_TARGETING_MODE:
 		if Input.is_action_just_pressed("pause"):
 			endTargeting()
-
+ 
 func _process(_delta):
 	if Global.get_game_state() == Enums.GAME_STATE.BATTLE:
 		if BATTLE_END_STATE == Enums.BATTLE_END_STATE.ONGOING:
@@ -176,7 +176,7 @@ func prepareTargeting(slot, command, partner):
 		Enums.TARGET_TYPE.NONE:
 			# For very special cases. Put in self for now,
 			# handle separately depending on command.
-			commandForTargeting.target = actors[slot - 1]
+			commandForTargeting.target = [actors[slot - 1]]
 			addToActionQueue(commandForTargeting)
 
 # Once targeting is complete, we come here to finally put the command to the action queue.
@@ -362,6 +362,7 @@ func endBattle():
 				postBattleCleanup()
 			Enums.BATTLE_END_STATE.PLAYER_LOSS:
 				Global.show_game_over()
+				battleUI.clearPartyUI()
 			Enums.BATTLE_END_STATE.RAN_AWAY:
 				pass
 

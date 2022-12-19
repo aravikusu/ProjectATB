@@ -49,3 +49,8 @@ func timeToAct(command, partner):
 
 func hideCommandMenu():
 	commandMenu.hide()
+
+func clearParty():
+	slot1.clear()
+	slot2.clear()
+	slot3.clear()
