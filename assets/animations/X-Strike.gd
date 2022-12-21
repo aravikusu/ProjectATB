@@ -1,4 +1,4 @@
-extends Node2D
+extends Node3D
 
 signal completed(action)
 signal hit(action, location, direction)
@@ -7,8 +7,8 @@ func start(action: Dictionary):
 	var startPos = action.actor.global_position
 	var partnerStart = action.partner.global_position
 	var targetPos = action.target[0].global_position
-	action.actor.moveToLocation(targetPos + calcExtraMovement(targetPos - startPos, false))
-	action.partner.moveToLocation(targetPos + calcExtraMovement(targetPos - partnerStart, true))
+	action.actor.moveToLocation(targetPos)
+	action.partner.moveToLocation(targetPos)
 	await get_tree().create_timer(1).timeout
 	emit_signal("hit", action, action.target[0].global_position, "right")
 	emit_signal("hit", action, action.target[0].global_position, "left")
@@ -19,8 +19,8 @@ func start(action: Dictionary):
 	await get_tree().create_timer(1).timeout
 	queue_free()
 
-func calcExtraMovement(direction: Vector2, isPartner: bool):
-	var extraMovement = Vector2.ZERO
+func calcExtraMovement(direction: Vector3, isPartner: bool):
+	var extraMovement = Vector3.ZERO
 	var wentSideways = false
 	if direction.x < 0:
 		wentSideways = true

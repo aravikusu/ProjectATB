@@ -50,7 +50,7 @@ func _input(event):
 
 func default_save():
 	return {
-		"location": "TestArea",
+		"location": "Test3D",
 		"player1": {
 			"name": "Aravix",
 			"type": Enums.CHARACTER.ARAVIX,
@@ -292,7 +292,7 @@ func get_active_party():
 	if partyMem3.active: arr.append(partyMem3)
 	return arr
 
-func set_party_position(coordinates: Vector2):
+func set_party_position(coordinates: Vector3):
 	playerCharacter.set_position(coordinates)
 	partyMem1.set_position(coordinates)
 	partyMem2.set_position(coordinates)
@@ -300,6 +300,7 @@ func set_party_position(coordinates: Vector2):
 
 func toggle_leader_visibility():
 		playerCharacter.visible = !playerCharacter.visible
+		playerCharacter.toggleCollision()
 
 # Opens a file - used in all of the handler files.
 func openFile(dataFile: String):
@@ -349,7 +350,7 @@ func _deferred_goto_scene(path):
 	get_tree().get_root().add_child(current_scene)
 	
 	player.play("SceneFade")
-	
+	print("hello")
 
 func _on_animation_player_animation_finished(_anim_name):
 	if (following_scene != ""):

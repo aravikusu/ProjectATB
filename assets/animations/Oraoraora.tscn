@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" path="res://assets/animations/Oraoraora.gd" id="1_mc643"]
 
-[node name="Oraoraora" type="Node2D"]
+[node name="Oraoraora" type="Node3D"]
 script = ExtResource("1_mc643")

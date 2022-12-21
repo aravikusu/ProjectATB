@@ -1,13 +1,13 @@
-[gd_scene load_steps=19 format=3 uid="uid://dlhbbjymn511w"]
+[gd_scene load_steps=19 format=3 uid="uid://cxgd63lonit6j"]
 
 [ext_resource type="Script" path="res://scenes/TestArea.gd" id="1_m6kas"]
+[ext_resource type="Shader" path="res://assets/shaders/bg-slide.gdshader" id="2_5def4"]
 [ext_resource type="Texture2D" uid="uid://t6s3nu21tv57" path="res://assets/backgrounds/testbg.png" id="2_7lugr"]
-[ext_resource type="Shader" path="res://scenes/bg-slide.gdshader" id="2_hhwvk"]
 [ext_resource type="PackedScene" uid="uid://dj82b3yeg7qrj" path="res://actors/enemy/SpiceLord.tscn" id="4_afl33"]
 [ext_resource type="Script" path="res://actors/enemy/enemy-trigger.gd" id="5_q05rj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mdq7d"]
-shader = ExtResource("2_hhwvk")
+shader = ExtResource("2_5def4")
 shader_parameter/direction = Vector2(0.005, 0.005)
 shader_parameter/speed = null
 

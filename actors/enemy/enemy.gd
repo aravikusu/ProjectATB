@@ -1,4 +1,4 @@
-extends Area2D
+extends Node3D
 
 signal targetedForAction(actor)
 signal consideredTarget(actor)
@@ -21,7 +21,7 @@ var currentSprite = "overworld"
 var showOutline = false
 
 @onready var player = $AnimationPlayer
-@onready var sprite = $AnimatedSprite2D
+@onready var sprite = $"%Sprite"
 
 func _ready():
 	stats = EnemyHelper.getEnemyStats(displayName)
@@ -46,29 +46,27 @@ func setDeadSprite():
 func playDeadAnimation():
 	player.play("dead")
 
-func _on_mouse_entered():
+func hover():
 	if CHARACTER_BATTLE_STATE != Enums.CHARACTER_BATTLE_STATE.DEAD:
 		if Global.BATTLE_TARGETING_MODE && !showOutline:
 			showOutline = true
 			player.play("outline")
 			var s = emit_signal("consideredTarget", self)
 			if s != OK:
-				Global.printSignalError("Enemy", "_on_mouse_entered", "consideredTarget")
+				Global.printSignalError("Enemy", "hover", "consideredTarget")
 
-func _on_mouse_exited():
+func unhover():
 	if CHARACTER_BATTLE_STATE != Enums.CHARACTER_BATTLE_STATE.DEAD:
 		if showOutline:
 			showOutline = false
 			player.play_backwards("outline")
 			var s = emit_signal("noLongerConsideredTarget")
 			if s != OK:
-				Global.printSignalError("Enemy", "_on_mouse_exited", "noLongerConsideredTarget")
+				Global.printSignalError("Enemy", "unhover", "noLongerConsideredTarget")
 
-func _on_input_event(_viewport, event, _shape_idx):
+func clicked():
 	if CHARACTER_BATTLE_STATE != Enums.CHARACTER_BATTLE_STATE.DEAD:
 		if Global.BATTLE_TARGETING_MODE:
-			if (event is InputEventMouseButton && event.pressed && event.button_index == MOUSE_BUTTON_LEFT) \
-			or (event.is_action_pressed("ui_select")):
-				var s = emit_signal("targetedForAction", self)
-				if s != OK:
-					Global.printSignalError("Enemy", "_on_input_event", "targetedForAction")
+			var s = emit_signal("targetedForAction", self)
+			if s != OK:
+				Global.printSignalError("Enemy", "clicked", "targetedForAction")

@@ -10,14 +10,7 @@ outline_color = Color(0, 0, 0, 1)
 outline_size = 5
 outline_color = Color(0, 0, 0, 1)
 
-[node name="TargetUI" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
+[node name="TargetUI" type="Node3D"]
 script = ExtResource("1_husr7")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]

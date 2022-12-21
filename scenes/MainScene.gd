@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 
 var currentLocation = {}
 
@@ -76,7 +76,6 @@ func startBattle(battleData):
 	# This disables the player's ability to move and interact with the world.
 	Global.set_game_state(Enums.GAME_STATE.BATTLE)
 	escapeIsPossible = battleData.canRun
-	
 	battleUI.startBattle()
 	if battleData.initMessage != "":
 		battleUI.showNotification(battleData.initMessage)
@@ -277,12 +276,12 @@ func finishCommand(action):
 	BATTLE_STATE = Enums.BATTLE_STATE.AWAITING_ACTION
 	currentCommandTotalDamage = 0
 
-func displayEffectNumber(startPosition: Vector2, value: int, direction: String):
+func displayEffectNumber(startPosition: Vector3, value: int, direction: String):
 	var numberInstance = effectNumbers.instantiate()
 	add_child(numberInstance)
 	numberInstance.prepare(startPosition, value, direction)
 
-func displayEffectText(type: String, location: Vector2):
+func displayEffectText(type: String, location: Vector3):
 	var textInstance = effectText.instantiate()
 	add_child(textInstance)
 	match type:

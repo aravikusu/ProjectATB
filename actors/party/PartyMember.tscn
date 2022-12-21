@@ -1,17 +1,44 @@
-[gd_scene load_steps=3 format=3 uid="uid://nbvs5vklklkd"]
+[gd_scene load_steps=7 format=3 uid="uid://nbvs5vklklkd"]
 
 [ext_resource type="Script" path="res://actors/party/PartyMember.gd" id="1_jf6ms"]
+[ext_resource type="Script" path="res://actors/party/shared-interact.gd" id="2_8qv74"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7qp53"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_xguwr"]
+viewport_path = NodePath("SpriteViewport")
 
-[node name="PartyMember" type="Area2D"]
-collision_layer = 2
-collision_mask = 8
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_waj6a"]
+resource_local_to_scene = true
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+albedo_texture = SubResource("ViewportTexture_xguwr")
+
+[sub_resource type="QuadMesh" id="QuadMesh_akcm7"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_h53bh"]
+data = PackedVector3Array(0.5, -0.5, 0, -0.5, -0.5, 0, 0.5, 0.5, 0, -0.5, -0.5, 0, -0.5, 0.5, 0, 0.5, 0.5, 0)
+
+[node name="PartyMember" type="Node3D"]
 script = ExtResource("1_jf6ms")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_7qp53")
+[node name="SpriteViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(128, 128)
+size_2d_override_stretch = true
+render_target_update_mode = 4
 
-[connection signal="input_event" from="." to="." method="_on_input_event"]
-[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[node name="Mesh" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_waj6a")
+mesh = SubResource("QuadMesh_akcm7")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Mesh"]
+collision_layer = 2
+collision_mask = 8
+script = ExtResource("2_8qv74")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Mesh/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_h53bh")
+
+[connection signal="clicked" from="Mesh/StaticBody3D" to="." method="clicked"]
+[connection signal="hovering" from="Mesh/StaticBody3D" to="." method="hover"]
+[connection signal="unhovering" from="Mesh/StaticBody3D" to="." method="unhover"]

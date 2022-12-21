@@ -1,13 +1,12 @@
-extends Control
+extends Node3D
 
 # Shows messages such as "DEAD!" or other statuses.
 
 @onready var player = $AnimationPlayer
-@onready var label = $"%Label"
+@onready var label = $Label
 func showDead(location):
-	position = Vector2(location.x, location.y - 25)
+	position = Vector3(location.x, location.y + 0.5, location.z)
 	label.text = "DEAD"
-	label.label_settings.font_color = Color("#c50d00")
 	player.play("dead")
 
 

@@ -1,0 +1,32 @@
+[gd_resource type="Environment" load_steps=7 format=3 uid="uid://bsi1a74a3heol"]
+
+[ext_resource type="Shader" path="res://scenes/clouds.gdshader" id="1_g1ga3"]
+[ext_resource type="CompressedTexture3D" uid="uid://w56c27dipwyt" path="res://assets/weather/perlworlnoise.tga" id="2_18xap"]
+[ext_resource type="Texture2D" uid="uid://ogy58pubytl1" path="res://assets/weather/weather.bmp" id="3_qu0sb"]
+[ext_resource type="CompressedTexture3D" uid="uid://6efpx6wcb4eo" path="res://assets/weather/worlnoise.bmp" id="4_2r8ag"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k2d5g"]
+shader = ExtResource("1_g1ga3")
+shader_parameter/_density = 0.05
+shader_parameter/cloud_coverage = 0.25
+shader_parameter/_time_scale = 1.0
+shader_parameter/_time_offset = null
+shader_parameter/rayleigh = 2.0
+shader_parameter/rayleigh_color = Color(0.258824, 0.411765, 0.580392, 1)
+shader_parameter/mie = 0.005
+shader_parameter/mie_eccentricity = 0.8
+shader_parameter/mie_color = Color(0.631373, 0.768627, 0.921569, 1)
+shader_parameter/turbidity = 10.0
+shader_parameter/sun_disk_scale = 1.0
+shader_parameter/ground_color = Color(0.282353, 0.541176, 0.654902, 1)
+shader_parameter/exposure = 0.1
+shader_parameter/worlnoise = ExtResource("4_2r8ag")
+shader_parameter/perlworlnoise = ExtResource("2_18xap")
+shader_parameter/weathermap = ExtResource("3_qu0sb")
+
+[sub_resource type="Sky" id="Sky_mjjy5"]
+sky_material = SubResource("ShaderMaterial_k2d5g")
+
+[resource]
+background_mode = 2
+sky = SubResource("Sky_mjjy5")

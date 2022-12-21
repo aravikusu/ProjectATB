@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" path="res://assets/animations/X-Strike.gd" id="1_tfoex"]
 
-[node name="X-Strike" type="Node2D"]
+[node name="X-Strike" type="Node3D"]
 script = ExtResource("1_tfoex")

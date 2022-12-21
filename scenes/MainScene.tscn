@@ -5,11 +5,11 @@
 [ext_resource type="PackedScene" uid="uid://y4m4dmi0x2bc" path="res://ui/target-ui/TargetUI.tscn" id="3_kr3v0"]
 [ext_resource type="PackedScene" uid="uid://dc0lgkp6h4462" path="res://ui/NotificationCenter/NotificationCenter.tscn" id="4_x2m1e"]
 
-[node name="MainScene" type="Node2D"]
+[node name="MainScene" type="Node3D"]
 editor_description = "Features all battle code, and loads the map scenes."
 script = ExtResource("1_l0gyj")
 
-[node name="CurrentRoomGoesHere" type="Node2D" parent="."]
+[node name="CurrentRoomGoesHere" type="Node3D" parent="."]
 
 [node name="BattleUI" parent="." instance=ExtResource("2_67y7r")]
 

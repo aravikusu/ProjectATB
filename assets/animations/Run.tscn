@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" path="res://assets/animations/Run.gd" id="1_ylevn"]
 
-[node name="Defend" type="Node2D"]
+[node name="Defend" type="Node3D"]
 script = ExtResource("1_ylevn")

@@ -1,16 +1,41 @@
-[gd_scene load_steps=3 format=3 uid="uid://cyfx1xj8crci0"]
+[gd_scene load_steps=7 format=3 uid="uid://cyfx1xj8crci0"]
 
 [ext_resource type="Script" path="res://actors/Player.gd" id="1_qvpwb"]
+[ext_resource type="Script" path="res://actors/player-camera.gd" id="2_b524c"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vv4wk"]
-size = Vector2(123, 122)
+[sub_resource type="ViewportTexture" id="ViewportTexture_30g4l"]
+viewport_path = NodePath("SpriteViewport")
 
-[node name="Player" type="CharacterBody2D"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lah6b"]
+resource_local_to_scene = true
+transparency = 1
+albedo_texture = SubResource("ViewportTexture_30g4l")
+
+[sub_resource type="QuadMesh" id="QuadMesh_wvbcy"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7tucm"]
+
+[node name="Player" type="CharacterBody3D"]
 collision_mask = 5
 script = ExtResource("1_qvpwb")
 
-[node name="SpriteGoesHere" type="Node2D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_lah6b")
+mesh = SubResource("QuadMesh_wvbcy")
 
-[node name="CollisionShape2d" type="CollisionShape2D" parent="."]
-position = Vector2(-3.5, 3)
-shape = SubResource("RectangleShape2D_vv4wk")
+[node name="SpriteViewport" type="SubViewport" parent="."]
+unique_name_in_owner = true
+transparent_bg = true
+size = Vector2i(128, 128)
+size_2d_override_stretch = true
+render_target_update_mode = 4
+
+[node name="CollisionShape3d" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_7tucm")
+
+[node name="CameraAnchor" type="Node3D" parent="."]
+
+[node name="Camera" type="Camera3D" parent="CameraAnchor"]
+transform = Transform3D(1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 2, 3.5)
+current = true
+script = ExtResource("2_b524c")

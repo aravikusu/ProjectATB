@@ -22,7 +22,7 @@ func fillData(slot, partyMember):
 	frame.fillData(partyMember)
 
 func _process(_delta):
-	stupidSpacer.custom_minimum_size = Vector2(0, get_viewport_rect().size.y / 5) 
+	stupidSpacer.custom_minimum_size = Vector2(0, get_viewport_rect().size.y / 5)
 
 func showCommandMenu(slot, partyMemberType):
 	commandMenu.show()

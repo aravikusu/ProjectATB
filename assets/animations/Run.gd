@@ -1,4 +1,4 @@
-extends Node2D
+extends Node3D
 
 signal completed(action)
 signal hit(action, location, direction)

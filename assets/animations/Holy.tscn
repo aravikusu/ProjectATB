@@ -1,53 +1,21 @@
-[gd_scene load_steps=12 format=3 uid="uid://vma8umgroddb"]
+[gd_scene load_steps=14 format=3 uid="uid://vma8umgroddb"]
 
 [ext_resource type="Script" path="res://assets/animations/Holy.gd" id="1_g8ulv"]
-[ext_resource type="Texture2D" uid="uid://2pkjf4ofvjlx" path="res://assets/particles/spotlight_1.png" id="2_nwpqs"]
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_q7ij2"]
-blend_mode = 1
-
-[sub_resource type="Curve" id="Curve_bepmy"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.497207, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="CurveTexture" id="CurveTexture_0am77"]
-curve = SubResource("Curve_bepmy")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_a1jik"]
-particle_flag_disable_z = true
-spread = 180.0
-gravity = Vector3(0, 0, 0)
-initial_velocity_min = 100.0
-initial_velocity_max = 100.0
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
-scale_curve = SubResource("CurveTexture_0am77")
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ki0h3"]
-blend_mode = 1
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_u7lya"]
-particle_flag_disable_z = true
-spread = 180.0
-gravity = Vector3(0, 0, 0)
-initial_velocity_max = 59.4
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
-scale_min = 0.0
+[ext_resource type="Texture2D" uid="uid://cgprbn4jkyqnl" path="res://assets/particles/Spark.png" id="3_l6g3h"]
 
 [sub_resource type="Animation" id="Animation_ixn7x"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("GPUParticles2D:process_material:scale_max")
+tracks/0/path = NodePath("GPUParticles3D:emitting")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.0]
+"update": 1,
+"values": [true]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -65,43 +33,43 @@ tracks/1/keys = {
 [sub_resource type="Animation" id="Animation_wjb7c"]
 resource_name = "idle"
 length = 4.0
-tracks/0/type = "value"
+tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("GPUParticles2D:process_material:scale_max")
+tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.0166667, 1, 1.9, 2),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [1.0, 1.0, 0.2, 0.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Boom:emitting")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(2.10248e-15, 1.7),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(1.7),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
 "method": &"boom"
 }]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GPUParticles3D:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Boom:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3pkc5"]
@@ -110,26 +78,67 @@ _data = {
 "idle": SubResource("Animation_wjb7c")
 }
 
-[node name="Holy" type="Node2D"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xbr16"]
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_max = 3.0
+scale_min = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gjfwv"]
+transparency = 1
+blend_mode = 1
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("3_l6g3h")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_qvfmc"]
+material = SubResource("StandardMaterial3D_gjfwv")
+
+[sub_resource type="Curve" id="Curve_jvrqv"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.751174, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.0181818), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_4iwdv"]
+curve = SubResource("Curve_jvrqv")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_p7ddl"]
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 30.0
+scale_curve = SubResource("CurveTexture_4iwdv")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jnmkc"]
+transparency = 1
+albedo_texture = ExtResource("3_l6g3h")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_2jic4"]
+material = SubResource("StandardMaterial3D_jnmkc")
+
+[node name="Holy" type="Node3D"]
 script = ExtResource("1_g8ulv")
-
-[node name="Boom" type="GPUParticles2D" parent="."]
-material = SubResource("CanvasItemMaterial_q7ij2")
-emitting = false
-amount = 100
-lifetime = 2.0
-one_shot = true
-explosiveness = 1.0
-process_material = SubResource("ParticleProcessMaterial_a1jik")
-texture = ExtResource("2_nwpqs")
-
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
-material = SubResource("CanvasItemMaterial_ki0h3")
-amount = 50
-process_material = SubResource("ParticleProcessMaterial_u7lya")
-texture = ExtResource("2_nwpqs")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_3pkc5")
 }
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+amount = 100
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_xbr16")
+draw_pass_1 = SubResource("QuadMesh_qvfmc")
+
+[node name="Boom" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 200
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_p7ddl")
+draw_pass_1 = SubResource("QuadMesh_2jic4")

@@ -1,4 +1,4 @@
-extends Area2D
+extends Node3D
 
 signal targetedForAction(node)
 signal consideredTarget(node)
@@ -28,7 +28,7 @@ var showOutline = false
 
 @export var moveDelay = 20
 
-@onready var collision = $CollisionShape2D
+@onready var spriteViewport = $SpriteViewport
 func _process(_delta):
 	# Party members should only follow the leader if we're not in an event.
 	if Global.get_game_state() == Enums.GAME_STATE.ROAMING:
@@ -50,7 +50,7 @@ func swapCharacter(player):
 	if loadedCharacter != {}:
 		loadedCharacter.queue_free()
 	var instance = character.instantiate()
-	add_child(instance)
+	spriteViewport.add_child(instance)
 	loadedCharacter = instance
 	
 	characterType = player.type
@@ -61,9 +61,6 @@ func swapCharacter(player):
 	currentMP = player.currentMP
 	displayName = player.name
 	commands = PartyHelper.getPartyMemberCommands(player)
-	
-	# Update the CollisionShape to fit the new character
-	collision.shape.size = loadedCharacter.frames.get_frame("overworld", 0).get_size()
 
 func postBattleClean():
 	ATB = 0
@@ -81,7 +78,7 @@ func flush():
 	ATB = 0
 
 # Used in cutscenes and combat to move the
-func moveToLocation(location: Vector2, speed: float = 1.0):
+func moveToLocation(location: Vector3, speed: float = 1.0):
 	var tween = create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 	tween.tween_property(self, "global_position", location, speed)
 
@@ -107,29 +104,27 @@ func setDeadSprite():
 func playDeadAnimation():
 	setDeadSprite()
 
-func _on_input_event(_viewport, event, _shape_idx):
+func clicked():
 	if CHARACTER_BATTLE_STATE != Enums.CHARACTER_BATTLE_STATE.DEAD:
 		if Global.BATTLE_TARGETING_MODE:
-			if (event is InputEventMouseButton && event.pressed && event.button_index == MOUSE_BUTTON_LEFT) \
-			or (event.is_action_pressed("ui_select")):
-				var s = emit_signal("targetedForAction", self)
-				if s != OK:
-					Global.printSignalError("PartyMember", "_on_input_event", "targetedForAction")
+			var s = emit_signal("targetedForAction", self)
+			if s != OK:
+				Global.printSignalError("PartyMember", "clicked", "targetedForAction")
 
-func _on_mouse_entered():
+func hover():
 	if CHARACTER_BATTLE_STATE != Enums.CHARACTER_BATTLE_STATE.DEAD:
 		if Global.BATTLE_TARGETING_MODE && !showOutline:
 			showOutline = true
 			loadedCharacter.showOutline()
 			var s = emit_signal("consideredTarget", self)
 			if s != OK:
-				Global.printSignalError("PartyMember", "_on_mouse_entered", "consideredTarget")
+				Global.printSignalError("PartyMember", "hover", "consideredTarget")
 
-func _on_mouse_exited():
+func unhover():
 	if CHARACTER_BATTLE_STATE != Enums.CHARACTER_BATTLE_STATE.DEAD:
 		if showOutline:
 			showOutline = false
 			loadedCharacter.hideOutline()
 			var s = emit_signal("noLongerConsideredTarget")
 			if s != OK:
-				Global.printSignalError("PartyMember", "_on_mouse_exited", "noLongerConsideredTarget")
+				Global.printSignalError("PartyMember", "unhover", "noLongerConsideredTarget")

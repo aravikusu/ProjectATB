@@ -9,7 +9,7 @@ var HOLY = {
 	"hits": 1,
 	"hitPower": [1.0],
 	"target": Enums.TARGET_TYPE.SHAPE,
-	"additionalTargetInfo": [Enums.TARGET_SHAPE.CIRCLE, 120],
+	"additionalTargetInfo": [Enums.TARGET_SHAPE.CIRCLE, 0.5],
 	"multitech": Enums.MULTITECH_TYPE.NONE
 }
 

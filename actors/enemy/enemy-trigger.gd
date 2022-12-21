@@ -1,11 +1,12 @@
-extends Area2D
+class_name EnemyTrigger
+extends Area3D
 # A shared script for Areas. When the player walks into it, battle starts.
 
 signal triggerBattle(battleData)
 
 # Used to get the enemies tied to this trigger.
 @export var enemyGroup := ""
-@export var partyPositions := [Vector2()]
+@export var partyPositions := [Vector3()]
 @export var battleInitMessage = ""
 @export var canRun = true
 

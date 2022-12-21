@@ -1,0 +1,26 @@
+[remap]
+
+importer="3d_texture"
+type="CompressedTexture3D"
+uid="uid://6efpx6wcb4eo"
+path="res://.godot/imported/worlnoise.bmp-f1d3707b92945bec7aa2904719655f4f.ctex3d"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://assets/weather/worlnoise.bmp"
+dest_files=["res://.godot/imported/worlnoise.bmp-f1d3707b92945bec7aa2904719655f4f.ctex3d"]
+
+[params]
+
+compress/mode=0
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/bptc_ldr=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+slices/horizontal=32
+slices/vertical=1

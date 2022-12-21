@@ -8,6 +8,16 @@
 
 config_version=5
 
+_global_script_classes=[{
+"base": "Area3D",
+"class": &"EnemyTrigger",
+"language": &"GDScript",
+"path": "res://actors/enemy/enemy-trigger.gd"
+}]
+_global_script_class_icons={
+"EnemyTrigger": ""
+}
+
 [application]
 
 config/name="ProjectATB"
@@ -71,3 +81,9 @@ pause={
 2d_physics/layer_2="partymembers"
 2d_physics/layer_3="enemies"
 2d_physics/layer_4="targeting"
+
+[rendering]
+
+anti_aliasing/quality/msaa_2d=3
+anti_aliasing/quality/msaa_3d=3
+anti_aliasing/quality/use_taa=true
