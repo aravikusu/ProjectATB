@@ -50,7 +50,7 @@ func _input(event):
 
 func default_save():
 	return {
-		"location": "Test3D",
+		"location": "DebugForest",
 		"player1": {
 			"name": "Aravix",
 			"type": Enums.CHARACTER.ARAVIX,

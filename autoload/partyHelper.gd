@@ -76,7 +76,7 @@ func getAravixStats(_level: int) -> Dictionary:
 		"MP": 100,
 		"STR": 1,
 		"INT": 1,
-		"SPD": 2
+		"SPD": 4
 	}
 	
 	return stats
@@ -98,7 +98,7 @@ func getTastyStats(_level: int) -> Dictionary:
 		"MP": 100,
 		"STR": 1,
 		"INT": 1,
-		"SPD": 4
+		"SPD": 2
 	}
 	
 	return stats
