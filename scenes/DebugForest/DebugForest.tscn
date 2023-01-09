@@ -1,0 +1,72 @@
+[gd_scene load_steps=13 format=3 uid="uid://4hy1qupcgg73"]
+
+[ext_resource type="Script" path="res://scenes/DebugForest/DebugForest.gd" id="1_iuqyw"]
+[ext_resource type="Shader" path="res://scenes/clouds.gdshader" id="2_pfl6g"]
+[ext_resource type="CompressedTexture3D" uid="uid://w56c27dipwyt" path="res://assets/weather/perlworlnoise.tga" id="3_s1mdk"]
+[ext_resource type="Texture2D" uid="uid://ogy58pubytl1" path="res://assets/weather/weather.bmp" id="4_vlld3"]
+[ext_resource type="CompressedTexture3D" uid="uid://6efpx6wcb4eo" path="res://assets/weather/worlnoise.bmp" id="5_20y0g"]
+[ext_resource type="PackedScene" uid="uid://buwmunfy4r0nw" path="res://models/debug/DecoratedDebugForest.tscn" id="6_8cnf1"]
+[ext_resource type="PackedScene" uid="uid://cnnk3gjseublj" path="res://actors/enemy/DebugDummy.tscn" id="7_kgk1k"]
+[ext_resource type="Script" path="res://actors/enemy/enemy-trigger.gd" id="8_x6qfb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8phu0"]
+shader = ExtResource("2_pfl6g")
+shader_parameter/_density = 0.05
+shader_parameter/cloud_coverage = 0.25
+shader_parameter/_time_scale = 1.0
+shader_parameter/_time_offset = 0.0
+shader_parameter/rayleigh = 2.0
+shader_parameter/rayleigh_color = Color(0.258824, 0.411765, 0.580392, 1)
+shader_parameter/mie = 0.005
+shader_parameter/mie_eccentricity = 0.8
+shader_parameter/mie_color = Color(0.631373, 0.768627, 0.921569, 1)
+shader_parameter/turbidity = 10.0
+shader_parameter/sun_disk_scale = 1.0
+shader_parameter/ground_color = Color(1, 1, 1, 1)
+shader_parameter/exposure = 0.1
+shader_parameter/worlnoise = ExtResource("5_20y0g")
+shader_parameter/perlworlnoise = ExtResource("3_s1mdk")
+shader_parameter/weathermap = ExtResource("4_vlld3")
+
+[sub_resource type="Sky" id="Sky_pjwwr"]
+sky_material = SubResource("ShaderMaterial_8phu0")
+
+[sub_resource type="Environment" id="Environment_e68tp"]
+background_mode = 2
+sky = SubResource("Sky_pjwwr")
+ssao_enabled = true
+glow_enabled = true
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.001
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6sfl2"]
+size = Vector3(2, 2, 2)
+
+[node name="DebugForest" type="Node3D"]
+script = ExtResource("1_iuqyw")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_e68tp")
+
+[node name="DecoratedDebugForest" parent="." instance=ExtResource("6_8cnf1")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0.000429153, -9.53674e-07, -0.0409164)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.727653, 0.685945, 0, -0.685945, 0.727653, 0.0192833, 8.89827, -0.578332)
+shadow_enabled = true
+
+[node name="DebugDummy" parent="." groups=["dummy"] instance=ExtResource("7_kgk1k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.85648, 4.6681, -0.967638)
+
+[node name="DummyTrigger" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.72065, 4.69209, -0.879145)
+script = ExtResource("8_x6qfb")
+enemyGroup = "dummy"
+partyPositions = [Vector3(6.476, 4.7, -0.822), Vector3(5.769, 4.7, -1.665), Vector3(5.769, 4.7, 0.015)]
+battleInitMessage = "Battle Test, Run to quit"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DummyTrigger"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.439374, 0)
+shape = SubResource("BoxShape3D_6sfl2")
+
+[connection signal="triggerBattle" from="DummyTrigger" to="." method="_on_dummy_trigger_trigger_battle"]
