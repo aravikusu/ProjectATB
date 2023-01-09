@@ -34,7 +34,7 @@ func loadRoom(roomName: String, location):
 		currentLocation.queue_free()
 		currentLocation = {}
 	
-	currentLocation = load("res://scenes/" + roomName + ".tscn").instantiate()
+	currentLocation = load("res://scenes/" + roomName + "/" + roomName + ".tscn").instantiate()
 	roomAnchor.add_child(currentLocation)
 	currentLocation.connect("triggerBattle", Callable(self, "startBattle"))
 	currentLocation.spawn(location)
@@ -49,19 +49,28 @@ func _process(_delta):
 		if BATTLE_END_STATE == Enums.BATTLE_END_STATE.ONGOING:
 			handle_inputs()
 			if BATTLE_STATE == Enums.BATTLE_STATE.AWAITING_ACTION:
+				var currentSlot = 1
 				for actor in actors:
 					if actor.CHARACTER_BATTLE_STATE != Enums.CHARACTER_BATTLE_STATE.DEAD:
-						if actor.ATB < 100:
-							actor.setOverworldSprite()
-							actor.ATB += actor.stats.SPD * 0.1
-							actor.CHARACTER_BATTLE_STATE = Enums.CHARACTER_BATTLE_STATE.CHARGING
-						else:
-							actor.ATB = 100
-							actor.setReadySprite()
-							actor.CHARACTER_BATTLE_STATE = Enums.CHARACTER_BATTLE_STATE.READY
-							if !actor.playerControlled:
-								# If the actor is an enemy, take immediate action
-								handleEnemyCommand(actor)
+						match actor.CHARACTER_BATTLE_STATE:
+							Enums.CHARACTER_BATTLE_STATE.CHARGING:
+								actor.setOverworldSprite()
+								actor.ATB += actor.stats.SPD * 0.1
+								if actor.ATB >=100:
+									actor.ATB = 100
+									actor.CHARACTER_BATTLE_STATE = Enums.CHARACTER_BATTLE_STATE.READY
+							Enums.CHARACTER_BATTLE_STATE.READY:
+								actor.ATB = 100
+								actor.setReadySprite()
+								if actor.playerControlled:
+									if !battleUI.radialMenuVisible:
+											# Radial menu not visible; no one else is ready.
+											# show it for the current actor.
+											battleUI.showRadialMenu(currentSlot)
+								else:
+									# If the actor is an enemy, take immediate action
+									handleEnemyCommand(actor)
+					currentSlot += 1
 				checkActionQueue()
 			checkForBattleEnd()
 		else:
@@ -83,6 +92,7 @@ func startBattle(battleData):
 	# Put all battle actors in an array...
 	actors.append_array(battleData.party)
 	actors.append_array(battleData.enemies)
+	targetUI.sendActors(actors)
 	
 	# Connect signals.
 	for actor in actors:
@@ -185,6 +195,7 @@ func confirmTarget(targets: Array):
 	addToActionQueue(commandForTargeting)
 	commandForTargeting = {}
 	endTargeting()
+	battleUI.hideRadialMenu()
 
 func handleEnemyCommand(actor):
 	if !actor.CHARACTER_BATTLE_STATE == Enums.CHARACTER_BATTLE_STATE.WAITING_TO_ACT:

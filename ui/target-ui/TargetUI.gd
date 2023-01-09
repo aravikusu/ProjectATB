@@ -3,30 +3,67 @@ extends Node3D
 signal targetingComplete(targets)
 
 var currentTargetingMode = Enums.TARGET_TYPE.NONE
-var actors = []
+var users = []
 var hoveringOver = null
 var targetDetails = []
 var areas = []
 var drawnMeshes = []
+
+var targetIdx = 0
+var targetSwitch = true
+var goodGuys = []
+var badGuys = []
+
+func handleInputs():
+	if Input.is_action_just_pressed("ui_left") \
+	or Input.is_action_just_pressed("ui_right"):
+		targetIdx = 0
+		targetSwitch = !targetSwitch
+	
+	var currentActorArray = []
+	if targetSwitch:
+		currentActorArray = badGuys
+	else:
+		currentActorArray = goodGuys
+	
+	if Input.is_action_just_pressed("ui_down"):
+		noLongerConsideredTarget()
+		if targetIdx +1 >= currentActorArray.size():
+			targetIdx = 0
+		else:
+			targetIdx += 1
+	
+	if Input.is_action_just_pressed("ui_up"):
+		noLongerConsideredTarget()
+		if targetIdx -1 < 0:
+			targetIdx = currentActorArray.size() - 1
+		else:
+			targetIdx -= 1
+	
+	consideredTarget(currentActorArray[targetIdx])
+	
+	if Input.is_action_just_pressed("ui_select"):
+		addTarget(hoveringOver)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 @onready var canvas = $CanvasLayer
 func _process(_delta):
 	if Global.BATTLE_TARGETING_MODE:
 		canvas.visible = true
+		handleInputs()
 	else:
 		canvas.visible = false
 
 func draw():
 	match currentTargetingMode:
 		Enums.TARGET_TYPE.LINE:
-			# Draw a line from the actors to the target.
+			# Draw a line from the users to the target.
 			# Any overlapping enemies should also be hit...
 			if hoveringOver != null:
-				for actor in actors:
-					var start = actor.global_position
+				for user in users:
+					var start = user.global_position
 					var endPos = hoveringOver.global_position
-					drawLine2(start, endPos, Color("#fc030364"))
+					drawLine(start, endPos, Color("#fc030364"))
 		Enums.TARGET_TYPE.SHAPE:
 			# There can be multiple shapes... for now there is only Circle, though.
 			match targetDetails[0]:
@@ -35,21 +72,6 @@ func draw():
 						drawCircle(hoveringOver.global_position, targetDetails[1], Color("#fc030364"))
 
 func drawLine(startPos: Vector3, endPos: Vector3, color: Color) -> void:
-	var meshInstance = MeshInstance3D.new()
-	var immediateMesh = ImmediateMesh.new()
-	
-	meshInstance.mesh = immediateMesh
-	meshInstance.cast_shadow = false
-	
-	immediateMesh.surface_begin(Mesh.PRIMITIVE_LINES, createMeshMaterial(color))
-	immediateMesh.surface_add_vertex(startPos)
-	immediateMesh.surface_add_vertex(endPos)
-	immediateMesh.surface_end()
-	
-	drawnMeshes.append(meshInstance)
-	add_child(meshInstance)
-
-func drawLine2(startPos: Vector3, endPos: Vector3, color: Color) -> void:
 	if startPos != endPos:
 		var meshInstance = MeshInstance3D.new()
 		var cylinderMesh = CylinderMesh.new()
@@ -131,7 +153,7 @@ func createArea(shape: String, deets: Dictionary):
 
 func checkOverlappingAreas():
 	var overlappingEnemies = []
-	var mainActors = actors
+	var mainActors = users
 	mainActors.append(hoveringOver)
 	for area in areas:
 		var overlap = area.get_overlapping_areas()
@@ -142,8 +164,15 @@ func checkOverlappingAreas():
 
 func setTargetMode(type: Enums.TARGET_TYPE, actorPositions: Array, additionalTargetDetails: Array):
 	currentTargetingMode = type
-	actors = actorPositions
+	users = actorPositions
 	if additionalTargetDetails.size() > 0: targetDetails = additionalTargetDetails
+
+func sendActors(actors: Array):
+	for actor in actors:
+		if actor.playerControlled:
+			goodGuys.append(actor)
+		else:
+			badGuys.append(actor)
 
 func addTarget(_actor):
 	var allTargets = [hoveringOver]
@@ -155,22 +184,23 @@ func addTarget(_actor):
 		Global.printSignalError("TargetUI", "addTarget", "targetingComplete")
 
 func consideredTarget(actor):
-	hoveringOver = actor
-	draw()
+	if hoveringOver != actor:
+		hoveringOver = actor
+		hoveringOver.hover()
+		draw()
 
 func noLongerConsideredTarget():
+	hoveringOver.unhover()
 	hoveringOver = null
 	clear()
 	draw()
 
 func end():
 	currentTargetingMode = Enums.TARGET_TYPE.NONE
-	actors = []
-	hoveringOver = null
+	users = []
+	noLongerConsideredTarget()
 	targetDetails = []
-	clear()
 	Global.set_player_targeting(false)
-	draw()
 
 func clear():
 	for mesh in drawnMeshes:
