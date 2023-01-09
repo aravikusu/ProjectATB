@@ -1,0 +1,115 @@
+[gd_scene load_steps=13 format=3 uid="uid://cnnk3gjseublj"]
+
+[ext_resource type="Script" path="res://actors/enemy/enemy.gd" id="1_itp2w"]
+[ext_resource type="Shader" path="res://assets/materials/outlines/outline.gdshader" id="2_clxlh"]
+[ext_resource type="Texture2D" uid="uid://cyelbt5281oyw" path="res://assets/sprites/debugdummy.png" id="3_g0f4o"]
+
+[sub_resource type="Animation" id="Animation_xwr31"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/lineThickness")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_uff52"]
+resource_name = "outline"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/lineThickness")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 2.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yevu4"]
+_data = {
+"RESET": SubResource("Animation_xwr31"),
+"outline": SubResource("Animation_uff52")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_twjja"]
+shader = ExtResource("2_clxlh")
+shader_parameter/lineColor = Color(1, 0, 0, 1)
+shader_parameter/lineThickness = 0.0
+shader_parameter/opacity = 1.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jkfe7"]
+animations = [{
+"frames": [ExtResource("3_g0f4o")],
+"loop": true,
+"name": &"dead",
+"speed": 5.0
+}, {
+"frames": [ExtResource("3_g0f4o")],
+"loop": true,
+"name": &"overworld",
+"speed": 5.0
+}, {
+"frames": [ExtResource("3_g0f4o")],
+"loop": true,
+"name": &"ready",
+"speed": 5.0
+}]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_rl0d2"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wwadp"]
+resource_local_to_scene = true
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+albedo_texture = SubResource("ViewportTexture_rl0d2")
+
+[sub_resource type="QuadMesh" id="QuadMesh_gw0we"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_vq2k8"]
+data = PackedVector3Array(0.5, -0.5, 0, -0.5, -0.5, 0, 0.5, 0.5, 0, -0.5, -0.5, 0, -0.5, 0.5, 0, 0.5, 0.5, 0)
+
+[node name="DebugDummy" type="Node3D"]
+script = ExtResource("1_itp2w")
+displayName = "dummy"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../SubViewport/Sprite")
+libraries = {
+"": SubResource("AnimationLibrary_yevu4")
+}
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(125, 250)
+size_2d_override_stretch = true
+render_target_update_mode = 4
+
+[node name="Sprite" type="AnimatedSprite2D" parent="SubViewport"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_twjja")
+position = Vector2(62.5, 125)
+frames = SubResource("SpriteFrames_jkfe7")
+animation = &"overworld"
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_wwadp")
+mesh = SubResource("QuadMesh_gw0we")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Mesh"]
+collision_layer = 4
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Mesh/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_vq2k8")
