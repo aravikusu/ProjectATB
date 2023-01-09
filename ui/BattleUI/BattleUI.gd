@@ -6,11 +6,13 @@ signal sendCommand(slot, command, partner)
 @onready var notification = $CanvasLayer/BattleNotification
 @onready var partyContainer = $CanvasLayer/BattleUIPartyContainer
 @onready var multihit = $CanvasLayer/MultihitDamageCounter
+@onready var radialCommandPopup = $CanvasLayer/RadialCommandPopup
 
-var targetMode = false
+var radialMenuVisible = false
 
 func _ready():
 	multihit.position = Vector2(get_viewport_rect().size.x, get_viewport_rect().size.y / 4)
+	radialCommandPopup.hide()
 
 func startBattle():
 	player.play("shockwave")
@@ -41,3 +43,13 @@ func commandTime(slot, command, partner):
 
 func showMultihit(hits: int, damage: int):
 	multihit.prepare(hits, damage)
+
+func showRadialMenu(slot: int):
+	radialMenuVisible = true
+	radialCommandPopup.setup(slot)
+
+func hideRadialMenu():
+	radialMenuVisible = false
+
+func passTurn():
+	pass

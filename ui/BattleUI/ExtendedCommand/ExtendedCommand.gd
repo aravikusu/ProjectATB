@@ -1,7 +1,5 @@
 extends MarginContainer
 
-signal selected(skill, partner)
-
 @onready var bg = $"%BG"
 @onready var skillName = $"%SkillName"
 @onready var description = $"%SkillDescription"
@@ -10,6 +8,7 @@ var skill = null
 var partyMember = null
 var partner = null
 var disabled = true
+var hovering
 
 # This process function checks command requirements and enables/disables them.
 func _process(_delta):
@@ -24,12 +23,10 @@ func _process(_delta):
 		if active:
 			skillName.label_settings.font_color = Color("#ffffff")
 			description.label_settings.font_color = Color("#ffffff")
-			mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 			disabled = false
 		else:
 			skillName.label_settings.font_color = Color("#727272")
 			description.label_settings.font_color = Color("#727272")
-			mouse_default_cursor_shape = Control.CURSOR_FORBIDDEN
 			disabled = true
 
 # Go through all the checks to see if the player is allowed to use this skill.
@@ -58,17 +55,8 @@ func prepare(partyMem, command, desc):
 	if skill.multitech != Enums.MULTITECH_TYPE.NONE:
 			partner = PartyHelper.getPartnerForMultitech(partyMember, skill)
 
-
-func _on_mouse_entered():
+func highlight():
 	bg.visible = true
 
-func _on_mouse_exited():
+func unhighlight():
 	bg.visible = false
-
-func _on_gui_input(event):
-	if !disabled:
-		if (event is InputEventMouseButton && event.pressed && event.button_index == MOUSE_BUTTON_LEFT) \
-			or (event.is_action_pressed("ui_select")):
-				var s = emit_signal("selected", skill, partner)
-				if s != OK:
-					Global.printSignalError("ExtendedCommand", "_on_gui_inout", "selected")

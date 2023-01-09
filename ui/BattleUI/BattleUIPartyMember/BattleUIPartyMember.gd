@@ -1,11 +1,9 @@
 extends MarginContainer
-signal showCommandMenu(slot, partyMemberType)
 signal actorDied
 
 @export var slot = 1
 
 var connectedPartyMember
-var canAct = false
 var lastCall = ""
 var actorWasDeadLastFrame = false
 
@@ -38,22 +36,16 @@ func _process(_delta):
 			match connectedPartyMember.CHARACTER_BATTLE_STATE:
 				Enums.CHARACTER_BATTLE_STATE.CHARGING:
 					if lastCall != "full":
-						canAct = false
 						lastCall = "full"
 						bg.color = Color("#00000064")
-						mouse_default_cursor_shape = Control.CURSOR_ARROW
 				Enums.CHARACTER_BATTLE_STATE.WAITING_TO_ACT:
 					if lastCall != "ready":
-						canAct = false
 						lastCall = "ready"
 						bg.color = Color("#37499e64")
-						mouse_default_cursor_shape = Control.CURSOR_ARROW
 				Enums.CHARACTER_BATTLE_STATE.READY:
 					if lastCall != "charge":
-						canAct = true
 						lastCall = "charge"
 						bg.color = Color("#00640064")
-						mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 		
 		if Global.BATTLE_TARGETING_MODE:
 			lastCall = ""
@@ -63,8 +55,6 @@ func _process(_delta):
 
 func handleDead(isDead: bool):
 	if isDead:
-		canAct = false
-		mouse_default_cursor_shape = Control.CURSOR_ARROW
 		player.play("dead")
 		Global.set_player_targeting(false)
 		
@@ -72,16 +62,8 @@ func handleDead(isDead: bool):
 		if s != OK:
 			Global.printSignalError("BattleUIPartyMember", "handleDead", "actorDied")
 	else:
-		canAct = true
 		connectedPartyMember.setSprite("overworld")
 		player.play_backwards("dead")
 
 func clear():
 	connectedPartyMember = null
-
-func _on_gui_input(event):
-	if event is InputEventMouseButton && event.pressed && event.button_index == 1:
-		if canAct:
-			var s = emit_signal("showCommandMenu", slot, connectedPartyMember.characterType)
-			if s != OK:
-				Global.printSignalError("BattleUIPartyMember", "_on_gui_input", "showCommandMenu")

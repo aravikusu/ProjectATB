@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://dg22ng82i0ycp"]
+[gd_scene load_steps=12 format=3 uid="uid://dg22ng82i0ycp"]
 
 [ext_resource type="Script" path="res://ui/BattleUI/BattleUI.gd" id="1_duoq6"]
 [ext_resource type="Shader" path="res://ui/BattleUI/screen_shockwave.gdshader" id="2_wyegf"]
 [ext_resource type="PackedScene" uid="uid://uucam7rgv78k" path="res://ui/BattleUI/BattleUIPartyContainer/BattleUIPartyContainer.tscn" id="3_1l5cp"]
 [ext_resource type="PackedScene" uid="uid://cy2rielifvyl5" path="res://ui/BattleUI/BattleNotification/BattleNotification.tscn" id="4_0n0py"]
 [ext_resource type="PackedScene" uid="uid://ctw86i6nbjh1b" path="res://ui/MultihitDamageCounter/MultihitDamageCounter.tscn" id="5_722d7"]
+[ext_resource type="PackedScene" uid="uid://plyulijqt2ap" path="res://ui/BattleUI/RadialCommandPopup/RadialCommandPopup.tscn" id="6_1yoyx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nh5qb"]
 shader = ExtResource("2_wyegf")
@@ -126,9 +127,12 @@ grow_vertical = 1
 
 [node name="MultihitDamageCounter" parent="CanvasLayer" instance=ExtResource("5_722d7")]
 
+[node name="RadialCommandPopup" parent="CanvasLayer" instance=ExtResource("6_1yoyx")]
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_1yvs4")
 }
 
-[connection signal="sendCommand" from="CanvasLayer/BattleUIPartyContainer" to="." method="commandTime"]
+[connection signal="passTurn" from="CanvasLayer/RadialCommandPopup" to="." method="passTurn"]
+[connection signal="whatDo" from="CanvasLayer/RadialCommandPopup" to="." method="commandTime"]

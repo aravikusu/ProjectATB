@@ -79,63 +79,105 @@ metadata/_edit_use_anchors_ = true
 
 [node name="BG" type="ColorRect" parent="."]
 unique_name_in_owner = true
+offset_right = 169.0
+offset_bottom = 144.0
 color = Color(0, 0, 0, 0.392157)
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_right = 169.0
+offset_bottom = 144.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+offset_right = 169.0
+offset_bottom = 144.0
 size_flags_horizontal = 3
 
 [node name="Name" type="Label" parent="HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
+offset_right = 169.0
+offset_bottom = 38.0
 text = "[NAME]"
 label_settings = SubResource("LabelSettings_a78v6")
 
 [node name="HSeparator" type="HSeparator" parent="HBoxContainer/VBoxContainer"]
+offset_top = 42.0
+offset_right = 169.0
+offset_bottom = 46.0
 
 [node name="GridContainer" type="GridContainer" parent="HBoxContainer/VBoxContainer"]
+offset_top = 50.0
+offset_right = 169.0
+offset_bottom = 106.0
 size_flags_vertical = 3
 columns = 2
 
 [node name="HPLabel" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
+offset_right = 30.0
+offset_bottom = 26.0
 text = "HP:"
 
 [node name="HP" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(130, 0)
+offset_left = 34.0
+offset_right = 164.0
+offset_bottom = 26.0
 text = "0/0"
 horizontal_alignment = 2
 
 [node name="MPLabel" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
+offset_top = 30.0
+offset_right = 30.0
+offset_bottom = 56.0
 text = "MP:"
 
 [node name="MP" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
 unique_name_in_owner = true
+offset_left = 34.0
+offset_top = 30.0
+offset_right = 164.0
+offset_bottom = 56.0
 text = "0/0"
 horizontal_alignment = 2
 
 [node name="HSeparator2" type="HSeparator" parent="HBoxContainer/VBoxContainer"]
+offset_top = 110.0
+offset_right = 169.0
+offset_bottom = 114.0
 
 [node name="GridContainer2" type="GridContainer" parent="HBoxContainer/VBoxContainer"]
+offset_top = 118.0
+offset_right = 169.0
+offset_bottom = 144.0
 columns = 2
 
 [node name="ATBLabel" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer2"]
+offset_right = 35.0
+offset_bottom = 26.0
 text = "ATB:"
 
 [node name="ATB" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer2"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(130, 0)
+offset_left = 39.0
+offset_right = 169.0
+offset_bottom = 26.0
 text = "0/100"
 horizontal_alignment = 2
 
 [node name="DeadOverlay" type="ColorRect" parent="."]
 unique_name_in_owner = true
 modulate = Color(1, 1, 1, 0)
+offset_right = 169.0
+offset_bottom = 144.0
 mouse_filter = 2
 color = Color(0, 0, 0, 0.784314)
 
 [node name="DeadLabel" type="Label" parent="."]
 modulate = Color(1, 1, 1, 0)
+offset_top = 59.0
+offset_right = 169.0
+offset_bottom = 85.0
 text = "FUCKIN DEAD LMAO"
 label_settings = SubResource("LabelSettings_qsigc")
 horizontal_alignment = 1
@@ -144,5 +186,3 @@ horizontal_alignment = 1
 libraries = {
 "": SubResource("AnimationLibrary_py3vg")
 }
-
-[connection signal="gui_input" from="." to="." method="_on_gui_input"]

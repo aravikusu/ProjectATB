@@ -1,0 +1,107 @@
+[gd_scene load_steps=4 format=3 uid="uid://plyulijqt2ap"]
+
+[ext_resource type="Script" path="res://ui/BattleUI/RadialCommandPopup/RadialCommandPopup.gd" id="1_cbgje"]
+[ext_resource type="PackedScene" uid="uid://cuyrusgox8k3" path="res://ui/BattleUI/RadialCommandPopup/CommandButton.tscn" id="2_g6wq5"]
+[ext_resource type="PackedScene" uid="uid://drdoo65uyb747" path="res://ui/BattleUI/ExtendedCommandMenu/ExtendedCommandMenu.tscn" id="3_ptc7x"]
+
+[node name="RadialCommandPopup" type="Control"]
+editor_description = "Appears around a party member when its time to act."
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -780.0
+offset_bottom = -220.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cbgje")
+
+[node name="MainRadial" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="RightSide" type="Control" parent="MainRadial"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -136.0
+offset_top = -170.0
+offset_right = -96.0
+offset_bottom = -130.0
+
+[node name="Attack" parent="MainRadial/RightSide" instance=ExtResource("2_g6wq5")]
+unique_name_in_owner = true
+offset_left = 217.0
+offset_top = 178.0
+offset_right = 347.0
+offset_bottom = 188.0
+command = 0
+button = 0
+
+[node name="Item" parent="MainRadial/RightSide" instance=ExtResource("2_g6wq5")]
+unique_name_in_owner = true
+offset_left = 140.0
+offset_top = 106.0
+offset_right = 270.0
+offset_bottom = 116.0
+command = 3
+button = 3
+
+[node name="Special" parent="MainRadial/RightSide" instance=ExtResource("2_g6wq5")]
+unique_name_in_owner = true
+offset_left = 283.0
+offset_top = 107.0
+offset_right = 413.0
+offset_bottom = 117.0
+button = 2
+
+[node name="Skill" parent="MainRadial/RightSide" instance=ExtResource("2_g6wq5")]
+unique_name_in_owner = true
+offset_left = 220.0
+offset_top = 42.0
+offset_right = 350.0
+offset_bottom = 52.0
+command = 2
+button = 1
+
+[node name="LeftSide" type="Control" parent="MainRadial"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -171.0
+offset_top = -185.0
+offset_right = -131.0
+offset_bottom = -145.0
+
+[node name="Run" parent="MainRadial/LeftSide" instance=ExtResource("2_g6wq5")]
+unique_name_in_owner = true
+offset_left = -2.0
+offset_top = 189.0
+offset_right = 128.0
+offset_bottom = 199.0
+command = 4
+
+[node name="Defend" parent="MainRadial/LeftSide" instance=ExtResource("2_g6wq5")]
+unique_name_in_owner = true
+offset_left = -32.0
+offset_top = 144.0
+offset_right = 98.0
+offset_bottom = 154.0
+command = 1
+
+[node name="Pass" parent="MainRadial/LeftSide" instance=ExtResource("2_g6wq5")]
+offset_left = 23.0
+offset_top = 236.0
+offset_right = 153.0
+offset_bottom = 246.0
+command = 5
+
+[node name="ExtendedMenu" parent="." instance=ExtResource("3_ptc7x")]
+unique_name_in_owner = true
+offset_left = 150.0
+offset_top = -160.0
+offset_right = 370.0
+offset_bottom = -5.0
+
+[connection signal="selected" from="ExtendedMenu" to="." method="actionize"]
