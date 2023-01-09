@@ -47,7 +47,9 @@ func _physics_process(delta):
 			
 			_velocity.x = input.x * speed
 			_velocity.z = input.z * speed
-			_velocity.y -= gravity * delta
+			
+			if not is_on_floor():
+				_velocity.y -= gravity * delta
 			
 			set_velocity(_velocity)
 			@warning_ignore(return_value_discarded)
