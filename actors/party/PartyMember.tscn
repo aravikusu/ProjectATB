@@ -38,6 +38,7 @@ material_override = SubResource("StandardMaterial3D_waj6a")
 mesh = SubResource("QuadMesh_akcm7")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+agent_height_offset = 0.5
 
 [node name="CameraAnchor" type="Node3D" parent="."]
 

@@ -16,6 +16,11 @@ var playerControlled = true
 var forcedToMove = false
 var forceMoveTarget = Vector3(0, 0, 0)
 
+# Follower specific
+var didArrive = false
+var targetLocation = Vector3.ZERO
+var moveDirection = Vector3.ZERO
+
 var active = true
 
 var maxHP = 100
@@ -31,11 +36,12 @@ var currentSprite = "overworld"
 var showOutline = false
 
 @export var partyLeader = false
-@export_node_path(CharacterBody3D) var target
+@export_node_path(CharacterBody3D) var targetPath
 
 @onready var spriteViewport = $SpriteViewport
 @onready var navigationAgent = $NavigationAgent3D
 @onready var camera = $"%Camera"
+var target: CharacterBody3D
 
 func handle_input() -> Vector3:
 	var input = Vector3()
@@ -54,7 +60,10 @@ func handle_input() -> Vector3:
 func _ready():
 	if partyLeader:
 		camera.current = true
+	else:
+		target = get_node(targetPath)
 
+var test = false
 func _physics_process(delta):
 	if forcedToMove:
 		if (delta * speed) > position.distance_to(forceMoveTarget):
@@ -84,12 +93,18 @@ func _physics_process(delta):
 					move_and_slide()
 			else:
 				# A follower. Always follows their target.
-				var moveDirection = position.direction_to(navigationAgent.get_next_location())
-				_velocity = moveDirection * speed
-				look_at(moveDirection)
+				setTargetLocation(target.global_position)
+				var current = global_transform.origin
+				var next = navigationAgent.get_next_location()
+				_velocity = (next - current) * speed
+				
+				set_velocity(_velocity)
+				move_and_slide()
 
-func setTargetLocation(targetLocation: Vector3):
-	navigationAgent.set_target_location(targetLocation)
+# Used in follower mode. Sets the current location of their target.
+func setTargetLocation(location: Vector3):
+	didArrive = false
+	navigationAgent.set_target_location(location)
 
 func swapCharacter(player):
 	var character

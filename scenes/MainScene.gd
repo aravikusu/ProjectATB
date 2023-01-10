@@ -104,7 +104,7 @@ func startBattle(battleData):
 	# We will now move the party members in position.
 	for i in 3:
 		battleUI.fillPartyData(i, battleData.party[i])
-		battleData.party[i].moveToLocation(battleData.positions[i])
+		battleData.party[i].forceMove(battleData.positions[i])
 
 # Gets called every frame in the _process() function during battle.
 # Checks if there are any actions waiting to be played out.

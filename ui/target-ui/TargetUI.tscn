@@ -16,7 +16,6 @@ script = ExtResource("1_husr7")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Label" type="Label" parent="CanvasLayer"]
-anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -109.5
@@ -27,11 +26,10 @@ text = "!!! CURRENTLY TARGETING !!!"
 label_settings = SubResource("LabelSettings_xy2tw")
 
 [node name="CancelLabel" type="Label" parent="CanvasLayer"]
-anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_top = -26.0
 offset_right = 348.0
 grow_vertical = 0
-text = "Press RIGHT CLICK to cancel targeting."
+text = "Press CIRCLE to cancel targeting."
 label_settings = SubResource("LabelSettings_2qs08")

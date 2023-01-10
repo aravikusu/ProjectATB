@@ -4,11 +4,11 @@
 [ext_resource type="FontFile" uid="uid://bohfy0ecqhmww" path="res://assets/fonts/Roboto-BoldItalic.ttf" id="2_etwm2"]
 [ext_resource type="FontFile" uid="uid://cuvbje5vmt425" path="res://assets/fonts/Roboto-Italic.ttf" id="3_7ohw3"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_7gpal"]
+[sub_resource type="LabelSettings" id="LabelSettings_mqodl"]
 font = ExtResource("2_etwm2")
 font_color = Color(0.835294, 0.835294, 0.835294, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_v1q0p"]
+[sub_resource type="LabelSettings" id="LabelSettings_qvop5"]
 font = ExtResource("3_7ohw3")
 font_size = 13
 
@@ -21,27 +21,22 @@ script = ExtResource("1_dvdhp")
 [node name="BG" type="ColorRect" parent="."]
 unique_name_in_owner = true
 visible = false
-offset_right = 220.0
-offset_bottom = 60.0
+layout_mode = 2
 color = Color(0, 0, 0, 0.392157)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-offset_right = 220.0
-offset_bottom = 60.0
+layout_mode = 2
 theme_override_constants/separation = -2
 
 [node name="SkillName" type="Label" parent="VBoxContainer"]
 unique_name_in_owner = true
-offset_right = 220.0
-offset_bottom = 22.0
+layout_mode = 2
 text = "SkillName"
-label_settings = SubResource("LabelSettings_7gpal")
+label_settings = SubResource("LabelSettings_mqodl")
 
 [node name="SkillDescription" type="Label" parent="VBoxContainer"]
 unique_name_in_owner = true
-offset_top = 20.0
-offset_right = 220.0
-offset_bottom = 40.0
+layout_mode = 2
 text = "This is a skill description."
-label_settings = SubResource("LabelSettings_v1q0p")
+label_settings = SubResource("LabelSettings_qvop5")
 autowrap_mode = 2

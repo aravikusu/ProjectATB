@@ -20,6 +20,7 @@ script = ExtResource("1_cbgje")
 [node name="BG" type="TextureRect" parent="."]
 unique_name_in_owner = true
 modulate = Color(0.729412, 0.486275, 0.654902, 1)
+layout_mode = 0
 offset_left = -202.0
 offset_top = -122.0
 offset_right = 248.0
@@ -43,6 +44,7 @@ offset_bottom = -119.0
 
 [node name="Attack" parent="MainRadial/RightSide" instance=ExtResource("2_g6wq5")]
 unique_name_in_owner = true
+layout_mode = 1
 offset_left = 241.0
 offset_top = 222.0
 offset_right = 371.0
@@ -52,6 +54,7 @@ button = 0
 
 [node name="Item" parent="MainRadial/RightSide" instance=ExtResource("2_g6wq5")]
 unique_name_in_owner = true
+layout_mode = 1
 offset_left = 162.0
 offset_top = 156.0
 offset_right = 292.0
@@ -61,6 +64,7 @@ button = 3
 
 [node name="Special" parent="MainRadial/RightSide" instance=ExtResource("2_g6wq5")]
 unique_name_in_owner = true
+layout_mode = 1
 offset_left = 306.0
 offset_top = 156.0
 offset_right = 436.0
@@ -69,6 +73,7 @@ button = 2
 
 [node name="Skill" parent="MainRadial/RightSide" instance=ExtResource("2_g6wq5")]
 unique_name_in_owner = true
+layout_mode = 1
 offset_left = 240.0
 offset_top = 89.0
 offset_right = 370.0
@@ -86,6 +91,7 @@ offset_bottom = -145.0
 
 [node name="Run" parent="MainRadial/LeftSide" instance=ExtResource("2_g6wq5")]
 unique_name_in_owner = true
+layout_mode = 1
 offset_left = 39.0
 offset_top = 225.0
 offset_right = 169.0
@@ -94,6 +100,7 @@ command = 4
 
 [node name="Defend" parent="MainRadial/LeftSide" instance=ExtResource("2_g6wq5")]
 unique_name_in_owner = true
+layout_mode = 1
 offset_left = -8.0
 offset_top = 179.0
 offset_right = 122.0
@@ -101,6 +108,7 @@ offset_bottom = 189.0
 command = 1
 
 [node name="Pass" parent="MainRadial/LeftSide" instance=ExtResource("2_g6wq5")]
+layout_mode = 1
 offset_left = 68.0
 offset_top = 273.0
 offset_right = 198.0
@@ -109,6 +117,7 @@ command = 5
 
 [node name="ExtendedMenu" parent="." instance=ExtResource("3_ptc7x")]
 unique_name_in_owner = true
+layout_mode = 0
 offset_left = 1.0
 offset_top = -160.0
 offset_right = 221.0

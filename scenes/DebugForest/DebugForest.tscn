@@ -60,6 +60,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.85648, 4.6681, -0.967638)
 
 [node name="DummyTrigger" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.72065, 4.69209, -0.879145)
+collision_mask = 3
 script = ExtResource("8_x6qfb")
 enemyGroup = "dummy"
 partyPositions = [Vector3(5.476, 4.7, -0.822), Vector3(4.269, 4.7, -1.665), Vector3(4.269, 4.7, 0.015)]
