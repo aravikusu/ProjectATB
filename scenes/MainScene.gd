@@ -102,8 +102,6 @@ func startBattle(battleData):
 		actor.connect("noLongerConsideredTarget", Callable(targetUI, "noLongerConsideredTarget"))
 	
 	# We will now move the party members in position.
-	battleData.leader.forceMove(battleData.positions[0])
-	Global.toggle_leader_visibility()
 	for i in 3:
 		battleUI.fillPartyData(i, battleData.party[i])
 		battleData.party[i].moveToLocation(battleData.positions[i])
@@ -395,4 +393,3 @@ func postBattleCleanup():
 	actors.clear()
 	actionQueue.clear()
 	ceaseEverything = false
-	Global.toggle_leader_visibility()

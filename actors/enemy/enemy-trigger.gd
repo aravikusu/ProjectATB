@@ -18,7 +18,6 @@ func entered(body):
 	if body == Global.get_player_character():
 		set_deferred("monitoring", false)
 		var s = emit_signal("triggerBattle", {
-			"leader": Global.get_player_character(),
 			"party": Global.get_active_party(),
 			"enemies": get_tree().get_nodes_in_group(enemyGroup),
 			"positions": partyPositions,
@@ -27,4 +26,4 @@ func entered(body):
 		})
 		
 		if s != OK:
-			Global.printSignalError("BattleUI", "entered", "triggerBattle")
+			Global.printSignalError("EnemyTrigger", "entered", "triggerBattle")

@@ -1,16 +1,20 @@
-extends Node3D
+extends CharacterBody3D
 
 signal targetedForAction(node)
 signal consideredTarget(node)
 signal noLongerConsideredTarget()
 
-# A script shared between party members, used for their AnimatedSprite,
-# which is in turn used in Player and PartyTrain
+var speed := 3.0
+var gravity := 2.0
+
+var _velocity := Vector3.ZERO
 
 var loadedCharacter = {}
 var characterType = Enums.CHARACTER.NONE
 var displayName = "Test"
 var playerControlled = true
+var forcedToMove = false
+var forceMoveTarget = Vector3(0, 0, 0)
 
 var active = true
 
@@ -26,14 +30,66 @@ var currentSprite = "overworld"
 
 var showOutline = false
 
-@export var moveDelay = 20
+@export var partyLeader = false
+@export_node_path(CharacterBody3D) var target
 
 @onready var spriteViewport = $SpriteViewport
-func _process(_delta):
-	# Party members should only follow the leader if we're not in an event.
-	if Global.get_game_state() == Enums.GAME_STATE.ROAMING:
-		if Global.partyArray[moveDelay] != null:
-			self.global_position = Global.partyArray[moveDelay]
+@onready var navigationAgent = $NavigationAgent3D
+@onready var camera = $"%Camera"
+
+func handle_input() -> Vector3:
+	var input = Vector3()
+	
+	if Input.is_action_pressed("movement_up"):
+		input.z -= 1
+	if Input.is_action_pressed("movement_down"):
+		input.z += 1
+	if Input.is_action_pressed("movement_left"):
+		input.x -= 1
+	if Input.is_action_pressed("movement_right"):
+		input.x += 1
+	
+	return input
+
+func _ready():
+	if partyLeader:
+		camera.current = true
+
+func _physics_process(delta):
+	if forcedToMove:
+		if (delta * speed) > position.distance_to(forceMoveTarget):
+			forcedToMove = false
+			speed = position.distance_to(forceMoveTarget) / delta
+		set_velocity((forceMoveTarget - global_position).normalized() * speed)
+		move_and_slide()
+	else:
+		if Global.get_game_state() == Enums.GAME_STATE.ROAMING:
+			if partyLeader:
+				# Party leader. Is controller by the player.
+				if Global.get_game_state() == Enums.GAME_STATE.ROAMING:
+					_velocity.x = 0
+					_velocity.z = 0
+					var input = handle_input()
+					input = input.normalized()
+					#var direction = (transform.basis.z * input.z + transform.basis.x * input.x)
+					
+					_velocity.x = input.x * speed
+					_velocity.z = input.z * speed
+					
+					if not is_on_floor():
+						_velocity.y -= gravity * delta
+					
+					set_velocity(_velocity)
+					@warning_ignore(return_value_discarded)
+					move_and_slide()
+			else:
+				# A follower. Always follows their target.
+				var moveDirection = position.direction_to(navigationAgent.get_next_location())
+				_velocity = moveDirection * speed
+				look_at(moveDirection)
+
+func setTargetLocation(targetLocation: Vector3):
+	navigationAgent.set_target_location(targetLocation)
 
 func swapCharacter(player):
 	var character
@@ -77,10 +133,11 @@ func flush():
 	currentSprite = "overworld"
 	ATB = 0
 
-# Used in cutscenes and combat to move the
-func moveToLocation(location: Vector3, speed: float = 1.0):
-	var tween = create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
-	tween.tween_property(self, "global_position", location, speed)
+# Forcefully move the actor to a set location.
+# Used in cutscenes, combat, etc.
+func forceMove(location):
+	forcedToMove = true
+	forceMoveTarget = location
 
 # Wildcard - set any sprite.
 func setSprite(sprite: String):

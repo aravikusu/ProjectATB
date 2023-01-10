@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://0qfpvccb5706"]
+[gd_scene load_steps=5 format=3 uid="uid://0qfpvccb5706"]
 
 [ext_resource type="Script" path="res://scenes/Global.gd" id="1"]
-[ext_resource type="PackedScene" uid="uid://cyfx1xj8crci0" path="res://actors/Player.tscn" id="2_4vggh"]
 [ext_resource type="PackedScene" uid="uid://nbvs5vklklkd" path="res://actors/party/PartyMember.tscn" id="3_emquo"]
 
 [sub_resource type="Animation" id="Animation_f07xo"]
@@ -45,21 +44,17 @@ libraries = {
 "": SubResource("AnimationLibrary_n06xd")
 }
 
-[node name="Player" parent="." instance=ExtResource("2_4vggh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -251, -157, 0)
-
 [node name="PartyTrain" type="Node" parent="."]
 editor_description = "The PartyTrain contains every party member. PartyMember1 is the leader, which is normally hidden and only shown during combat."
 
 [node name="PartyMember1" parent="PartyTrain" instance=ExtResource("3_emquo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -251, -162, 0)
-moveDelay = 0
+partyLeader = true
 
 [node name="PartyMember2" parent="PartyTrain" instance=ExtResource("3_emquo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -240, -157, 0)
 
 [node name="PartyMember3" parent="PartyTrain" instance=ExtResource("3_emquo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -238, -155, 0)
-moveDelay = 40
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

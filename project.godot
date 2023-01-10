@@ -111,8 +111,11 @@ battle_defend={
 [layer_names]
 
 2d_physics/layer_1="player"
+3d_physics/layer_1="walls, floors"
 2d_physics/layer_2="partymembers"
+3d_physics/layer_2="partymembers"
 2d_physics/layer_3="enemies"
+3d_physics/layer_3="enemies"
 2d_physics/layer_4="targeting"
 
 [rendering]

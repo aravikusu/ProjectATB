@@ -1,10 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://dj82b3yeg7qrj"]
+[gd_scene load_steps=14 format=3 uid="uid://dj82b3yeg7qrj"]
 
 [ext_resource type="Texture2D" uid="uid://cgm7qax0707b2" path="res://assets/sprites/spicelord-idle.png" id="1_0b8x1"]
 [ext_resource type="Shader" path="res://assets/materials/outlines/outline.gdshader" id="2_ca4c2"]
 [ext_resource type="Script" path="res://actors/enemy/enemy.gd" id="2_fy4qn"]
 [ext_resource type="Texture2D" uid="uid://khhumxg2u43" path="res://assets/sprites/spicelord-dead.png" id="3_x7jas"]
-[ext_resource type="Script" path="res://actors/party/shared-interact.gd" id="5_nvcl8"]
 
 [sub_resource type="Animation" id="Animation_xwr31"]
 length = 0.001
@@ -110,11 +109,6 @@ material_override = SubResource("StandardMaterial3D_wwadp")
 mesh = SubResource("QuadMesh_gw0we")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Mesh"]
-script = ExtResource("5_nvcl8")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Mesh/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_ei60g")
-
-[connection signal="clicked" from="Mesh/StaticBody3D" to="." method="clicked"]
-[connection signal="hovering" from="Mesh/StaticBody3D" to="." method="hover"]
-[connection signal="unhovering" from="Mesh/StaticBody3D" to="." method="unhover"]

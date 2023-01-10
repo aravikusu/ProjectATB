@@ -16,13 +16,9 @@ var pauseScreen = preload("res://scenes/PauseMenu/PauseMenu.tscn")
 var canPause = false
 var paused = false
 
-var partyArray = []
-var arraySize = 100
-
 var playerIsDead = false
 
 @onready var player = $AnimationPlayer
-@onready var playerCharacter = $Player
 @onready var partyMem1 = $PartyTrain/PartyMember1
 @onready var partyMem2 = $PartyTrain/PartyMember2
 @onready var partyMem3 = $PartyTrain/PartyMember3
@@ -33,8 +29,6 @@ var BATTLE_TARGETING_MODE = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	@warning_ignore(return_value_discarded)
-	partyArray.resize(arraySize)
 	get_game_config()
 	var root = get_tree().get_root()
 	current_scene = root.get_child(root.get_child_count() - 1)
@@ -137,7 +131,6 @@ func load_game():
 func end_game():
 	set_game_state(Enums.GAME_STATE.TITLE_SCREEN)
 	_save_file = []
-	playerCharacter.flush()
 	partyMem1.flush()
 	partyMem2.flush()
 	partyMem3.flush()
@@ -251,9 +244,7 @@ func partyFormationShuffler():
 	
 	for member in party:
 		match member.partyPlace:
-			1: 
-				playerCharacter.swapCharacter(member.type)
-				partyMem1.swapCharacter(member)
+			1: partyMem1.swapCharacter(member)
 			2: partyMem2.swapCharacter(member)
 			3: partyMem3.swapCharacter(member)
 
@@ -283,7 +274,7 @@ func set_player_targeting(targeting):
 	BATTLE_TARGETING_MODE = targeting
 
 func get_player_character():
-	return playerCharacter
+	return partyMem1
 
 func get_active_party():
 	var arr = [partyMem1]
@@ -293,14 +284,9 @@ func get_active_party():
 	return arr
 
 func set_party_position(coordinates: Vector3):
-	playerCharacter.set_position(coordinates)
 	partyMem1.set_position(coordinates)
 	partyMem2.set_position(coordinates)
 	partyMem3.set_position(coordinates)
-
-func toggle_leader_visibility():
-		playerCharacter.visible = !playerCharacter.visible
-		playerCharacter.toggleCollision()
 
 # Opens a file - used in all of the handler files.
 func openFile(dataFile: String):
