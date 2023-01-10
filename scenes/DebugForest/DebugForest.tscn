@@ -62,7 +62,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.85648, 4.6681, -0.967638)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.72065, 4.69209, -0.879145)
 script = ExtResource("8_x6qfb")
 enemyGroup = "dummy"
-partyPositions = [Vector3(6.476, 4.7, -0.822), Vector3(5.769, 4.7, -1.665), Vector3(5.769, 4.7, 0.015)]
+partyPositions = [Vector3(5.476, 4.7, -0.822), Vector3(4.269, 4.7, -1.665), Vector3(4.269, 4.7, 0.015)]
 battleInitMessage = "Battle Test, Run to quit"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DummyTrigger"]

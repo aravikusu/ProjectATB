@@ -6,6 +6,7 @@ signal passTurn(slot)
 @onready var radial = $"%MainRadial"
 @onready var extendedMenu = $"%ExtendedMenu"
 @onready var special = $"%Special"
+@onready var BG = $"%BG"
 
 var slot: int
 var canAct = false
@@ -63,10 +64,21 @@ func setup(partyMemSlot: int):
 	
 	position = get_viewport().get_camera_3d().unproject_position(partyMem.global_transform.origin)
 	special.setSpecialButton(partyMem.characterType)
+	setColor(partyMem.characterType)
 	show()
+
+func setColor(characterType):
+	match characterType:
+		Enums.CHARACTER.ARAVIX:
+			BG.modulate = Color("#446abd")
+		Enums.CHARACTER.AYLIK:
+			BG.modulate = Color("#218251")
+		Enums.CHARACTER.TASTY:
+			BG.modulate = Color("#ba7ca7")
 
 func actionize(command: Dictionary, partner : Object = null):
 	hide()
+	print(command, partner)
 	canAct = false
 	var s = emit_signal("whatDo", slot, command, partner)
 	if s != OK:

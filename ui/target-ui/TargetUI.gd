@@ -17,6 +17,7 @@ var badGuys = []
 func handleInputs():
 	if Input.is_action_just_pressed("ui_left") \
 	or Input.is_action_just_pressed("ui_right"):
+		noLongerConsideredTarget()
 		targetIdx = 0
 		targetSwitch = !targetSwitch
 	

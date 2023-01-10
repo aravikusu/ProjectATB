@@ -167,6 +167,7 @@ func prepareTargeting(slot, command, partner):
 			if partner != null:
 				commandActors.append(partner)
 			
+			await get_tree().create_timer(0.1).timeout
 			Global.set_player_targeting(true)
 			targetUI.setTargetMode(commandForTargeting.command.target, commandActors, commandForTargeting.command.additionalTargetInfo)
 		Enums.TARGET_TYPE.SELF:

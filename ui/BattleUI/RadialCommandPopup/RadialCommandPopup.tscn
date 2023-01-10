@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://plyulijqt2ap"]
+[gd_scene load_steps=5 format=3 uid="uid://plyulijqt2ap"]
 
 [ext_resource type="Script" path="res://ui/BattleUI/RadialCommandPopup/RadialCommandPopup.gd" id="1_cbgje"]
 [ext_resource type="PackedScene" uid="uid://cuyrusgox8k3" path="res://ui/BattleUI/RadialCommandPopup/CommandButton.tscn" id="2_g6wq5"]
+[ext_resource type="Texture2D" uid="uid://cmnrqqwd8vvcp" path="res://assets/ui/radialmenu.png" id="2_j1stb"]
 [ext_resource type="PackedScene" uid="uid://drdoo65uyb747" path="res://ui/BattleUI/ExtendedCommandMenu/ExtendedCommandMenu.tscn" id="3_ptc7x"]
 
 [node name="RadialCommandPopup" type="Control"]
@@ -16,6 +17,15 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_cbgje")
 
+[node name="BG" type="TextureRect" parent="."]
+unique_name_in_owner = true
+modulate = Color(0.729412, 0.486275, 0.654902, 1)
+offset_left = -202.0
+offset_top = -122.0
+offset_right = 248.0
+offset_bottom = 178.0
+texture = ExtResource("2_j1stb")
+
 [node name="MainRadial" type="Control" parent="."]
 unique_name_in_owner = true
 layout_mode = 3
@@ -26,43 +36,43 @@ offset_bottom = 40.0
 [node name="RightSide" type="Control" parent="MainRadial"]
 layout_mode = 3
 anchors_preset = 0
-offset_left = -136.0
-offset_top = -170.0
-offset_right = -96.0
-offset_bottom = -130.0
+offset_left = -131.0
+offset_top = -159.0
+offset_right = -91.0
+offset_bottom = -119.0
 
 [node name="Attack" parent="MainRadial/RightSide" instance=ExtResource("2_g6wq5")]
 unique_name_in_owner = true
-offset_left = 217.0
-offset_top = 178.0
-offset_right = 347.0
-offset_bottom = 188.0
+offset_left = 241.0
+offset_top = 222.0
+offset_right = 371.0
+offset_bottom = 232.0
 command = 0
 button = 0
 
 [node name="Item" parent="MainRadial/RightSide" instance=ExtResource("2_g6wq5")]
 unique_name_in_owner = true
-offset_left = 140.0
-offset_top = 106.0
-offset_right = 270.0
-offset_bottom = 116.0
+offset_left = 162.0
+offset_top = 156.0
+offset_right = 292.0
+offset_bottom = 166.0
 command = 3
 button = 3
 
 [node name="Special" parent="MainRadial/RightSide" instance=ExtResource("2_g6wq5")]
 unique_name_in_owner = true
-offset_left = 283.0
-offset_top = 107.0
-offset_right = 413.0
-offset_bottom = 117.0
+offset_left = 306.0
+offset_top = 156.0
+offset_right = 436.0
+offset_bottom = 166.0
 button = 2
 
 [node name="Skill" parent="MainRadial/RightSide" instance=ExtResource("2_g6wq5")]
 unique_name_in_owner = true
-offset_left = 220.0
-offset_top = 42.0
-offset_right = 350.0
-offset_bottom = 52.0
+offset_left = 240.0
+offset_top = 89.0
+offset_right = 370.0
+offset_bottom = 99.0
 command = 2
 button = 1
 
@@ -76,32 +86,32 @@ offset_bottom = -145.0
 
 [node name="Run" parent="MainRadial/LeftSide" instance=ExtResource("2_g6wq5")]
 unique_name_in_owner = true
-offset_left = -2.0
-offset_top = 189.0
-offset_right = 128.0
-offset_bottom = 199.0
+offset_left = 39.0
+offset_top = 225.0
+offset_right = 169.0
+offset_bottom = 235.0
 command = 4
 
 [node name="Defend" parent="MainRadial/LeftSide" instance=ExtResource("2_g6wq5")]
 unique_name_in_owner = true
-offset_left = -32.0
-offset_top = 144.0
-offset_right = 98.0
-offset_bottom = 154.0
+offset_left = -8.0
+offset_top = 179.0
+offset_right = 122.0
+offset_bottom = 189.0
 command = 1
 
 [node name="Pass" parent="MainRadial/LeftSide" instance=ExtResource("2_g6wq5")]
-offset_left = 23.0
-offset_top = 236.0
-offset_right = 153.0
-offset_bottom = 246.0
+offset_left = 68.0
+offset_top = 273.0
+offset_right = 198.0
+offset_bottom = 283.0
 command = 5
 
 [node name="ExtendedMenu" parent="." instance=ExtResource("3_ptc7x")]
 unique_name_in_owner = true
-offset_left = 150.0
+offset_left = 1.0
 offset_top = -160.0
-offset_right = 370.0
+offset_right = 221.0
 offset_bottom = -5.0
 
 [connection signal="selected" from="ExtendedMenu" to="." method="actionize"]

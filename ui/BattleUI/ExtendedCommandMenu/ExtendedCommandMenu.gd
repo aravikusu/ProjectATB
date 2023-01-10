@@ -13,7 +13,8 @@ var active = false
 
 func handleInputs():
 	if Input.is_action_just_pressed("ui_select"):
-		select(allItems[currentIndex])
+		if !allItems[currentIndex].disabled:
+			select(allItems[currentIndex])
 	if Input.is_action_just_pressed("ui_cancel"):
 		active = false
 		

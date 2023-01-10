@@ -4,11 +4,11 @@
 [ext_resource type="FontFile" uid="uid://bohfy0ecqhmww" path="res://assets/fonts/Roboto-BoldItalic.ttf" id="2_etwm2"]
 [ext_resource type="FontFile" uid="uid://cuvbje5vmt425" path="res://assets/fonts/Roboto-Italic.ttf" id="3_7ohw3"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_pu3ft"]
+[sub_resource type="LabelSettings" id="LabelSettings_7gpal"]
 font = ExtResource("2_etwm2")
 font_color = Color(0.835294, 0.835294, 0.835294, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_boyl4"]
+[sub_resource type="LabelSettings" id="LabelSettings_v1q0p"]
 font = ExtResource("3_7ohw3")
 font_size = 13
 
@@ -35,7 +35,7 @@ unique_name_in_owner = true
 offset_right = 220.0
 offset_bottom = 22.0
 text = "SkillName"
-label_settings = SubResource("LabelSettings_pu3ft")
+label_settings = SubResource("LabelSettings_7gpal")
 
 [node name="SkillDescription" type="Label" parent="VBoxContainer"]
 unique_name_in_owner = true
@@ -43,5 +43,5 @@ offset_top = 20.0
 offset_right = 220.0
 offset_bottom = 40.0
 text = "This is a skill description."
-label_settings = SubResource("LabelSettings_boyl4")
+label_settings = SubResource("LabelSettings_v1q0p")
 autowrap_mode = 2
