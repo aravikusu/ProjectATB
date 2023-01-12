@@ -51,26 +51,17 @@ shader_parameter/opacity = 1.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_jkfe7"]
 animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("3_g0f4o")
-}],
+"frames": [ExtResource("3_g0f4o")],
 "loop": true,
 "name": &"dead",
 "speed": 5.0
 }, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("3_g0f4o")
-}],
+"frames": [ExtResource("3_g0f4o")],
 "loop": true,
 "name": &"overworld",
 "speed": 5.0
 }, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("3_g0f4o")
-}],
+"frames": [ExtResource("3_g0f4o")],
 "loop": true,
 "name": &"ready",
 "speed": 5.0

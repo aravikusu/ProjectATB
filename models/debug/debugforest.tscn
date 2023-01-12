@@ -105,9 +105,6 @@ data = PackedVector3Array(0, 1, 0, -1, 1, 1, -1, 1, 0, 0, 1, 0, 0, 1, 1, -1, 1, 
 
 [node name="debugforest" instance=ExtResource("1_2tsv6")]
 
-[node name="Cube" parent="." index="0"]
-visible = false
-
 [node name="Torus" parent="." index="1"]
 visible = false
 
@@ -116,6 +113,7 @@ navigation_mesh = SubResource("NavigationMesh_ggvqd")
 
 [node name="Cube" type="MeshInstance3D" parent="NavigationRegion3D" index="0"]
 transform = Transform3D(10, 0, 0, 0, 0.86142, 0, 0, 0, 10, 0, 0.0544865, 0)
+visible = false
 mesh = SubResource("ArrayMesh_bae4j")
 skeleton = NodePath("")
 
