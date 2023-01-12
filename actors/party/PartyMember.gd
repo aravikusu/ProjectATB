@@ -15,6 +15,7 @@ var displayName = "Test"
 var playerControlled = true
 var forcedToMove = false
 var forceMoveTarget = Vector3(0, 0, 0)
+var forceMoveSpeed = 0
 
 # Follower specific
 var didArrive = false
@@ -66,10 +67,10 @@ func _ready():
 var test = false
 func _physics_process(delta):
 	if forcedToMove:
-		if (delta * speed) > position.distance_to(forceMoveTarget):
+		if (delta * forceMoveSpeed) > position.distance_to(forceMoveTarget):
 			forcedToMove = false
-			speed = position.distance_to(forceMoveTarget) / delta
-		set_velocity((forceMoveTarget - global_position).normalized() * speed)
+			forceMoveSpeed = position.distance_to(forceMoveTarget) / delta
+		set_velocity((forceMoveTarget - global_position).normalized() * forceMoveSpeed)
 		move_and_slide()
 	else:
 		if Global.get_game_state() == Enums.GAME_STATE.ROAMING:
@@ -150,9 +151,10 @@ func flush():
 
 # Forcefully move the actor to a set location.
 # Used in cutscenes, combat, etc.
-func forceMove(location):
+func forceMove(location: Vector3, fSpeed: int = 3):
 	forcedToMove = true
 	forceMoveTarget = location
+	forceMoveSpeed = fSpeed
 
 # Wildcard - set any sprite.
 func setSprite(sprite: String):
