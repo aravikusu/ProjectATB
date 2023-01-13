@@ -1,80 +1,50 @@
-[gd_scene load_steps=11 format=3 uid="uid://tuwvvalbclu4"]
+[gd_scene load_steps=6 format=3 uid="uid://tuwvvalbclu4"]
 
 [ext_resource type="Texture2D" uid="uid://tsim7jdhrev8" path="res://assets/sprites/aravix-idle.png" id="1_sj8p2"]
 [ext_resource type="Texture2D" uid="uid://ly0c5ucuwwpk" path="res://assets/sprites/aravix-ready.PNG" id="2_6igu1"]
 [ext_resource type="Texture2D" uid="uid://5t2b0qic0bxo" path="res://assets/sprites/aravix-dead.png" id="2_a1rbc"]
-[ext_resource type="Shader" path="res://assets/materials/outlines/outline.gdshader" id="2_k546q"]
 [ext_resource type="Script" path="res://actors/party/Character.gd" id="3_j8m3u"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2rnvo"]
-shader = ExtResource("2_k546q")
-shader_parameter/lineColor = Color(1, 0, 0, 1)
-shader_parameter/lineThickness = 0.0
-shader_parameter/opacity = null
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_f8i0p"]
 animations = [{
-"frames": [ExtResource("2_a1rbc")],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_a1rbc")
+}],
 "loop": true,
 "name": &"dead",
 "speed": 5.0
 }, {
-"frames": [ExtResource("1_sj8p2"), ExtResource("1_sj8p2"), ExtResource("1_sj8p2"), ExtResource("1_sj8p2")],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_sj8p2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_sj8p2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_sj8p2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_sj8p2")
+}],
 "loop": true,
 "name": &"overworld",
 "speed": 5.0
 }, {
-"frames": [ExtResource("2_6igu1")],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_6igu1")
+}],
 "loop": true,
 "name": &"ready",
 "speed": 5.0
 }]
 
-[sub_resource type="Animation" id="Animation_dria6"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:material:shader_parameter/lineThickness")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-
-[sub_resource type="Animation" id="Animation_f1kac"]
-resource_name = "outline"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:material:shader_parameter/lineThickness")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 2.0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_vhvf7"]
-_data = {
-"RESET": SubResource("Animation_dria6"),
-"outline": SubResource("Animation_f1kac")
-}
-
-[node name="Aravix" type="AnimatedSprite2D"]
-material = SubResource("ShaderMaterial_2rnvo")
+[node name="Aravix" type="AnimatedSprite3D"]
+offset = Vector2(68, 68)
+shaded = true
+alpha_cut = 1
 frames = SubResource("SpriteFrames_f8i0p")
 animation = &"overworld"
-offset = Vector2(68, 68)
 script = ExtResource("3_j8m3u")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_vhvf7")
-}

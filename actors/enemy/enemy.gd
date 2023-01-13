@@ -1,9 +1,5 @@
 extends CharacterBody3D
 
-signal targetedForAction(actor)
-signal consideredTarget(actor)
-signal noLongerConsideredTarget()
-
 # Used to store get the actual stats and abilities of said enemy.
 @export var displayName := ""
 var playerControlled = false
@@ -62,28 +58,3 @@ func playDeadAnimation():
 func forceMove(location):
 	forcedToMove = true
 	forceMoveTarget = location
-
-func hover():
-	if CHARACTER_BATTLE_STATE != Enums.CHARACTER_BATTLE_STATE.DEAD:
-		if Global.BATTLE_TARGETING_MODE && !showOutline:
-			showOutline = true
-			player.play("outline")
-			var s = emit_signal("consideredTarget", self)
-			if s != OK:
-				Global.printSignalError("Enemy", "hover", "consideredTarget")
-
-func unhover():
-	if CHARACTER_BATTLE_STATE != Enums.CHARACTER_BATTLE_STATE.DEAD:
-		if showOutline:
-			showOutline = false
-			player.play_backwards("outline")
-			var s = emit_signal("noLongerConsideredTarget")
-			if s != OK:
-				Global.printSignalError("Enemy", "unhover", "noLongerConsideredTarget")
-
-func clicked():
-	if CHARACTER_BATTLE_STATE != Enums.CHARACTER_BATTLE_STATE.DEAD:
-		if Global.BATTLE_TARGETING_MODE:
-			var s = emit_signal("targetedForAction", self)
-			if s != OK:
-				Global.printSignalError("Enemy", "clicked", "targetedForAction")

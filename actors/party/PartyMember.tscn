@@ -1,21 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://nbvs5vklklkd"]
+[gd_scene load_steps=3 format=3 uid="uid://nbvs5vklklkd"]
 
 [ext_resource type="Script" path="res://actors/party/PartyMember.gd" id="1_jf6ms"]
-[ext_resource type="Script" path="res://actors/player-camera.gd" id="2_4ktqy"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f6mm0"]
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_xguwr"]
-viewport_path = NodePath("SpriteViewport")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_waj6a"]
-resource_local_to_scene = true
-transparency = 2
-alpha_scissor_threshold = 0.5
-alpha_antialiasing_mode = 0
-albedo_texture = SubResource("ViewportTexture_xguwr")
-
-[sub_resource type="QuadMesh" id="QuadMesh_akcm7"]
 
 [node name="PartyMember" type="CharacterBody3D"]
 editor_description = "The main actors of the game. Can be a party leader (player controlled) or a party follower (follows its target)."
@@ -23,26 +10,18 @@ collision_layer = 2
 collision_mask = 9
 script = ExtResource("1_jf6ms")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.500197, 0)
-shape = SubResource("CapsuleShape3D_f6mm0")
-
-[node name="SpriteViewport" type="SubViewport" parent="."]
-transparent_bg = true
-size = Vector2i(128, 128)
-size_2d_override_stretch = true
-render_target_update_mode = 4
-
-[node name="Mesh" type="MeshInstance3D" parent="."]
-material_override = SubResource("StandardMaterial3D_waj6a")
-mesh = SubResource("QuadMesh_akcm7")
-
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-agent_height_offset = 0.5
-
 [node name="CameraAnchor" type="Node3D" parent="."]
 
 [node name="Camera" type="Camera3D" parent="CameraAnchor"]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 2, 3.5)
-script = ExtResource("2_4ktqy")
+
+[node name="CharacterAnchor" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.631723, -0.537562, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.500197, 0)
+shape = SubResource("CapsuleShape3D_f6mm0")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+agent_height_offset = -0.23

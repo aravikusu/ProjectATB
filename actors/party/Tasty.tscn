@@ -1,80 +1,49 @@
-[gd_scene load_steps=11 format=3 uid="uid://dvghlije4t1jb"]
+[gd_scene load_steps=6 format=3 uid="uid://dvghlije4t1jb"]
 
 [ext_resource type="Texture2D" uid="uid://bicy0bmyxegdi" path="res://assets/sprites/tasty-idle.PNG" id="1_8en1g"]
 [ext_resource type="Texture2D" uid="uid://dupovukkcnaer" path="res://assets/sprites/tasty-dead.png" id="2_2dvo4"]
-[ext_resource type="Shader" path="res://assets/materials/outlines/outline.gdshader" id="2_egud0"]
 [ext_resource type="Texture2D" uid="uid://i2d8jalyk4oa" path="res://assets/sprites/tasty-ready.PNG" id="2_i00jd"]
 [ext_resource type="Script" path="res://actors/party/Character.gd" id="3_4vu34"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qs3bh"]
-shader = ExtResource("2_egud0")
-shader_parameter/lineColor = Color(1, 0, 0, 1)
-shader_parameter/lineThickness = 0.0
-shader_parameter/opacity = null
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_kmkgr"]
 animations = [{
-"frames": [ExtResource("2_2dvo4")],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_2dvo4")
+}],
 "loop": true,
 "name": &"dead",
 "speed": 5.0
 }, {
-"frames": [ExtResource("1_8en1g"), ExtResource("1_8en1g"), ExtResource("1_8en1g"), ExtResource("1_8en1g")],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_8en1g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_8en1g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_8en1g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_8en1g")
+}],
 "loop": true,
 "name": &"overworld",
 "speed": 5.0
 }, {
-"frames": [ExtResource("2_i00jd")],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_i00jd")
+}],
 "loop": true,
 "name": &"ready",
 "speed": 5.0
 }]
 
-[sub_resource type="Animation" id="Animation_ag4x4"]
-resource_name = "outline"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:material:shader_parameter/lineThickness")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 2.0]
-}
-
-[sub_resource type="Animation" id="Animation_k0fos"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:material:shader_parameter/lineThickness")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_665d6"]
-_data = {
-"RESET": SubResource("Animation_k0fos"),
-"outline": SubResource("Animation_ag4x4")
-}
-
-[node name="Tasty" type="AnimatedSprite2D"]
-material = SubResource("ShaderMaterial_qs3bh")
-position = Vector2(68, 68)
+[node name="Tasty" type="AnimatedSprite3D"]
+shaded = true
+alpha_cut = 1
 frames = SubResource("SpriteFrames_kmkgr")
 animation = &"overworld"
 script = ExtResource("3_4vu34")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_665d6")
-}

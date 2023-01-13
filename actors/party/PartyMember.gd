@@ -1,9 +1,5 @@
 extends CharacterBody3D
 
-signal targetedForAction(node)
-signal consideredTarget(node)
-signal noLongerConsideredTarget()
-
 var speed := 3.0
 var gravity := 2.0
 
@@ -39,7 +35,7 @@ var showOutline = false
 @export var partyLeader = false
 @export_node_path(CharacterBody3D) var targetPath
 
-@onready var spriteViewport = $SpriteViewport
+@onready var characterAnchor = $CharacterAnchor
 @onready var navigationAgent = $NavigationAgent3D
 @onready var camera = $"%Camera"
 var target: CharacterBody3D
@@ -99,6 +95,9 @@ func _physics_process(delta):
 				var next = navigationAgent.get_next_location()
 				_velocity = (next - current) * speed
 				
+				if not is_on_floor():
+					_velocity.y -= gravity * delta
+				
 				set_velocity(_velocity)
 				move_and_slide()
 
@@ -122,7 +121,7 @@ func swapCharacter(player):
 	if loadedCharacter != {}:
 		loadedCharacter.queue_free()
 	var instance = character.instantiate()
-	spriteViewport.add_child(instance)
+	characterAnchor.add_child(instance)
 	loadedCharacter = instance
 	
 	characterType = player.type
@@ -177,28 +176,3 @@ func setDeadSprite():
 
 func playDeadAnimation():
 	setDeadSprite()
-
-func clicked():
-	if CHARACTER_BATTLE_STATE != Enums.CHARACTER_BATTLE_STATE.DEAD:
-		if Global.BATTLE_TARGETING_MODE:
-			var s = emit_signal("targetedForAction", self)
-			if s != OK:
-				Global.printSignalError("PartyMember", "clicked", "targetedForAction")
-
-func hover():
-	if CHARACTER_BATTLE_STATE != Enums.CHARACTER_BATTLE_STATE.DEAD:
-		if Global.BATTLE_TARGETING_MODE && !showOutline:
-			showOutline = true
-			loadedCharacter.showOutline()
-			var s = emit_signal("consideredTarget", self)
-			if s != OK:
-				Global.printSignalError("PartyMember", "hover", "consideredTarget")
-
-func unhover():
-	if CHARACTER_BATTLE_STATE != Enums.CHARACTER_BATTLE_STATE.DEAD:
-		if showOutline:
-			showOutline = false
-			loadedCharacter.hideOutline()
-			var s = emit_signal("noLongerConsideredTarget")
-			if s != OK:
-				Global.printSignalError("PartyMember", "unhover", "noLongerConsideredTarget")
