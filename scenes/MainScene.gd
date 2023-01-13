@@ -94,13 +94,6 @@ func startBattle(battleData):
 	actors.append_array(battleData.enemies)
 	targetUI.sendActors(actors)
 	
-	# Connect signals.
-	for actor in actors:
-		print(actor)
-		actor.connect("targetedForAction", Callable(targetUI, "addTarget"))
-		actor.connect("consideredTarget", Callable(targetUI, "consideredTarget"))
-		actor.connect("noLongerConsideredTarget", Callable(targetUI, "noLongerConsideredTarget"))
-	
 	# We will now move the party members in position.
 	for i in 3:
 		battleUI.fillPartyData(i, battleData.party[i])

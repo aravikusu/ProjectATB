@@ -27,6 +27,12 @@ var playerIsDead = false
 
 var BATTLE_TARGETING_MODE = false
 
+func handleInputs():
+	if _GAME_STATE == Enums.GAME_STATE.ROAMING:
+		if Input.is_action_just_pressed("pause"):
+			show_pause()
+			handle_pause()
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	get_game_config()
@@ -34,11 +40,8 @@ func _ready():
 	current_scene = root.get_child(root.get_child_count() - 1)
 	player.play("SceneFade")
 
-func _input(event):
-	if canPause:
-		if event.is_action_pressed("ui_cancel"):
-			show_pause()
-			handle_pause()
+func _process(_delta):
+	handleInputs()
 
 # SAVE FILE HANDLERS
 
@@ -275,6 +278,9 @@ func set_player_targeting(targeting):
 
 func get_player_character():
 	return partyMem1
+
+func get_player_camera():
+	return partyMem1.get_child(0).get_child(0)
 
 func get_active_party():
 	var arr = [partyMem1]

@@ -187,11 +187,9 @@ func addTarget(_actor):
 func consideredTarget(actor):
 	if hoveringOver != actor:
 		hoveringOver = actor
-		hoveringOver.hover()
 		draw()
 
 func noLongerConsideredTarget():
-	hoveringOver.unhover()
 	hoveringOver = null
 	clear()
 	draw()

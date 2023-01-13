@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://brn88lfjo11d"]
+
+[ext_resource type="Script" path="res://autoload/TransitionCamera.gd" id="1_4camn"]
+
+[node name="TransitionCamera" type="Camera3D"]
+editor_description = "Used to smoothly move between two cameras."
+script = ExtResource("1_4camn")

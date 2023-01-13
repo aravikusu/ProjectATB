@@ -1,18 +1,24 @@
-[gd_scene load_steps=10 format=3 uid="uid://4hy1qupcgg73"]
+[gd_scene load_steps=24 format=3 uid="uid://cgnvbhtt7gw2h"]
 
 [ext_resource type="Script" path="res://scenes/DebugForest/DebugForest.gd" id="1_iuqyw"]
-[ext_resource type="Texture2D" uid="uid://x0qgvxkt72dt" path="res://assets/textures/sky/nightsky.png" id="2_at086"]
-[ext_resource type="PackedScene" uid="uid://cgnvbhtt7gw2h" path="res://models/debug/DecoratedDebugForest.tscn" id="6_8cnf1"]
-[ext_resource type="PackedScene" uid="uid://cnnk3gjseublj" path="res://actors/enemy/DebugDummy.tscn" id="7_kgk1k"]
-[ext_resource type="Script" path="res://actors/enemy/enemy-trigger.gd" id="8_x6qfb"]
+[ext_resource type="PackedScene" uid="uid://cyrttryhv8b1e" path="res://models/debug/debugforest.tscn" id="1_n4b0j"]
+[ext_resource type="Texture2D" uid="uid://x0qgvxkt72dt" path="res://assets/textures/sky/nightsky.png" id="1_pbp1q"]
+[ext_resource type="MeshLibrary" uid="uid://cu2jy3ivuwis" path="res://models/forest/bush_mesh.tres" id="6_jq78q"]
+[ext_resource type="MeshLibrary" uid="uid://du6eqin7eadnk" path="res://models/forest/rock_mesh.tres" id="7_8qmcg"]
+[ext_resource type="PackedScene" uid="uid://cnnk3gjseublj" path="res://actors/enemy/DebugDummy.tscn" id="9_ta578"]
+[ext_resource type="Script" path="res://actors/enemy/enemy-trigger.gd" id="10_jls17"]
+[ext_resource type="Shader" path="res://scenes/DebugForest/water.gdshader" id="10_tx1qr"]
+[ext_resource type="MeshLibrary" uid="uid://dth6boo22w4oy" path="res://models/forest/pine1_mesh.tres" id="11_h0lvf"]
+[ext_resource type="MeshLibrary" uid="uid://4235i1o6ency" path="res://models/forest/foliage1_mesh.tres" id="12_gmgwv"]
+[ext_resource type="PackedScene" uid="uid://suy0w4bwiivq" path="res://models/other/Campfire.tscn" id="13_ikik5"]
 
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_q6p0m"]
-panorama = ExtResource("2_at086")
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_uy58s"]
+panorama = ExtResource("1_pbp1q")
 
 [sub_resource type="Sky" id="Sky_e3opq"]
-sky_material = SubResource("PanoramaSkyMaterial_q6p0m")
+sky_material = SubResource("PanoramaSkyMaterial_uy58s")
 
-[sub_resource type="Environment" id="Environment_1vhml"]
+[sub_resource type="Environment" id="Environment_hrtxl"]
 background_mode = 2
 sky = SubResource("Sky_e3opq")
 fog_enabled = true
@@ -20,36 +26,132 @@ fog_light_color = Color(0.0823529, 0.0941176, 0.109804, 1)
 fog_density = 0.04
 fog_sky_affect = 0.85
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_6sfl2"]
-size = Vector3(2, 2, 2)
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_p0py1"]
+fractal_lacunarity = 4.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_i0s07"]
+seamless = true
+noise = SubResource("FastNoiseLite_p0py1")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_4qyvt"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kad36"]
+seamless = true
+noise = SubResource("FastNoiseLite_4qyvt")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_3m3yb"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7r6vi"]
+seamless = true
+as_normal_map = true
+bump_strength = 4.0
+noise = SubResource("FastNoiseLite_3m3yb")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o3gs6"]
+render_priority = 0
+shader = ExtResource("10_tx1qr")
+shader_parameter/speed = null
+shader_parameter/color = Color(0.392157, 0.698039, 0.952941, 1)
+shader_parameter/edge_color = Color(1, 1, 1, 1)
+shader_parameter/edge_scale = 0.25
+shader_parameter/near = 1.0
+shader_parameter/far = 100.0
+shader_parameter/wave_strength = Vector2(0.01, 0.01)
+shader_parameter/wave_frequency = Vector2(12, 12)
+shader_parameter/time_factor = Vector2(1, 1)
+shader_parameter/noise1 = SubResource("NoiseTexture2D_i0s07")
+shader_parameter/noise2 = SubResource("NoiseTexture2D_kad36")
+shader_parameter/normalmap = SubResource("NoiseTexture2D_7r6vi")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_nfp2c"]
+size = Vector2(15, 8)
+subdivide_width = 16
+subdivide_depth = 16
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fur4q"]
 
 [node name="DebugForest" type="Node3D"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 script = ExtResource("1_iuqyw")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_1vhml")
-
-[node name="DecoratedDebugForest" parent="." instance=ExtResource("6_8cnf1")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0.000429153, -9.53674e-07, -0.0409164)
+environment = SubResource("Environment_hrtxl")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.727653, 0.685945, 0, -0.685945, 0.727653, 0.0192833, 8.89827, -0.578332)
 visible = false
 shadow_enabled = true
 
-[node name="DebugDummy" parent="." groups=["dummy"] instance=ExtResource("7_kgk1k")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.85648, 4.6681, -0.967638)
+[node name="debugforest" parent="." instance=ExtResource("1_n4b0j")]
+
+[node name="River" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.999866, -0.016353, 0, 0.016353, 0.999866, 0, 1.89868, 9.93133)
+material_override = SubResource("ShaderMaterial_o3gs6")
+mesh = SubResource("PlaneMesh_nfp2c")
+
+[node name="Trees" type="GridMap" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.987, 0)
+mesh_library = ExtResource("11_h0lvf")
+cell_size = Vector3(0.1, 0.1, 0.1)
+cell_center_y = false
+cell_scale = 0.2
+data = {
+"cells": PackedInt32Array(46, 65493, 0, 57, 65483, 0, 60, 65498, 0, 71, 65503, 1441792, 42, 65480, 1441792, 48, 65468, 1441792, 70, 65490, 1441792, 82, 65511, 1441792, 61, 92, 655360, 55, 78, 655360, 49, 65, 655360, 59, 30, 655360, 45, 39, 655360, 67, 14, 655360, 72, 1, 655360, 77, 65524, 655360, 70, 65515, 655360, 98, 97, 655360, 92, 81, 655360, 82, 94, 655360, 76, 77, 655360, 95, 64, 655360, 83, 65, 655360, 93, 52, 655360, 83, 46, 655360, 74, 36, 655360, 72, 24, 655360, 70, 66, 655360, 63, 40, 655360, 76, 55, 655360, 59, 68, 655360, 66, 83, 655360, 86, 33, 655360, 78, 13, 655360, 93, 10, 655360, 91, 22, 655360, 94, 41, 655360, 46, 51, 655360, 90, 65521, 655360, 96, 65510, 655360, 31, 65479, 655360, 20, 65474, 655360, 2, 65478, 655360, 65521, 65482, 655360, 65528, 65475, 655360, 65519, 65451, 655360, 65526, 65461, 655360, 65530, 65439, 655360, 92, 65440, 655360, 92, 65457, 655360, 63, 65443, 655360, 30, 65457, 655360, 33, 65443, 655360, 55, 65452, 655360, 90, 65484, 655360, 77, 65477, 655360, 91, 65470, 655360, 62, 65472, 655360, 81, 65465, 655360, 80, 65449, 655360, 70, 65459, 655360, 42, 65456, 655360, 47, 65442, 655360, 17, 65447, 655360, 13, 65462, 655360, 34, 65469, 655360, 86, 65497, 655360, 65514, 65471, 655360, 65464, 65508, 655360, 65473, 65496, 655360, 65485, 65494, 655360, 65494, 65488, 655360, 65506, 65482, 655360, 65501, 65472, 655360, 65509, 65460, 655360, 65514, 65440, 655360, 65471, 65442, 655360, 65447, 65471, 655360, 65462, 65492, 655360, 65483, 65481, 655360, 65468, 65469, 655360, 65496, 65440, 655360, 65483, 65452, 655360, 65501, 65452, 655360, 65486, 65467, 655360, 65486, 65468, 655360, 65461, 65455, 655360, 65453, 65439, 655360, 65438, 65451, 655360, 65452, 65484, 655360, 65471, 65483, 655360, 65455, 65530, 655360, 65451, 65513, 655360, 65439, 65522, 655360, 65442, 65503, 655360, 65455, 65500, 655360, 65438, 65489, 655360, 65448, 65460, 655360, 65437, 65465, 655360, 65433, 65477, 655360, 65437, 65437, 655360, 65439, 9, 655360, 65473, 63, 655360, 65439, 44, 655360, 65452, 9, 655360, 65468, 19, 655360, 65462, 7, 655360, 65487, 35, 655360, 65472, 33, 655360, 65479, 41, 655360, 65488, 49, 655360, 65493, 59, 655360, 65493, 70, 655360, 65470, 51, 655360, 65483, 60, 655360, 65448, 23, 655360, 65458, 36, 655360, 65439, 31, 655360, 65453, 51, 655360, 65442, 59, 655360, 65460, 65, 655360, 65478, 77, 655360, 65436, 100, 655360, 65441, 88, 655360, 65436, 80, 655360, 65435, 68, 655360, 65449, 98, 655360, 65461, 97, 655360, 65469, 88, 655360, 65484, 85, 655360, 65456, 81, 655360, -524350, 0, 0, -524336, 23, 0, -524322, 36, 0, -524322, 25, 0, -524337, 65504, 0, -524344, 65511, 0, -524322, 65498, 0, -524320, 3, 0, -524326, 65531, 0, -524320, 65521, 0, -524302, 65523, 0, -524293, 65516, 0, -589817, 65518, 0, -589810, 65525, 0, -524322, 48, 0, -524320, 64, 0, -524309, 47, 0, -524301, 52, 0, -524301, 60, 0, -524336, 105, 0, -524346, 101, 0, -524304, 89, 0, -524310, 103, 0, -589802, 103, 0, -589808, 93, 0, -524300, 99, 0, -589777, 103, 0, -589807, 60, 0, -589798, 55, 0, -589794, 43, 0, -589791, 63, 0, -589788, 73, 0, -589779, 87, 0, -589806, 65487, 0, -589800, 65497, 0, -589793, 65504, 0, -589770, 18, 0, -589780, 20, 0, -589785, 27, 0, -589792, 34, 0, 101, 65439, 0, 100, 65447, 0, 98, 65499, 0, 97, 65476, 0, 97, 65477, 0, 98, 65488, 0, 100, 65463, 0, 97, 4, 0, 96, 65529, 0, 81, 65439, 0, 72, 65441, 0, 56, 65439, 0, 39, 65439, 0, 24, 65441, 0, 11, 65440, 0, 3, 65438, 0, 65522, 65436, 0, 65505, 65438, 0, 65487, 65438, 0, 65478, 65441, 0, 65461, 65443, 0, 65446, 65439, 0, 65440, 65443, 0, 65441, 65458, 0, 65438, 65471, 0, 65437, 65498, 0, 65437, 65497, 0, 65438, 65511, 0, 65444, 65529, 0, 65445, 0, 0, 65442, 18, 0)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="Foliage" type="GridMap" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.07247, 0)
+mesh_library = ExtResource("12_gmgwv")
+cell_size = Vector3(0.1, 0.1, 0.1)
+cell_center_y = false
+cell_scale = 0.3
+data = {
+"cells": PackedInt32Array(65492, 88, 655360, 16, 1, 655360, 30, 65527, 655360, 65521, 65534, 655360, 65529, 9, 655360, 4, 17, 655360, 30, 40, 655360, 26, 47, 655360, -46, 105, 655360, -50, 98, 655360, -56, 105, 655360, 0, 83, 655360, 65532, 103, 655360, 15, 101, 655360, 65526, 83, 655360, 11, 84, 655360, 24, 61, 655360, 28, 67, 655360, 39, 78, 655360, 49, 101, 1048576, 131040, 31, 1048576, 131051, 38, 1048576, 131025, 18, 1048576, 131019, 9, 1048576, 131026, 65529, 1048576, 131011, 65525, 1048576, 196561, 65516, 1048576, 196573, 65511, 1048576, 262106, 65504, 1048576, 196583, 65494, 1048576, 196582, 65500, 1048576, 131059, 65504, 1048576, 131052, 65514, 1048576, 10, 65498, 1048576, 14, 65511, 1048576, 44, 65520, 1048576, 54, 65532, 1048576, 37, 10, 1048576, 21, 12, 1048576, 8, 40, 1048576, 65523, 31, 1048576, 589886, 65508, 1048576, 589894, 65532, 0, 589874, 65497, 0, 655293, 23, 0, 655276, 3, 0, 655271, 65519, 0, 655280, 65511, 0, 589894, 93, 0, 589911, 73, 0, 589910, 102, 0)
+}
+metadata/_editor_floor_ = Vector3(0, 9, 0)
+
+[node name="campfire" parent="." instance=ExtResource("13_ikik5")]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 2.10146, 0)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="campfire"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.644224, 0)
+light_color = Color(1, 0.682353, 0.188235, 1)
+omni_range = 15.0
+
+[node name="Bushes" type="GridMap" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.96468, 0)
+mesh_library = ExtResource("6_jq78q")
+cell_size = Vector3(0.1, 0.1, 0.1)
+cell_scale = 0.3
+data = {
+"cells": PackedInt32Array(65532, 65485, 917504, 65535, 65487, 262144, 3, 65485, 917504, 65528, 65487, 262144, 7, 65484, 917504, 65525, 65490, 1507328, 65529, 65522, 1507328, 65533, 65522, 917504, 0, 65521, 1245184, 4, 65523, 262144, 7, 65525, 1507328, 65526, 65528, 917504, 53, 65505, 917504, 53, 65509, 1245184, 48, 65507, 262144, 65545, 104, 1507328, 65541, 104, 917504, 65542, 102, 1245184, 131042, 54, 1245184, 131046, 51, 262144, 131052, 57, 1507328, 131043, 60, 1245184, 131041, 65532, 262144, 131040, 65527, 1507328, 131043, 65529, 917504, 131001, 65524, 917504, 130999, 65520, 1245184, 131001, 65516, 262144, 131006, 65514, 1507328, 131004, 65528, 917504, 131016, 30, 1245184, 131014, 27, 262144, 131011, 25, 1507328, 131019, 27, 917504, 131012, 21, 1245184, 65578, 76, 262144, 65580, 79, 1507328, 65586, 93, 917504, 65585, 96, 1245184, 65567, 49, 1245184, 65568, 53, 262144, 131029, 84, 262144, 131032, 82, 1507328, 524343, 38, 1507328, 524339, 40, 917504, 524337, 43, 917504, 524329, 52, 917504, 524331, 55, 1245184, 524327, 65489, 1245184, 524323, 65490, 262144, 524325, 65486, 1507328, 524296, 65474, 1507328, 524300, 65473, 917504, 589750, 65534, 917504, 589749, 65531, 1245184, 589747, 65527, 262144, 589756, 11, 262144, 589759, 13, 1507328, 589760, 10, 917504, 589775, 44, 917504, 589778, 42, 1245184)
+}
+metadata/_editor_floor_ = Vector3(0, 8, 0)
+
+[node name="Rocks" type="GridMap" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.03372, 0)
+mesh_library = ExtResource("7_8qmcg")
+cell_size = Vector3(0.1, 0.1, 0.1)
+cell_scale = 0.3
+data = {
+"cells": PackedInt32Array(131048, 55, 0, 65546, 99, 524288, 65539, 98, 1310720, 131017, 23, 1245184, 196566, 65502, 65536, 196588, 65489, 1114112, 65596, 7, 0, 589881, 48, 851968, 589890, 59, 655360, 589885, 53, 1441792, 589908, 0, 262144, 589830, 65454, 458752, 655355, 65452, 983040, 655359, 65459, 1376256, 655270, 71, 262144, 655271, 39, 0, 65591, 102, 65536, -65512, 64, 131072, 1, 65512, 1376256)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="DebugDummy" parent="." groups=["dummy"] instance=ExtResource("9_ta578")]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 4.02465, 2.46381, -0.967638)
 
 [node name="DummyTrigger" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.72065, 4.69209, -0.879145)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.93581, 2.68915, -0.879145)
 collision_mask = 3
-script = ExtResource("8_x6qfb")
+script = ExtResource("10_jls17")
 enemyGroup = "dummy"
 partyPositions = [Vector3(5.476, 4.7, -0.822), Vector3(4.269, 4.7, -1.665), Vector3(4.269, 4.7, 0.015)]
 battleInitMessage = "Battle Test, Run to quit"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DummyTrigger"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.439374, 0)
-shape = SubResource("BoxShape3D_6sfl2")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0809665, 0)
+shape = SubResource("BoxShape3D_fur4q")
 
 [connection signal="triggerBattle" from="DummyTrigger" to="." method="_on_dummy_trigger_trigger_battle"]

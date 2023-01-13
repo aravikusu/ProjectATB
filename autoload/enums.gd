@@ -11,6 +11,7 @@ enum GAME_STATE {
 	ROAMING = 0,
 	BATTLE = 1,
 	CUTSCENE = 2,
+	CAMPSITE = 3,
 	TITLE_SCREEN = 99
 }
 

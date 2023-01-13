@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://cqxnjmtplnt76"]
+
+[ext_resource type="Script" path="res://ui/CampsiteMenu/CampsiteMenuButton.gd" id="1_fjjnk"]
+[ext_resource type="LabelSettings" uid="uid://f086y30xidws" path="res://ui/CampsiteMenu/inactive-button.tres" id="2_b75y3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7x6cf"]
+bg_color = Color(0, 0, 0, 0)
+
+[node name="CampsiteMenuButton" type="PanelContainer"]
+offset_right = 300.0
+offset_bottom = 31.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_7x6cf")
+script = ExtResource("1_fjjnk")
+
+[node name="Text" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+label_settings = ExtResource("2_b75y3")
+horizontal_alignment = 1

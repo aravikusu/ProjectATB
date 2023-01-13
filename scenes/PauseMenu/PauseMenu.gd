@@ -5,6 +5,13 @@ var flavor = [
 	"... is customizing your experience!"
 ]
 
+func handleInputs():
+	if Input.is_action_just_pressed("pause"):
+		unpause()
+
+func _process(_delta):
+	handleInputs()
+
 @onready var player = $AnimationPlayer
 func showPause():
 	player.play("fade")
@@ -15,8 +22,3 @@ func unpause():
 	player.play_backwards("fade")
 	await player.animation_finished
 	queue_free()
-
-
-func _input(event):
-	if event.is_action_pressed("ui_cancel"):
-		unpause()

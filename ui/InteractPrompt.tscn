@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://0dxmc6hd07fl"]
+
+[ext_resource type="FontFile" uid="uid://ckhvh2v5u5uhm" path="res://assets/fonts/Roboto-Regular.ttf" id="1_gjajk"]
+[ext_resource type="Script" path="res://ui/InteractPrompt.gd" id="1_vhemn"]
+[ext_resource type="Texture2D" uid="uid://bo5a7v7ueetxt" path="res://assets/ui/button-cross.png" id="2_lgomp"]
+
+[node name="InteractPrompt" type="Node3D"]
+script = ExtResource("1_vhemn")
+
+[node name="Button" type="Sprite3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.316899, 0, 0)
+cast_shadow = 0
+texture = ExtResource("2_lgomp")
+
+[node name="Text" type="Label3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0125332, 0, 0)
+text = "Text"
+font = ExtResource("1_gjajk")
