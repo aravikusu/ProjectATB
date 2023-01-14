@@ -42,6 +42,7 @@ animations = [{
 }]
 
 [node name="Tasty" type="AnimatedSprite3D"]
+offset = Vector2(0, -10)
 shaded = true
 alpha_cut = 1
 frames = SubResource("SpriteFrames_kmkgr")

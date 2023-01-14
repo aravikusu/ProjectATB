@@ -42,7 +42,6 @@ animations = [{
 }]
 
 [node name="Aravix" type="AnimatedSprite3D"]
-offset = Vector2(68, 68)
 shaded = true
 alpha_cut = 1
 frames = SubResource("SpriteFrames_f8i0p")

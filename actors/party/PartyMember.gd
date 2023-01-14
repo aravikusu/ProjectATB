@@ -38,6 +38,7 @@ var showOutline = false
 @onready var characterAnchor = $CharacterAnchor
 @onready var navigationAgent = $NavigationAgent3D
 @onready var camera = $"%Camera"
+@onready var selector = $ActorSelector
 var target: CharacterBody3D
 
 func handle_input() -> Vector3:
@@ -77,7 +78,6 @@ func _physics_process(delta):
 					_velocity.z = 0
 					var input = handle_input()
 					input = input.normalized()
-					#var direction = (transform.basis.z * input.z + transform.basis.x * input.x)
 					
 					_velocity.x = input.x * speed
 					_velocity.z = input.z * speed
@@ -111,12 +111,14 @@ func swapCharacter(player):
 	match player.type:
 		Enums.CHARACTER.ARAVIX:
 			character = load("res://actors/party/Aravix.tscn")
+			selector.color = Color("#446abd")
 		Enums.CHARACTER.TASTY:
 			character = load("res://actors/party/Tasty.tscn")
+			selector.color = Color("#ba7ca7")
 		Enums.CHARACTER.AYLIK: 
 			character = load("res://actors/party/Aylik.tscn")
-		_:
-			character = load("res://actors/party/Aravix.tscn")
+			selector.color = Color("#218251")
+	
 	# Remove the old character if it exists, then save the new one
 	if loadedCharacter != {}:
 		loadedCharacter.queue_free()
@@ -147,6 +149,9 @@ func flush():
 	commands = []
 	currentSprite = "overworld"
 	ATB = 0
+
+func toggleSelector():
+	selector.visible = !selector.visible
 
 # Forcefully move the actor to a set location.
 # Used in cutscenes, combat, etc.

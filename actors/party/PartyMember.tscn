@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://nbvs5vklklkd"]
+[gd_scene load_steps=4 format=3 uid="uid://nbvs5vklklkd"]
 
 [ext_resource type="Script" path="res://actors/party/PartyMember.gd" id="1_jf6ms"]
+[ext_resource type="PackedScene" uid="uid://cb6hqsypx0sgr" path="res://ui/ActorSelector/ActorSelector.tscn" id="3_g2er2"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f6mm0"]
 
@@ -17,11 +18,15 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 2, 3.5)
 
 [node name="CharacterAnchor" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.631723, -0.537562, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00341505, 0.143696, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.500197, 0)
 shape = SubResource("CapsuleShape3D_f6mm0")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-agent_height_offset = -0.23
+agent_height_offset = 0.5
+
+[node name="ActorSelector" parent="." instance=ExtResource("3_g2er2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
