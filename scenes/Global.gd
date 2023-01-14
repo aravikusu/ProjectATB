@@ -291,8 +291,8 @@ func get_active_party():
 
 func set_party_position(coordinates: Vector3):
 	partyMem1.set_position(coordinates)
-	partyMem2.set_position(coordinates)
-	partyMem3.set_position(coordinates)
+	partyMem2.set_position(Vector3(coordinates.x + 0.01, coordinates.y + 0.01, coordinates.z + 0.01))
+	partyMem3.set_position(Vector3(coordinates.x + 0.3, coordinates.y + 0.2, coordinates.z + 0.2))
 
 # Opens a file - used in all of the handler files.
 func openFile(dataFile: String):

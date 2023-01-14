@@ -52,10 +52,12 @@ partyLeader = true
 
 [node name="PartyMember2" parent="PartyTrain" instance=ExtResource("3_emquo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -240, -157, 0)
+collision_mask = 11
 targetPath = NodePath("../PartyMember1")
 
 [node name="PartyMember3" parent="PartyTrain" instance=ExtResource("3_emquo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -238, -155, 0)
+collision_mask = 11
 targetPath = NodePath("../PartyMember2")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
