@@ -1,0 +1,59 @@
+[gd_scene load_steps=6 format=3 uid="uid://cb6hqsypx0sgr"]
+
+[ext_resource type="Texture2D" uid="uid://brs0i4dygv45e" path="res://assets/ui/selector.png" id="1_5csja"]
+[ext_resource type="Script" path="res://ui/ActorSelector/ActorSelector.gd" id="1_nknyr"]
+
+[sub_resource type="Animation" id="Animation_4ip8d"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_7wiks"]
+resource_name = "bob"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.1, 0), Vector3(0, 0, 0), Vector3(0, -0.1, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v80if"]
+_data = {
+"RESET": SubResource("Animation_4ip8d"),
+"bob": SubResource("Animation_7wiks")
+}
+
+[node name="ActorSelector" type="Node3D"]
+script = ExtResource("1_nknyr")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+texture = ExtResource("1_5csja")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_v80if")
+}
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="bob"]
