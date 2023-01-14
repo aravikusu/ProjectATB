@@ -67,6 +67,7 @@ func _process(_delta):
 											# Radial menu not visible; no one else is ready.
 											# show it for the current actor.
 											battleUI.showRadialMenu(currentSlot)
+											actor.toggleSelector()
 								else:
 									# If the actor is an enemy, take immediate action
 									handleEnemyCommand(actor)
@@ -135,6 +136,9 @@ func canActorActuallyTakeAction(nextAction: Dictionary):
 
 # Adds the actor as well as the command they want to execute to the queue.
 func addToActionQueue(command):
+	if command.actor.playerControlled:
+		command.actor.toggleSelector()
+	
 	command.actor.CHARACTER_BATTLE_STATE = Enums.CHARACTER_BATTLE_STATE.WAITING_TO_ACT
 	
 	if command.partner != null:
