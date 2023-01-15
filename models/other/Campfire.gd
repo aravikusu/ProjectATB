@@ -21,6 +21,7 @@ func handleInputs():
 
 func openCampsiteMenu():
 	Global.set_game_state(Enums.GAME_STATE.CAMPSITE)
+	Global.set_party_member_collision(false)
 	campsiteMenu.activate()
 	campsiteMenu.visible = true
 	inrange = false
@@ -31,8 +32,8 @@ func openCampsiteMenu():
 	var party = Global.get_active_party()
 	var campsitePos = position
 	party[0].forceMove(Vector3(campsitePos.x, campsitePos.y, campsitePos.z - 1), 5)
-	party[1].forceMove(Vector3(campsitePos.x + 1.7, party[1].global_position.y, campsitePos.z - 0.3), 5)
-	party[2].forceMove(Vector3(campsitePos.x - .7, party[2].global_position.y, campsitePos.z - 0.3), 5)
+	party[1].forceMove(Vector3(campsitePos.x + 1, party[1].global_position.y, campsitePos.z - 0.3), 5)
+	party[2].forceMove(Vector3(campsitePos.x - 1, party[2].global_position.y, campsitePos.z - 0.3), 5)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):

@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://nbvs5vklklkd"]
+[gd_scene load_steps=5 format=3 uid="uid://nbvs5vklklkd"]
 
 [ext_resource type="Script" path="res://actors/party/PartyMember.gd" id="1_jf6ms"]
 [ext_resource type="PackedScene" uid="uid://cb6hqsypx0sgr" path="res://ui/ActorSelector/ActorSelector.tscn" id="3_g2er2"]
+[ext_resource type="PackedScene" uid="uid://c3ba7bg1tr17s" path="res://ui/ActorHighlight/ActorHighlight.tscn" id="3_vftwj"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f6mm0"]
 
@@ -29,4 +30,12 @@ agent_height_offset = 0.5
 
 [node name="ActorSelector" parent="." instance=ExtResource("3_g2er2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
+
+[node name="NightLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0201957, 0.169378)
+light_energy = 0.111
+omni_range = 1.0
+
+[node name="ActorHighlight" parent="." instance=ExtResource("3_vftwj")]
 visible = false

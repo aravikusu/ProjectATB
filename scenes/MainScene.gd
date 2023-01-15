@@ -67,7 +67,7 @@ func _process(_delta):
 											# Radial menu not visible; no one else is ready.
 											# show it for the current actor.
 											battleUI.showRadialMenu(currentSlot)
-											actor.toggleSelector()
+											actor.toggleCurrentBattleActor()
 								else:
 									# If the actor is an enemy, take immediate action
 									handleEnemyCommand(actor)
@@ -85,10 +85,14 @@ func startBattle(battleData):
 	# First things first - set the GAME_STATE to battle.
 	# This disables the player's ability to move and interact with the world.
 	Global.set_game_state(Enums.GAME_STATE.BATTLE)
+	Global.set_party_member_collision(false)
 	escapeIsPossible = battleData.canRun
 	battleUI.startBattle()
 	if battleData.initMessage != "":
 		battleUI.showNotification(battleData.initMessage)
+	
+	# Transition to the battle camera...
+	TransitionCamera.transition(Global.get_player_camera(), battleData.camera)
 	
 	# Put all battle actors in an array...
 	actors.append_array(battleData.party)
@@ -137,7 +141,7 @@ func canActorActuallyTakeAction(nextAction: Dictionary):
 # Adds the actor as well as the command they want to execute to the queue.
 func addToActionQueue(command):
 	if command.actor.playerControlled:
-		command.actor.toggleSelector()
+		command.actor.toggleCurrentBattleActor()
 	
 	command.actor.CHARACTER_BATTLE_STATE = Enums.CHARACTER_BATTLE_STATE.WAITING_TO_ACT
 	

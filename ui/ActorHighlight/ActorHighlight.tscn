@@ -1,0 +1,65 @@
+[gd_scene load_steps=7 format=3 uid="uid://c3ba7bg1tr17s"]
+
+[ext_resource type="Shader" path="res://assets/shaders/scan.gdshader" id="1_n05is"]
+[ext_resource type="Script" path="res://ui/ActorHighlight/ActorHighlight.gd" id="1_r1gnt"]
+
+[sub_resource type="Shader" id="Shader_kehti"]
+code = "shader_type spatial;
+//Simple 3D shader to create a force-field effect inspired by Faultless Defense from Guilty Gear Xrd.
+//In summary, it takes logic used for simple rim lighting and uses it to create the alpha instead.
+
+render_mode blend_mix,depth_draw_always,cull_back,diffuse_burley,specular_schlick_ggx;//depth_test_disable;
+uniform vec4 albedo : source_color;
+uniform vec4 emission_color : source_color;
+uniform sampler2D texture_albedo : hint_default_black;
+uniform float emission_amount: hint_range(0.0, 16.0) = 5.0f; 
+uniform float rim_steepness : hint_range(0.0f, 16.0f) = 3.0f; //higher values mean a smaller rim.
+uniform vec3 uv_scale;
+uniform vec3 uv_offset;
+
+
+void vertex() {
+	UV=UV*uv_scale.xy+uv_offset.xy;
+}
+
+void fragment() {
+	vec2 base_uv = UV;
+	vec4 albedo_tex = texture(texture_albedo,base_uv);
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+	EMISSION = emission_color.rgb * emission_amount;
+	float NdotV = dot(NORMAL, VIEW);
+	float rim_light = pow(1.0 - NdotV, rim_steepness);
+	ALPHA = rim_light * emission_color.a / PI;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jowc8"]
+render_priority = 0
+shader = SubResource("Shader_kehti")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/emission_color = Color(0.729412, 0.486275, 0.654902, 1)
+shader_parameter/emission_amount = 5.0
+shader_parameter/rim_steepness = 3.0
+shader_parameter/uv_scale = null
+shader_parameter/uv_offset = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ok4iv"]
+render_priority = 0
+shader = ExtResource("1_n05is")
+shader_parameter/shift = Vector3(0, 0, 0)
+shader_parameter/time_shift_scale = Vector3(0.5, 0, 0)
+shader_parameter/scan_power = Vector3(0.5, 0, 0)
+shader_parameter/scan_color = Color(0.729412, 0.486275, 0.654902, 1)
+shader_parameter/scan_line_size = 1.5
+shader_parameter/scan_line_delay = 0.65
+
+[sub_resource type="TorusMesh" id="TorusMesh_puvyo"]
+inner_radius = 0.741
+outer_radius = 0.798
+
+[node name="ActorHighlight" type="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 10, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_jowc8")
+material_overlay = SubResource("ShaderMaterial_ok4iv")
+mesh = SubResource("TorusMesh_puvyo")
+script = ExtResource("1_r1gnt")
+color = Color(1, 1, 1, 1)

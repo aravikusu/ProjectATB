@@ -294,6 +294,14 @@ func set_party_position(coordinates: Vector3):
 	partyMem2.set_position(Vector3(coordinates.x + 0.01, coordinates.y + 0.01, coordinates.z + 0.01))
 	partyMem3.set_position(Vector3(coordinates.x + 0.3, coordinates.y + 0.2, coordinates.z + 0.2))
 
+func set_party_member_collision(enable: bool):
+	if enable:
+		partyMem2.set_collision_mask_value(2, true)
+		partyMem3.set_collision_mask_value(2, true)
+	else:
+		partyMem2.set_collision_mask_value(2, false)
+		partyMem3.set_collision_mask_value(2, false)
+
 # Opens a file - used in all of the handler files.
 func openFile(dataFile: String):
 	var file = FileAccess.open(dataFile, FileAccess.READ)

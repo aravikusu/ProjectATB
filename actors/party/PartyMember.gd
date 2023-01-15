@@ -39,6 +39,7 @@ var showOutline = false
 @onready var navigationAgent = $NavigationAgent3D
 @onready var camera = $"%Camera"
 @onready var selector = $ActorSelector
+@onready var highlight = $ActorHighlight
 var target: CharacterBody3D
 
 func handle_input() -> Vector3:
@@ -112,12 +113,15 @@ func swapCharacter(player):
 		Enums.CHARACTER.ARAVIX:
 			character = load("res://actors/party/Aravix.tscn")
 			selector.color = Color("#446abd")
+			highlight.color = Color("#446abd")
 		Enums.CHARACTER.TASTY:
 			character = load("res://actors/party/Tasty.tscn")
 			selector.color = Color("#ba7ca7")
+			highlight.color = Color("#ba7ca7")
 		Enums.CHARACTER.AYLIK: 
 			character = load("res://actors/party/Aylik.tscn")
 			selector.color = Color("#218251")
+			highlight.color = Color("#218251")
 	
 	# Remove the old character if it exists, then save the new one
 	if loadedCharacter != {}:
@@ -150,8 +154,9 @@ func flush():
 	currentSprite = "overworld"
 	ATB = 0
 
-func toggleSelector():
+func toggleCurrentBattleActor():
 	selector.visible = !selector.visible
+	highlight.visible = !highlight.visible
 
 # Forcefully move the actor to a set location.
 # Used in cutscenes, combat, etc.

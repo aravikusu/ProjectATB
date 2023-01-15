@@ -48,6 +48,7 @@ func handleInputs():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 @onready var canvas = $CanvasLayer
+@onready var selector = $ActorSelector
 func _process(_delta):
 	if Global.BATTLE_TARGETING_MODE:
 		canvas.visible = true
@@ -167,6 +168,7 @@ func setTargetMode(type: Enums.TARGET_TYPE, actorPositions: Array, additionalTar
 	currentTargetingMode = type
 	users = actorPositions
 	if additionalTargetDetails.size() > 0: targetDetails = additionalTargetDetails
+	selector.show()
 
 func sendActors(actors: Array):
 	for actor in actors:
