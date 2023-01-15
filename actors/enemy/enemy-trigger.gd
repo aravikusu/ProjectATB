@@ -6,9 +6,14 @@ signal triggerBattle(battleData)
 
 # Used to get the enemies tied to this trigger.
 @export var enemyGroup := ""
+# The positions the party members will walk to.
 @export var partyPositions := [Vector3()]
+# The message that appears when combat starts.
 @export var battleInitMessage = ""
+# Decides if the battle can be escaped or not.
 @export var canRun = true
+# The camera of the battle. If none is found, it will use the default.
+@export_node_path(Camera3D) var battleCamera
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -16,13 +21,19 @@ func _ready():
 
 func entered(body):
 	if body == Global.get_player_character():
+		var cam : Camera3D
+		if get_node(battleCamera) != null:
+			cam = get_node(battleCamera)
+		else:
+			cam = Global.get_player_camera()
 		set_deferred("monitoring", false)
 		var s = emit_signal("triggerBattle", {
 			"party": Global.get_active_party(),
 			"enemies": get_tree().get_nodes_in_group(enemyGroup),
 			"positions": partyPositions,
 			"initMessage": battleInitMessage,
-			"canRun": canRun
+			"canRun": canRun,
+			"camera": cam
 		})
 		
 		if s != OK:

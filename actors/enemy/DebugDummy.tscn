@@ -49,3 +49,8 @@ frames = SubResource("SpriteFrames_jkfe7")
 animation = &"overworld"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.183628)
+light_energy = 0.111
+omni_range = 1.0
