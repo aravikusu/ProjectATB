@@ -76,21 +76,20 @@ func _physics_process(delta):
 		if Global.get_game_state() == Enums.GAME_STATE.ROAMING:
 			if partyLeader:
 				# Party leader. Is controller by the player.
-				if Global.get_game_state() == Enums.GAME_STATE.ROAMING:
-					_velocity.x = 0
-					_velocity.z = 0
-					var input = handle_input()
-					input = input.normalized()
-					
-					_velocity.x = input.x * speed
-					_velocity.z = input.z * speed
-					
-					if not is_on_floor():
-						_velocity.y -= gravity * delta
-					
-					set_velocity(_velocity)
-					@warning_ignore(return_value_discarded)
-					move_and_slide()
+				_velocity.x = 0
+				_velocity.z = 0
+				var input = handle_input()
+				input = input.normalized()
+				
+				_velocity.x = input.x * speed
+				_velocity.z = input.z * speed
+				
+				if not is_on_floor():
+					_velocity.y -= gravity * delta
+				
+				set_velocity(_velocity)
+				@warning_ignore(return_value_discarded)
+				move_and_slide()
 			else:
 				# A follower. Always follows their target.
 				setTargetLocation(target.global_position)
