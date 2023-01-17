@@ -34,3 +34,6 @@ func _process(_delta):
 
 func activate():
 	menuActive = true
+
+func disable():
+	menuActive = false

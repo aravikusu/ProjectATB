@@ -12,7 +12,8 @@ func _ready():
 
 func handleInputs():
 	if Global.get_game_state() == Enums.GAME_STATE.CAMPSITE:
-		pass
+		if Input.is_action_just_pressed("ui_cancel"):
+			closeCampsiteMenu()
 	elif Global.get_game_state() == Enums.GAME_STATE.ROAMING:
 		if inrange:
 			if Input.is_action_just_pressed("ui_select"):
@@ -26,14 +27,21 @@ func openCampsiteMenu():
 	campsiteMenu.visible = true
 	inrange = false
 	
-	#TODO: Camera transition, move party members
 	TransitionCamera.transition(Global.get_player_camera(), campsiteCamera, 1.5)
 	
 	var party = Global.get_active_party()
 	var campsitePos = position
-	party[0].forceMove(Vector3(campsitePos.x, campsitePos.y, campsitePos.z - 1), 5)
+	party[0].forceMove(Vector3(campsitePos.x, party[0].global_position.y, campsitePos.z - 1), 5)
 	party[1].forceMove(Vector3(campsitePos.x + 1, party[1].global_position.y, campsitePos.z - 0.3), 5)
 	party[2].forceMove(Vector3(campsitePos.x - 1, party[2].global_position.y, campsitePos.z - 0.3), 5)
+
+func closeCampsiteMenu():
+	Global.set_game_state(Enums.GAME_STATE.ROAMING)
+	Global.set_party_member_collision(true)
+	campsiteMenu.disable()
+	campsiteMenu.visible = false
+	inrange = true
+	TransitionCamera.transition(campsiteCamera, Global.get_player_camera(), 0.1)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):

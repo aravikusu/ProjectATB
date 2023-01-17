@@ -12,6 +12,7 @@ outline_size = 5
 outline_color = Color(0, 0, 0, 1)
 
 [node name="CampsiteMenu" type="MarginContainer"]
+anchors_preset = 9
 anchor_bottom = 1.0
 offset_right = 300.0
 grow_vertical = 2

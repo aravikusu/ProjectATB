@@ -175,7 +175,6 @@ text = "Campsite"
 [node name="CampsiteMenu" parent="CanvasLayer" instance=ExtResource("5_5u4y2")]
 unique_name_in_owner = true
 visible = false
-anchors_preset = 9
 
 [node name="CampsiteCamera" type="Camera3D" parent="."]
 transform = Transform3D(3.33333, 0, 0, 0, 3.13231, 1.14007, 0, -1.14007, 3.13231, 0, 3.75871, 4.50005)
