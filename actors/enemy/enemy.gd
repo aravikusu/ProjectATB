@@ -18,6 +18,7 @@ var currentMP = 100
 var ATB = 0
 var CHARACTER_BATTLE_STATE = Enums.CHARACTER_BATTLE_STATE.CHARGING
 var currentSprite = "overworld"
+var hitboxRadius = 0
 
 var showOutline = false
 
@@ -27,6 +28,7 @@ var showOutline = false
 func _ready():
 	stats = EnemyHelper.getEnemyStats(displayName)
 	commands = EnemyHelper.getEnemyCommands(displayName)
+	hitboxRadius = $CollisionShape3D.shape.radius
 
 func _physics_process(delta):
 	if forcedToMove:
@@ -54,6 +56,10 @@ func setDeadSprite():
 # All actors have their own dead animation... play it
 func playDeadAnimation():
 	player.play("dead")
+
+func getHeight():
+	var height = sprite.frames.get_frame_texture("overworld", 0).get_height()
+	return height * sprite.pixel_size
 
 func forceMove(location):
 	forcedToMove = true

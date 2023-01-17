@@ -14,6 +14,8 @@ var targetSwitch = true
 var goodGuys = []
 var badGuys = []
 
+var justEntered = true
+
 func handleInputs():
 	if Input.is_action_just_pressed("ui_left") \
 	or Input.is_action_just_pressed("ui_right"):
@@ -49,6 +51,7 @@ func handleInputs():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 @onready var canvas = $CanvasLayer
 @onready var selector = $ActorSelector
+@onready var highlight = $ActorHighlight
 func _process(_delta):
 	if Global.BATTLE_TARGETING_MODE:
 		canvas.visible = true
@@ -169,6 +172,7 @@ func setTargetMode(type: Enums.TARGET_TYPE, actorPositions: Array, additionalTar
 	users = actorPositions
 	if additionalTargetDetails.size() > 0: targetDetails = additionalTargetDetails
 	selector.show()
+	highlight.show()
 
 func sendActors(actors: Array):
 	for actor in actors:
@@ -190,17 +194,30 @@ func consideredTarget(actor):
 	if hoveringOver != actor:
 		hoveringOver = actor
 		draw()
+		highlightTarget()
 
 func noLongerConsideredTarget():
 	hoveringOver = null
 	clear()
 	draw()
 
+func highlightTarget():
+	var height = hoveringOver.getHeight()
+	var pos = hoveringOver.global_position
+	if justEntered:
+		print(height)
+		selector.global_position = Vector3(pos.x, (pos.y + height / 2.3), pos.z)
+		highlight.global_position = Vector3(pos.x, (pos.y - height / 5), pos.z)
+		highlight.setRadius(hoveringOver.hitboxRadius)
+		justEntered = false
+
 func end():
 	currentTargetingMode = Enums.TARGET_TYPE.NONE
 	users = []
 	noLongerConsideredTarget()
 	targetDetails = []
+	targetIdx = 0
+	targetSwitch = true
 	Global.set_player_targeting(false)
 
 func clear():

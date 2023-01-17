@@ -29,6 +29,7 @@ var stats = {}
 var commands = []
 var CHARACTER_BATTLE_STATE = Enums.CHARACTER_BATTLE_STATE.CHARGING
 var currentSprite = "overworld"
+var hitboxRadius = 0
 
 var showOutline = false
 
@@ -57,6 +58,7 @@ func handle_input() -> Vector3:
 	return input
 
 func _ready():
+	hitboxRadius = $CollisionShape3D.shape.radius
 	if partyLeader:
 		camera.current = true
 	else:
@@ -183,6 +185,9 @@ func setDeadSprite():
 	if currentSprite != "dead":
 		currentSprite = "dead"
 		loadedCharacter.changeSprite("dead")
+
+func getHeight():
+	return loadedCharacter.getHeight()
 
 func playDeadAnimation():
 	setDeadSprite()

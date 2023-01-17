@@ -1,10 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://nbvs5vklklkd"]
+[gd_scene load_steps=6 format=3 uid="uid://nbvs5vklklkd"]
 
 [ext_resource type="Script" path="res://actors/party/PartyMember.gd" id="1_jf6ms"]
 [ext_resource type="PackedScene" uid="uid://cb6hqsypx0sgr" path="res://ui/ActorSelector/ActorSelector.tscn" id="3_g2er2"]
 [ext_resource type="PackedScene" uid="uid://c3ba7bg1tr17s" path="res://ui/ActorHighlight/ActorHighlight.tscn" id="3_vftwj"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f6mm0"]
+
+[sub_resource type="TorusMesh" id="TorusMesh_hbbie"]
+inner_radius = 0.741
+outer_radius = 0.798
 
 [node name="PartyMember" type="CharacterBody3D"]
 editor_description = "The main actors of the game. Can be a party leader (player controlled) or a party follower (follows its target)."
@@ -38,4 +42,6 @@ light_energy = 0.111
 omni_range = 1.0
 
 [node name="ActorHighlight" parent="." instance=ExtResource("3_vftwj")]
+transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 0, -0.434133, 0)
 visible = false
+mesh = SubResource("TorusMesh_hbbie")

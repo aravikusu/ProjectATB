@@ -21,3 +21,7 @@ func setColor():
 	scanMaterial.set_shader_parameter("scan_power", Vector3(0.5, 0, 0))
 	scanMaterial.set_shader_parameter("scan_line_size", 1.5)
 	material_overlay = scanMaterial
+
+func setRadius(radius: float):
+	mesh.inner_radius = radius
+	mesh.outer_radius = radius + 0.057

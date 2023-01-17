@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://y4m4dmi0x2bc"]
+[gd_scene load_steps=7 format=3 uid="uid://y4m4dmi0x2bc"]
 
 [ext_resource type="Script" path="res://ui/target-ui/TargetUI.gd" id="1_husr7"]
 [ext_resource type="PackedScene" uid="uid://cb6hqsypx0sgr" path="res://ui/ActorSelector/ActorSelector.tscn" id="2_5g6um"]
+[ext_resource type="PackedScene" uid="uid://c3ba7bg1tr17s" path="res://ui/ActorHighlight/ActorHighlight.tscn" id="3_mfpg2"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_xy2tw"]
 outline_size = 5
@@ -11,12 +12,17 @@ outline_color = Color(0, 0, 0, 1)
 outline_size = 5
 outline_color = Color(0, 0, 0, 1)
 
+[sub_resource type="TorusMesh" id="TorusMesh_3q3s5"]
+inner_radius = 0.741
+outer_radius = 0.798
+
 [node name="TargetUI" type="Node3D"]
 script = ExtResource("1_husr7")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Label" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -109.5
@@ -27,6 +33,7 @@ text = "!!! CURRENTLY TARGETING !!!"
 label_settings = SubResource("LabelSettings_xy2tw")
 
 [node name="CancelLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_top = -26.0
@@ -37,4 +44,9 @@ label_settings = SubResource("LabelSettings_2qs08")
 
 [node name="ActorSelector" parent="." instance=ExtResource("2_5g6um")]
 visible = false
+color = Color(0.988235, 0.0117647, 0.0117647, 1)
+
+[node name="ActorHighlight" parent="." instance=ExtResource("3_mfpg2")]
+visible = false
+mesh = SubResource("TorusMesh_3q3s5")
 color = Color(0.988235, 0.0117647, 0.0117647, 1)
