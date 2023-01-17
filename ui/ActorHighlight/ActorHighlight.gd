@@ -5,15 +5,9 @@ extends MeshInstance3D
 		color = newColor
 		setColor()
 
-var highlightShader : Shader = preload("res://assets/shaders/highlight.gdshader")
 var scanShader : Shader = preload("res://assets/shaders/scan.gdshader")
 
 func setColor():
-	var highlightMaterial = ShaderMaterial.new()
-	highlightMaterial.shader = highlightShader
-	highlightMaterial.set_shader_parameter("emission_color", color)
-	material_override = highlightMaterial
-	
 	var scanMaterial = ShaderMaterial.new()
 	scanMaterial.shader = scanShader
 	scanMaterial.set_shader_parameter("scan_color", color)
@@ -22,6 +16,11 @@ func setColor():
 	scanMaterial.set_shader_parameter("scan_line_size", 1.5)
 	material_overlay = scanMaterial
 
-func setRadius(radius: float):
-	mesh.inner_radius = radius
-	mesh.outer_radius = radius + 0.057
+func setRadius(radius: float, instant = true):
+	if instant:
+		mesh.inner_radius = radius
+		mesh.outer_radius = radius + 0.057
+	else:
+		var tween = create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+		tween.parallel().tween_property(mesh, "inner_radius", radius, 0.5)
+		tween.parallel().tween_property(mesh, "outer_radius", radius + 0.057, 0.5)

@@ -62,7 +62,7 @@ func setup(partyMemSlot: int):
 	slot = partyMemSlot
 	var partyMem = Global.get_party_member_by_slot(slot)
 	
-	position = get_viewport().get_camera_3d().unproject_position(partyMem.global_transform.origin)
+	#position = get_viewport().get_camera_3d().unproject_position(partyMem.global_transform.origin)
 	special.setSpecialButton(partyMem.characterType)
 	setColor(partyMem.characterType)
 	show()

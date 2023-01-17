@@ -24,6 +24,3 @@ func bob():
 
 func forcePos(location: Vector3):
 	global_position = location
-
-func move(location: Vector3):
-	var tween = create_tween().set_Trans(Tween.TRANS_QUAD)

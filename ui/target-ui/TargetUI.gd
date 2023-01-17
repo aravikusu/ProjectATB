@@ -50,8 +50,8 @@ func handleInputs():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 @onready var canvas = $CanvasLayer
-@onready var selector = $ActorSelector
-@onready var highlight = $ActorHighlight
+@onready var selector = $"%ActorSelector"
+@onready var highlight = $"%ActorHighlight"
 func _process(_delta):
 	if Global.BATTLE_TARGETING_MODE:
 		canvas.visible = true
@@ -210,6 +210,10 @@ func highlightTarget():
 		highlight.global_position = Vector3(pos.x, (pos.y - height / 5), pos.z)
 		highlight.setRadius(hoveringOver.hitboxRadius)
 		justEntered = false
+	else:
+		var tween = create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+		tween.tween_property(selector, "global_position", Vector3(pos.x, (pos.y + height / 2.3), pos.z), 0.5)
+		tween.parallel().tween_property(highlight, "global_position", Vector3(pos.x, (pos.y - height / 5), pos.z), 0.5)
 
 func end():
 	currentTargetingMode = Enums.TARGET_TYPE.NONE
@@ -218,6 +222,8 @@ func end():
 	targetDetails = []
 	targetIdx = 0
 	targetSwitch = true
+	selector.hide()
+	highlight.hide()
 	Global.set_player_targeting(false)
 
 func clear():
