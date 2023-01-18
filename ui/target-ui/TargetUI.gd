@@ -16,6 +16,8 @@ var badGuys = []
 
 var justEntered = true
 
+@onready var scanShader = preload("res://assets/shaders/scan.gdshader")
+
 func handleInputs():
 	if Input.is_action_just_pressed("ui_left") \
 	or Input.is_action_just_pressed("ui_right"):
@@ -48,7 +50,6 @@ func handleInputs():
 	if Input.is_action_just_pressed("ui_select"):
 		addTarget(hoveringOver)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 @onready var canvas = $CanvasLayer
 @onready var selector = $"%ActorSelector"
 @onready var highlight = $"%ActorHighlight"
@@ -92,6 +93,7 @@ func drawLine(startPos: Vector3, endPos: Vector3, color: Color) -> void:
 		cylinderMesh.top_radius = 0.05
 		cylinderMesh.bottom_radius = 0.05
 		cylinderMesh.material = createMeshMaterial(color)
+		meshInstance.material_overlay = createMaterialOverlay()
 		
 		drawnMeshes.append(meshInstance)
 		add_child(meshInstance)
@@ -110,6 +112,7 @@ func drawCircle(pos: Vector3, radius: float, color: Color) -> void:
 	sphereMesh.radius = radius
 	sphereMesh.height = radius * 2
 	sphereMesh.material = createMeshMaterial(color)
+	meshInstance.material_overlay = createMaterialOverlay()
 	drawnMeshes.append(meshInstance)
 	add_child(meshInstance)
 	createArea("circle", {
@@ -125,6 +128,16 @@ func createMeshMaterial(color: Color) -> ORMMaterial3D:
 	meshMaterial.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	
 	return meshMaterial
+
+func createMaterialOverlay():
+	var material = ShaderMaterial.new()
+	material.shader = scanShader
+	material.set_shader_parameter("scan_color", Color("#184011"))
+	material.set_shader_parameter("time_shift_scale", Vector3(0, 0.5, 0))
+	material.set_shader_parameter("scan_power", Vector3(0, 0.5, 0))
+	material.set_shader_parameter("scan_line_size", 1.5)
+	
+	return material
 
 func createArea(shape: String, deets: Dictionary):
 	var area = Area3D.new()
@@ -205,7 +218,6 @@ func highlightTarget():
 	var height = hoveringOver.getHeight()
 	var pos = hoveringOver.global_position
 	if justEntered:
-		print(height)
 		selector.global_position = Vector3(pos.x, (pos.y + height / 2.3), pos.z)
 		highlight.global_position = Vector3(pos.x, (pos.y - height / 5), pos.z)
 		highlight.setRadius(hoveringOver.hitboxRadius)
