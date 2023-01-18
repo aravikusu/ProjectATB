@@ -1,7 +1,5 @@
 extends Node
 
-var currentLocation = {}
-
 var BATTLE_STATE = Enums.BATTLE_STATE.AWAITING_ACTION
 var BATTLE_END_STATE = Enums.BATTLE_END_STATE.ONGOING
 
@@ -15,29 +13,11 @@ var escapeIsPossible : bool
 
 var ceaseEverything = false
 
-@onready var roomAnchor = $CurrentRoomGoesHere
 @onready var battleUI = $BattleUI
 @onready var targetUI = $TargetUI
 @onready var notificationCenter = $NotificationCenter
 @onready var effectNumbers = preload("res://ui/EffectNumbers/EffectNumbers.tscn")
 @onready var effectText = preload("res://ui/EffectText/EffectText.tscn")
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	# We're loading into the game from the main menu, so we need to fetch
-	# the players current location.
-	loadRoom(Global.get_last_location(), "location")
-
-# Load the room the player is in and connect all the necessary things.
-func loadRoom(roomName: String, location):
-	if currentLocation != {}:
-		# Currently in a room, unload it
-		currentLocation.queue_free()
-		currentLocation = {}
-	
-	currentLocation = load("res://scenes/" + roomName + "/" + roomName + ".tscn").instantiate()
-	roomAnchor.add_child(currentLocation)
-	currentLocation.connect("triggerBattle", Callable(self, "startBattle"))
-	currentLocation.spawn(location)
 
 func handle_inputs():
 	if Global.BATTLE_TARGETING_MODE:

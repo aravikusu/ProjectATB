@@ -29,13 +29,14 @@ config/icon="res://icon.svg"
 
 Global="*res://scenes/Global.tscn"
 Enums="*res://autoload/enums.gd"
-GenericCommands="*res://autoload/genericCommands.gd"
-EnemyCommands="*res://autoload/enemyCommands.gd"
-EnemyHelper="*res://autoload/enemyHelper.gd"
-PartyHelper="*res://autoload/partyHelper.gd"
-MultitechCommands="*res://autoload/multitechCommands.gd"
-PartyCommands="*res://autoload/partyCommands.gd"
+GenericCommands="*res://autoload/commands/genericCommands.gd"
+EnemyCommands="*res://autoload/commands/enemyCommands.gd"
+EnemyHelper="*res://autoload/helpers/enemyHelper.gd"
+PartyHelper="*res://autoload/helpers/partyHelper.gd"
+MultitechCommands="*res://autoload/commands/multitechCommands.gd"
+PartyCommands="*res://autoload/commands/partyCommands.gd"
 TransitionCamera="*res://autoload/TransitionCamera.tscn"
+BattleController="*res://autoload/controllers/BattleController.tscn"
 
 [display]
 

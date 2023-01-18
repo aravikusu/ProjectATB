@@ -6,4 +6,5 @@ func _on_button_pressed():
 	button.disabled = true
 	Global.init_savegame()
 	Global.partyFormationShuffler()
-	Global.goto_scene("res://scenes/MainScene.tscn")
+	var location = Global.get_last_location()
+	Global.goto_scene("res://scenes/" + location + "/" + location + ".tscn")
