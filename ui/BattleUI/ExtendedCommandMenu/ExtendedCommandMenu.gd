@@ -12,25 +12,26 @@ var active = false
 @onready var extendedCommand = preload("res://ui/BattleUI/ExtendedCommand/ExtendedCommand.tscn")
 
 func handleInputs():
-	if Input.is_action_just_pressed("ui_select"):
-		if !allItems[currentIndex].disabled:
-			select(allItems[currentIndex])
-	if Input.is_action_just_pressed("ui_cancel"):
-		active = false
-		
-		var s = emit_signal("cancel")
-		if s != OK:
-			Global.printSignalError("ExtendedCommandMenu", "handleInputs", "cancel")
-	if Input.is_action_just_pressed("ui_down"):
-		if currentIndex + 1 >= allItems.size():
-			currentIndex = allItems.size() - 1
-		else:
-			currentIndex += 1
-	if Input.is_action_just_pressed("ui_up"):
-		if currentIndex - 1 < 0:
-			currentIndex = 0
-		else:
-			currentIndex -= 1
+	if active:
+		if Input.is_action_just_pressed("ui_select"):
+			if !allItems[currentIndex].disabled:
+				select(allItems[currentIndex])
+		if Input.is_action_just_pressed("ui_cancel"):
+			active = false
+			
+			var s = emit_signal("cancel")
+			if s != OK:
+				Global.printSignalError("ExtendedCommandMenu", "handleInputs", "cancel")
+		if Input.is_action_just_pressed("ui_down"):
+			if currentIndex + 1 >= allItems.size():
+				currentIndex = allItems.size() - 1
+			else:
+				currentIndex += 1
+		if Input.is_action_just_pressed("ui_up"):
+			if currentIndex - 1 < 0:
+				currentIndex = 0
+			else:
+				currentIndex -= 1
 
 func _process(_delta):
 	if active:

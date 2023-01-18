@@ -44,6 +44,7 @@ func _process(_delta):
 
 func populateExtendedMenu(type: String):
 	extendedMenu.clear()
+	await get_tree().create_timer(0.1).timeout
 	match type:
 		"skill":
 			var partyMem = Global.get_party_member_by_slot(slot)
@@ -78,7 +79,6 @@ func setColor(characterType):
 
 func actionize(command: Dictionary, partner : Object = null):
 	hide()
-	print(command, partner)
 	canAct = false
 	var s = emit_signal("whatDo", slot, command, partner)
 	if s != OK:

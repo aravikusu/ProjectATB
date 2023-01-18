@@ -123,4 +123,5 @@ offset_top = -160.0
 offset_right = 221.0
 offset_bottom = -5.0
 
+[connection signal="cancel" from="ExtendedMenu" to="." method="hideExtendedMenu"]
 [connection signal="selected" from="ExtendedMenu" to="." method="actionize"]

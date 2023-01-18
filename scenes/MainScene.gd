@@ -41,8 +41,9 @@ func loadRoom(roomName: String, location):
 
 func handle_inputs():
 	if Global.BATTLE_TARGETING_MODE:
-		if Input.is_action_just_pressed("pause"):
+		if Input.is_action_just_pressed("ui_cancel"):
 			endTargeting()
+			battleUI.reappearRadialMenu()
  
 func _process(_delta):
 	if Global.get_game_state() == Enums.GAME_STATE.BATTLE:

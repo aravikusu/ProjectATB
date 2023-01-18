@@ -51,5 +51,10 @@ func showRadialMenu(slot: int):
 func hideRadialMenu():
 	radialMenuVisible = false
 
+func reappearRadialMenu():
+	radialCommandPopup.show()
+	await get_tree().create_timer(0.1).timeout
+	radialCommandPopup.canAct = true
+
 func passTurn():
 	pass
