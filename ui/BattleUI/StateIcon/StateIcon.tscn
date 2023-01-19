@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://c64366vbfba4t"]
+
+[ext_resource type="Texture2D" uid="uid://c77anenec1e1i" path="res://assets/ui/state-waiting.png" id="1_4s33r"]
+[ext_resource type="Script" path="res://ui/BattleUI/StateIcon/StateIcon.gd" id="2_bammu"]
+
+[node name="StateIcon" type="TextureRect"]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_4s33r")
+script = ExtResource("2_bammu")

@@ -1,0 +1,209 @@
+[gd_scene load_steps=14 format=3 uid="uid://cx7p2xpdtuc2q"]
+
+[ext_resource type="Script" path="res://ui/BattleUI/PartyMemberFrame.gd" id="1_57m26"]
+[ext_resource type="Texture2D" uid="uid://dqfgu8pk58u4k" path="res://assets/ui/partymemframe.png" id="1_ucobf"]
+[ext_resource type="Texture2D" uid="uid://rjokau8oa460" path="res://assets/ui/bar-under.png" id="3_bkjv5"]
+[ext_resource type="Texture2D" uid="uid://ck30lh1xn5pr3" path="res://assets/ui/bar-hp.png" id="4_6sgnx"]
+[ext_resource type="Texture2D" uid="uid://dfixyqqu0qogq" path="res://assets/ui/bar-mp.png" id="5_p0iie"]
+[ext_resource type="Texture2D" uid="uid://c6krpkwwjrd6k" path="res://assets/ui/bar-atb.png" id="6_ld354"]
+[ext_resource type="PackedScene" uid="uid://c64366vbfba4t" path="res://ui/BattleUI/StateIcon/StateIcon.tscn" id="7_bxvm6"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_t4ve1"]
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_eqaga"]
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_axbh5"]
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_yh0hf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/HBoxContainer/Bars/HP:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MarginContainer/HBoxContainer/Bars/MP:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MarginContainer/HBoxContainer/Bars/ATB:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ktste"]
+resource_name = "dead"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/HBoxContainer/Bars/HP:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.482353, 0.482353, 0.482353, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MarginContainer/HBoxContainer/Bars/MP:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.482353, 0.482353, 0.482353, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MarginContainer/HBoxContainer/Bars/ATB:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.482353, 0.482353, 0.482353, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2jnu2"]
+_data = {
+"RESET": SubResource("Animation_yh0hf"),
+"dead": SubResource("Animation_ktste")
+}
+
+[node name="PartyMemberFrame" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1075.0
+offset_bottom = -620.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_57m26")
+
+[node name="BG" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+offset_right = 105.0
+offset_bottom = 100.0
+texture = ExtResource("1_ucobf")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 204.0
+offset_bottom = 83.0
+theme_override_constants/margin_top = 15
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="Bars" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="HP" type="TextureProgressBar" parent="MarginContainer/HBoxContainer/Bars"]
+unique_name_in_owner = true
+layout_mode = 2
+value = 100.0
+texture_under = ExtResource("3_bkjv5")
+texture_progress = ExtResource("4_6sgnx")
+
+[node name="MP" type="TextureProgressBar" parent="MarginContainer/HBoxContainer/Bars"]
+unique_name_in_owner = true
+layout_mode = 2
+value = 100.0
+texture_under = ExtResource("3_bkjv5")
+texture_progress = ExtResource("5_p0iie")
+
+[node name="ATB" type="TextureProgressBar" parent="MarginContainer/HBoxContainer/Bars"]
+unique_name_in_owner = true
+layout_mode = 2
+value = 100.0
+texture_under = ExtResource("3_bkjv5")
+texture_progress = ExtResource("6_ld354")
+
+[node name="HPLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 105.0
+offset_top = 13.0
+offset_right = 203.0
+offset_bottom = 39.0
+text = "0/0"
+label_settings = SubResource("LabelSettings_t4ve1")
+horizontal_alignment = 1
+
+[node name="MPLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 105.0
+offset_top = 37.0
+offset_right = 203.0
+offset_bottom = 63.0
+text = "0/0"
+label_settings = SubResource("LabelSettings_eqaga")
+horizontal_alignment = 1
+
+[node name="ATBLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 105.0
+offset_top = 61.0
+offset_right = 203.0
+offset_bottom = 87.0
+text = "0/0"
+label_settings = SubResource("LabelSettings_axbh5")
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_2jnu2")
+}
+
+[node name="StateIcon" parent="." instance=ExtResource("7_bxvm6")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_bottom = 0.0
+grow_vertical = 0

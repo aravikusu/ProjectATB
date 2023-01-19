@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://ui/BattleUI/BattleUI.gd" id="1_duoq6"]
 [ext_resource type="Shader" path="res://ui/BattleUI/screen_shockwave.gdshader" id="2_wyegf"]
-[ext_resource type="PackedScene" uid="uid://uucam7rgv78k" path="res://ui/BattleUI/BattleUIPartyContainer/BattleUIPartyContainer.tscn" id="3_1l5cp"]
+[ext_resource type="PackedScene" uid="uid://d1ugfcb62qqip" path="res://ui/BattleUI/BattleUIPartyContainer/BattleUIPartyContainer.tscn" id="3_1l5cp"]
 [ext_resource type="PackedScene" uid="uid://cy2rielifvyl5" path="res://ui/BattleUI/BattleNotification/BattleNotification.tscn" id="4_0n0py"]
 [ext_resource type="PackedScene" uid="uid://ctw86i6nbjh1b" path="res://ui/MultihitDamageCounter/MultihitDamageCounter.tscn" id="5_722d7"]
 [ext_resource type="PackedScene" uid="uid://plyulijqt2ap" path="res://ui/BattleUI/RadialCommandPopup/RadialCommandPopup.tscn" id="6_1yoyx"]
@@ -129,9 +129,9 @@ grow_vertical = 1
 
 [node name="RadialCommandPopup" parent="CanvasLayer" instance=ExtResource("6_1yoyx")]
 offset_left = 868.0
-offset_top = 493.0
+offset_top = 457.0
 offset_right = 88.0
-offset_bottom = 273.0
+offset_bottom = 237.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

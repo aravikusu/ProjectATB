@@ -10,4 +10,4 @@ func _process(_delta):
 
 
 func _on_dummy_trigger_trigger_battle(battleData):
-	BattleScene.startBattle(battleData)
+	BattleController.startBattle(battleData)

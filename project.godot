@@ -8,16 +8,6 @@
 
 config_version=5
 
-_global_script_classes=[{
-"base": "Area3D",
-"class": &"EnemyTrigger",
-"language": &"GDScript",
-"path": "res://actors/enemy/enemy-trigger.gd"
-}]
-_global_script_class_icons={
-"EnemyTrigger": ""
-}
-
 [application]
 
 config/name="ProjectATB"
@@ -43,6 +33,10 @@ BattleController="*res://autoload/controllers/BattleController.tscn"
 window/size/viewport_width=1280
 window/size/viewport_height=720
 window/size/resizable=false
+
+[editor]
+
+export/convert_text_resources_to_binary=true
 
 [input]
 

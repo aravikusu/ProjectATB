@@ -1,38 +1,48 @@
-[gd_scene load_steps=3 format=3 uid="uid://uucam7rgv78k"]
+[gd_scene load_steps=3 format=3 uid="uid://d1ugfcb62qqip"]
 
 [ext_resource type="Script" path="res://ui/BattleUI/BattleUIPartyContainer/BattleUIPartyContainer.gd" id="1_o14jq"]
-[ext_resource type="PackedScene" uid="uid://dtrj5eobobive" path="res://ui/BattleUI/BattleUIPartyMember/BattleUIPartyMember.tscn" id="2_bqekl"]
+[ext_resource type="PackedScene" uid="uid://cx7p2xpdtuc2q" path="res://ui/BattleUI/PartyMemberFrame.tscn" id="2_svd88"]
 
 [node name="BattleUIPartyContainer" type="Control"]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_o14jq")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -623.0
+offset_top = -100.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 15
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
-offset_right = 169.0
-offset_bottom = 444.0
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
 
-[node name="spacer" type="TextureRect" parent="HBoxContainer/VBoxContainer"]
-offset_right = 169.0
+[node name="Frame1" parent="MarginContainer/HBoxContainer" instance=ExtResource("2_svd88")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(205, 0)
+layout_mode = 2
 
-[node name="BattleUIPartyMember" parent="HBoxContainer/VBoxContainer" instance=ExtResource("2_bqekl")]
-offset_top = 4.0
-offset_bottom = 148.0
+[node name="Frame2" parent="MarginContainer/HBoxContainer" instance=ExtResource("2_svd88")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(205, 0)
+layout_mode = 2
 
-[node name="BattleUIPartyMember2" parent="HBoxContainer/VBoxContainer" instance=ExtResource("2_bqekl")]
-offset_top = 152.0
-offset_bottom = 296.0
-slot = 2
-
-[node name="BattleUIPartyMember3" parent="HBoxContainer/VBoxContainer" instance=ExtResource("2_bqekl")]
-offset_top = 300.0
-offset_bottom = 444.0
-slot = 3
-
-[connection signal="actorDied" from="HBoxContainer/VBoxContainer/BattleUIPartyMember" to="." method="hideCommandMenu"]
-[connection signal="actorDied" from="HBoxContainer/VBoxContainer/BattleUIPartyMember2" to="." method="hideCommandMenu"]
-[connection signal="actorDied" from="HBoxContainer/VBoxContainer/BattleUIPartyMember3" to="." method="hideCommandMenu"]
+[node name="Frame3" parent="MarginContainer/HBoxContainer" instance=ExtResource("2_svd88")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(205, 0)
+layout_mode = 2
