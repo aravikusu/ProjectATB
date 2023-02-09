@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://dc0lgkp6h4462"]
+[gd_scene load_steps=2 format=3 uid="uid://dqo2htwoq2vp4"]
 
-[ext_resource type="Script" path="res://ui/NotificationCenter/NotificationCenter.gd" id="1_x3esj"]
+[ext_resource type="Script" path="res://autoload/controllers/NotificationController.gd" id="1_a4ta0"]
 
-[node name="NotificationCenter" type="Control"]
+[node name="NotificationController" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -10,7 +10,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("1_x3esj")
+script = ExtResource("1_a4ta0")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -25,6 +25,5 @@ mouse_filter = 2
 
 [node name="Rewards" type="GridContainer" parent="CanvasLayer/RewardNotifications"]
 unique_name_in_owner = true
-offset_right = 250.0
-offset_bottom = 400.0
+layout_mode = 2
 mouse_filter = 2

@@ -15,7 +15,6 @@ var ceaseEverything = false
 
 @onready var battleUI = $BattleUI
 @onready var targetUI = $TargetUI
-@onready var notificationCenter = $NotificationCenter
 @onready var effectNumbers = preload("res://ui/EffectNumbers/EffectNumbers.tscn")
 @onready var effectText = preload("res://ui/EffectText/EffectText.tscn")
 

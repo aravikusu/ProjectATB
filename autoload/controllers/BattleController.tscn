@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://b4eitcmeccfth"]
+[gd_scene load_steps=4 format=3 uid="uid://b4eitcmeccfth"]
 
 [ext_resource type="Script" path="res://autoload/controllers/BattleController.gd" id="1_7g42o"]
 [ext_resource type="PackedScene" uid="uid://dg22ng82i0ycp" path="res://ui/BattleUI/BattleUI.tscn" id="2_21065"]
 [ext_resource type="PackedScene" uid="uid://y4m4dmi0x2bc" path="res://ui/target-ui/TargetUI.tscn" id="3_fq83i"]
-[ext_resource type="PackedScene" uid="uid://dc0lgkp6h4462" path="res://ui/NotificationCenter/NotificationCenter.tscn" id="4_fuadc"]
 
 [node name="BattleController" type="Node3D"]
 editor_description = "All the battle code."
@@ -12,8 +11,6 @@ script = ExtResource("1_7g42o")
 [node name="BattleUI" parent="." instance=ExtResource("2_21065")]
 
 [node name="TargetUI" parent="." instance=ExtResource("3_fq83i")]
-
-[node name="NotificationCenter" parent="." instance=ExtResource("4_fuadc")]
 
 [connection signal="sendCommand" from="BattleUI" to="." method="prepareTargeting"]
 [connection signal="targetingComplete" from="TargetUI" to="." method="confirmTarget"]
