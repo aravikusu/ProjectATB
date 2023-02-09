@@ -58,7 +58,7 @@ func playDeadAnimation():
 	player.play("dead")
 
 func getHeight():
-	var height = sprite.frames.get_frame_texture("overworld", 0).get_height()
+	var height = sprite.sprite_frames.get_frame_texture("overworld", 0).get_height()
 	return height * sprite.pixel_size
 
 func forceMove(location):

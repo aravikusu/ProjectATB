@@ -10,5 +10,5 @@ func changeSprite(newSprite: String):
 
 # Gets the height of the enemy, converted from pixels to in-game meters.
 func getHeight():
-	var height = frames.get_frame_texture("overworld", 0).get_height()
+	var height = sprite_frames.get_frame_texture("overworld", 0).get_height()
 	return height * pixel_size

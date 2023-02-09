@@ -17,6 +17,7 @@ var forceMoveSpeed = 0
 var didArrive = false
 var targetLocation = Vector3.ZERO
 var moveDirection = Vector3.ZERO
+var moveDelta: float
 
 var active = true
 
@@ -34,14 +35,13 @@ var hitboxRadius = 0
 var showOutline = false
 
 @export var partyLeader = false
-@export_node_path(CharacterBody3D) var targetPath
+@export var target: CharacterBody3D
 
 @onready var characterAnchor = $CharacterAnchor
 @onready var navigationAgent = $NavigationAgent3D
 @onready var camera = $"%Camera"
 @onready var selector = $ActorSelector
 @onready var highlight = $ActorHighlight
-var target: CharacterBody3D
 
 func handle_input() -> Vector3:
 	var input = Vector3()
@@ -61,8 +61,6 @@ func _ready():
 	hitboxRadius = $CollisionShape3D.shape.radius
 	if partyLeader:
 		camera.current = true
-	else:
-		target = get_node(targetPath)
 
 var test = false
 func _physics_process(delta):
@@ -88,13 +86,13 @@ func _physics_process(delta):
 					_velocity.y -= gravity * delta
 				
 				set_velocity(_velocity)
-				@warning_ignore(return_value_discarded)
 				move_and_slide()
 			else:
 				# A follower. Always follows their target.
-				setTargetLocation(target.global_position)
+				setTargetPosition(target.global_position)
+				moveDelta = speed * delta
 				var current = global_transform.origin
-				var next = navigationAgent.get_next_location()
+				var next = navigationAgent.get_next_path_position()
 				_velocity = (next - current) * speed
 				
 				if not is_on_floor():
@@ -103,10 +101,10 @@ func _physics_process(delta):
 				set_velocity(_velocity)
 				move_and_slide()
 
-# Used in follower mode. Sets the current location of their target.
-func setTargetLocation(location: Vector3):
+# Used in follower mode. Sets the current position of their target.
+func setTargetPosition(pos: Vector3):
 	didArrive = false
-	navigationAgent.set_target_location(location)
+	navigationAgent.set_target_position(pos)
 
 func swapCharacter(player):
 	var character

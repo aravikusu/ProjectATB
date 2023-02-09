@@ -1,0 +1,6 @@
+~~~ARATALK SCRIPT~~~
+NPCTest: This is the first text box in the DialogueController test.
+[color=blue]NPCTest[/color]: [b]BBCode[/b] is [i]allowed[/i].
+NPCTest: The following word is randomly picked between three choices using the rand function: rand{erogros|unicorns|gigachad}
+NPCTest: The next textbox will showcase data and the plural function.
+NPCTest: You have talked to me $0 pl{$0|time|times}.

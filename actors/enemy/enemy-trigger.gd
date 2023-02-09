@@ -13,7 +13,7 @@ signal triggerBattle(battleData)
 # Decides if the battle can be escaped or not.
 @export var canRun = true
 # The camera of the battle. If none is found, it will use the default.
-@export_node_path(Camera3D) var battleCamera
+@export var battleCamera: Camera3D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -22,10 +22,10 @@ func _ready():
 func entered(body):
 	if body == Global.get_player_character():
 		var cam : Camera3D
-		if get_node(battleCamera) != null:
-			cam = get_node(battleCamera)
-		else:
+		if battleCamera == null:
 			cam = Global.get_player_camera()
+		else:
+			cam = battleCamera
 		set_deferred("monitoring", false)
 		var s = emit_signal("triggerBattle", {
 			"party": Global.get_active_party(),

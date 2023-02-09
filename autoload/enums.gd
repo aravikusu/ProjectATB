@@ -12,6 +12,7 @@ enum GAME_STATE {
 	BATTLE = 1,
 	CUTSCENE = 2,
 	CAMPSITE = 3,
+	TALKING = 4,
 	TITLE_SCREEN = 99
 }
 

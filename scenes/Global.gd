@@ -110,7 +110,7 @@ func init_savegame():
 func save_game():
 	var dir = DirAccess.open(SAVE_DIR)
 	if !dir:
-		@warning_ignore(return_value_discarded)
+		@warning_ignore("return_value_discarded")
 		DirAccess.make_dir_absolute("user://saves/")
 	
 	var file = FileAccess.open_encrypted_with_pass(save_path, FileAccess.WRITE, "TastyHasAGreatRack")
@@ -306,7 +306,7 @@ func set_party_member_collision(enable: bool):
 func openFile(dataFile: String):
 	var file = FileAccess.open(dataFile, FileAccess.READ)
 	var test_json_conv = JSON.new()
-	@warning_ignore(return_value_discarded)
+	@warning_ignore("return_value_discarded")
 	test_json_conv.parse(file.get_as_text())
 	var data = test_json_conv.get_data()
 	return data
@@ -318,7 +318,7 @@ func imageResize(folder_path, key, size = 64):
 	if texture != null:
 		texture = texture.get_data()
 		texture.resize(size, size)
-		@warning_ignore(return_value_discarded, static_called_on_instance)
+		@warning_ignore("return_value_discarded", "static_called_on_instance")
 		newTexture.create_from_image(texture)
 	return newTexture
 
@@ -338,7 +338,7 @@ func printSignalError(node, functionName, signalName):
 # SCENE HANDLERS
 func goto_scene(path):
 	following_scene = path
-	player.playback_speed = 2
+	player.speed_scale = 2
 	player.play_backwards("SceneFade")
 
 func _deferred_goto_scene(path):

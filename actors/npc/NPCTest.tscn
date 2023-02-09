@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://t3nc1i60mo6v"]
+
+[ext_resource type="Texture2D" uid="uid://b5uaxwxch2xjq" path="res://assets/sprites/npctest.png" id="2_b7pwg"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u0phx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_b7pwg")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="NPCTest" type="AnimatedSprite3D"]
+transform = Transform3D(1.7, 0, 0, 0, 1.7, 0, 0, 0, 1.7, 0, 0, 0)
+shaded = true
+frames = SubResource("SpriteFrames_u0phx")
+animation = &"idle"

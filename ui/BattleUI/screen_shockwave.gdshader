@@ -4,6 +4,7 @@ uniform vec2 center;
 uniform float force;
 uniform float size;
 uniform float thickness;
+uniform sampler2D SCREEN_TEXTURE: hint_screen_texture, filter_linear_mipmap;
 
 void fragment() {
 	float ratio = SCREEN_PIXEL_SIZE.x / SCREEN_PIXEL_SIZE.y;

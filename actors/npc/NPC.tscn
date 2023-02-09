@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://daas2s4e2iiof"]
+
+[ext_resource type="Script" path="res://actors/npc/npc.gd" id="1_h3x0s"]
+[ext_resource type="PackedScene" uid="uid://0dxmc6hd07fl" path="res://ui/InteractPrompt.tscn" id="3_4pepo"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8xpr8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i4w7c"]
+size = Vector3(1.89898, 2, 2.19364)
+
+[node name="NPC" type="CharacterBody3D"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+script = ExtResource("1_h3x0s")
+dialogueFilePath = null
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_8xpr8")
+
+[node name="SpriteAnchor" type="Node3D" parent="."]
+
+[node name="InteractArea" type="Area3D" parent="."]
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractArea"]
+shape = SubResource("BoxShape3D_i4w7c")
+
+[node name="InteractPrompt" parent="." instance=ExtResource("3_4pepo")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 1.63688, 0.348468)
+icon = 0
+text = ""
+
+[node name="NightLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0201957, 0.274337)
+light_energy = 0.111
+omni_range = 1.0
+
+[connection signal="body_entered" from="InteractArea" to="." method="_on_interact_area_body_entered"]
+[connection signal="body_exited" from="InteractArea" to="." method="_on_interact_area_body_exited"]

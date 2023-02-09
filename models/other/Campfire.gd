@@ -18,7 +18,6 @@ func handleInputs():
 		if inrange:
 			if Input.is_action_just_pressed("ui_select"):
 				openCampsiteMenu()
-	
 
 func openCampsiteMenu():
 	Global.set_game_state(Enums.GAME_STATE.CAMPSITE)

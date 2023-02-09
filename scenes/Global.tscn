@@ -30,6 +30,7 @@ script = ExtResource("1")
 layer = 2
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
@@ -50,14 +51,14 @@ editor_description = "The PartyTrain contains every party member. PartyMember1 i
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -251, -162, 0)
 partyLeader = true
 
-[node name="PartyMember2" parent="PartyTrain" instance=ExtResource("3_emquo")]
+[node name="PartyMember2" parent="PartyTrain" node_paths=PackedStringArray("target") instance=ExtResource("3_emquo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -240, -157, 0)
 collision_mask = 11
-targetPath = NodePath("../PartyMember1")
+target = NodePath("../PartyMember1")
 
-[node name="PartyMember3" parent="PartyTrain" instance=ExtResource("3_emquo")]
+[node name="PartyMember3" parent="PartyTrain" node_paths=PackedStringArray("target") instance=ExtResource("3_emquo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -238, -155, 0)
 collision_mask = 11
-targetPath = NodePath("../PartyMember2")
+target = NodePath("../PartyMember2")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

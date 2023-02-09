@@ -9,11 +9,13 @@ uniform sampler2D normalmap: hint_normal;
 
 uniform vec4 color: source_color;
 uniform vec4 edge_color: source_color;
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
 
 // Related to the edge - i.e, the rim
 uniform float edge_scale = 0.25;
 uniform float near = 0.1;
 uniform float far = 100.f;
+uniform sampler2D DEPTH_TEXTURE: hint_depth_texture, filter_linear_mipmap;
 
 // Wave related...
 uniform vec2 wave_strength = vec2(0.5, 0.25);

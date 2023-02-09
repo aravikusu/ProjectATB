@@ -44,6 +44,6 @@ animations = [{
 [node name="Aravix" type="AnimatedSprite3D"]
 shaded = true
 alpha_cut = 1
-frames = SubResource("SpriteFrames_f8i0p")
+sprite_frames = SubResource("SpriteFrames_f8i0p")
 animation = &"overworld"
 script = ExtResource("3_j8m3u")

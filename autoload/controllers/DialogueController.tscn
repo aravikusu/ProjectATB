@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dpdmenlqfsrjy"]
+
+[ext_resource type="Script" path="res://autoload/controllers/DialogueController.gd" id="1_qqssu"]
+
+[node name="DialogueController" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_qqssu")
