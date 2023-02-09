@@ -4,23 +4,22 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cyelbt5281oyw"
 path.s3tc="res://.godot/imported/debugdummy.png-f475e5c6102f3f5533f2d026498f4b2d.s3tc.ctex"
-path.etc2="res://.godot/imported/debugdummy.png-f475e5c6102f3f5533f2d026498f4b2d.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc", "etc2"],
+"imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/sprites/debugdummy.png"
-dest_files=["res://.godot/imported/debugdummy.png-f475e5c6102f3f5533f2d026498f4b2d.s3tc.ctex", "res://.godot/imported/debugdummy.png-f475e5c6102f3f5533f2d026498f4b2d.etc2.ctex"]
+dest_files=["res://.godot/imported/debugdummy.png-f475e5c6102f3f5533f2d026498f4b2d.s3tc.ctex"]
 
 [params]
 
 compress/mode=2
+compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/bptc_ldr=0
 compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=true

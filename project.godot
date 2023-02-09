@@ -28,12 +28,17 @@ PartyCommands="*res://autoload/commands/partyCommands.gd"
 TransitionCamera="*res://autoload/TransitionCamera.tscn"
 BattleController="*res://autoload/controllers/BattleController.tscn"
 DialogueController="*res://autoload/controllers/DialogueController.tscn"
+AraVox="*res://addons/aravox/aravox.gd"
 
 [display]
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
 window/size/resizable=false
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/aravox/plugin.cfg")
 
 [input]
 

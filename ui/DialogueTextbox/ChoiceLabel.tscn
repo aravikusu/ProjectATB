@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://5mr5ibcckam0"]
+
+[ext_resource type="Script" path="res://ui/DialogueTextbox/ChoiceLabel.gd" id="1_kbcjl"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_bqacm"]
+
+[node name="ChoiceLabel" type="MarginContainer"]
+custom_minimum_size = Vector2(150, 0)
+offset_right = 150.0
+offset_bottom = 31.0
+script = ExtResource("1_kbcjl")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer"]
+layout_mode = 2
+text = "Choice"
+label_settings = SubResource("LabelSettings_bqacm")
+horizontal_alignment = 1

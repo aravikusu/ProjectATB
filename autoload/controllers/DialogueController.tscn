@@ -1,8 +1,65 @@
-[gd_scene load_steps=2 format=3 uid="uid://dpdmenlqfsrjy"]
+[gd_scene load_steps=6 format=3 uid="uid://dpdmenlqfsrjy"]
 
 [ext_resource type="Script" path="res://autoload/controllers/DialogueController.gd" id="1_qqssu"]
+[ext_resource type="PackedScene" uid="uid://bcfb6njvb141d" path="res://ui/DialogueTextbox/DialogueTextbox.tscn" id="2_u3cdc"]
+
+[sub_resource type="Animation" id="Animation_vd6nq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DialogueTextbox:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_mhlia"]
+resource_name = "fade"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DialogueTextbox:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ishdn"]
+_data = {
+"RESET": SubResource("Animation_vd6nq"),
+"fade": SubResource("Animation_mhlia")
+}
 
 [node name="DialogueController" type="Control"]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_qqssu")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ishdn")
+}
+
+[node name="DialogueTextbox" parent="." instance=ExtResource("2_u3cdc")]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+grow_vertical = 0
+mouse_filter = 2
+
+[connection signal="finished" from="DialogueTextbox" to="." method="_on_dialogue_textbox_finished"]

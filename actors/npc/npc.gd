@@ -35,6 +35,7 @@ var inrange = false
 
 @onready var interactPrompt = $InteractPrompt
 @onready var spriteAnchor = $SpriteAnchor
+@onready var aravoxController = $AraVoxController
 func _ready():
 	if !Engine.is_editor_hint():
 		setStuff()
@@ -49,6 +50,7 @@ func handleInputs():
 
 func interact():
 	inrange = false
+	aravoxController.generate()
 
 func _physics_process(delta):
 	if Engine.is_editor_hint():
@@ -92,3 +94,7 @@ func _on_interact_area_body_entered(body):
 func _on_interact_area_body_exited(body):
 	if body == Global.get_player_character():
 		inrange = false
+
+
+func _on_ara_vox_controller_script_generation_finished(script):
+	DialogueController.startConversation(script, self)

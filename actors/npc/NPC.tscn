@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://daas2s4e2iiof"]
+[gd_scene load_steps=6 format=3 uid="uid://daas2s4e2iiof"]
 
 [ext_resource type="Script" path="res://actors/npc/npc.gd" id="1_h3x0s"]
 [ext_resource type="PackedScene" uid="uid://0dxmc6hd07fl" path="res://ui/InteractPrompt.tscn" id="3_4pepo"]
+[ext_resource type="Script" path="res://addons/aravox/aravox_controller.gd" id="3_m2ens"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8xpr8"]
 
@@ -11,7 +12,6 @@ size = Vector3(1.89898, 2, 2.19364)
 [node name="NPC" type="CharacterBody3D"]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
 script = ExtResource("1_h3x0s")
-dialogueFilePath = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_8xpr8")
@@ -34,5 +34,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0201957, 0.274337)
 light_energy = 0.111
 omni_range = 1.0
 
+[node name="AraVoxController" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("3_m2ens")
+dialogue_file = "res://assets/dialogue/NPCTest.txt"
+
 [connection signal="body_entered" from="InteractArea" to="." method="_on_interact_area_body_entered"]
 [connection signal="body_exited" from="InteractArea" to="." method="_on_interact_area_body_exited"]
+[connection signal="script_generation_finished" from="AraVoxController" to="." method="_on_ara_vox_controller_script_generation_finished"]
