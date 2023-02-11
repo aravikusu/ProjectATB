@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3]
 
-[ext_resource type="Script" path="res://ui/Notifications/Notification.gd" id="1_jvq64"]
+[ext_resource type="Script" path="res://ui/Notifications/Update/Update.gd" id="1_jvq64"]
 [ext_resource type="Texture2D" uid="uid://d3284h6rtkaal" path="res://assets/ui/notification.png" id="2_p77cm"]
 [ext_resource type="FontFile" uid="uid://ckhvh2v5u5uhm" path="res://assets/fonts/Roboto-Regular.ttf" id="3_necjy"]
 

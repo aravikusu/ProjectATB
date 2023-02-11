@@ -1,6 +1,7 @@
 extends Node3D
 
 func _ready():
+	NotificationController.showAreaNotification("Debug Forest", "\"A grove hidden deep in an unknown forest.\nSupposedly, the world as we know it is being developed here.\"")
 	Global.set_party_position(Vector3(1.5, 5, 0))
 
 

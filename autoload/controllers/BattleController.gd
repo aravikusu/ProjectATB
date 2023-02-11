@@ -363,7 +363,7 @@ func postBattleCleanup():
 	
 	battleUI.end()
 	await get_tree().create_timer(1.0).timeout
-	notificationCenter.addRewardNotification("You got nothing...")
+	NotificationController.addUpdateotification("You got nothing...")
 	Global.set_game_state(Enums.GAME_STATE.ROAMING)
 	BATTLE_STATE = Enums.BATTLE_STATE.AWAITING_ACTION
 	BATTLE_END_STATE = Enums.BATTLE_END_STATE.ONGOING

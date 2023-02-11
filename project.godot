@@ -29,6 +29,7 @@ TransitionCamera="*res://autoload/TransitionCamera.tscn"
 BattleController="*res://autoload/controllers/BattleController.tscn"
 DialogueController="*res://autoload/controllers/DialogueController.tscn"
 AraVox="*res://addons/aravox/aravox.gd"
+NotificationController="*res://autoload/controllers/NotificationController.tscn"
 
 [display]
 

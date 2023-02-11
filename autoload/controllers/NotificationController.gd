@@ -1,10 +1,14 @@
 extends Control
 
-@onready var notification = preload("res://ui/NotificationCenter/Notification.tscn")
+@onready var update = preload("res://ui/Notifications/Update/Update.tscn")
 
-@onready var rewards = $"%Rewards"
+@onready var updates = $"%Updates"
+@onready var area = $"%Area"
 
-func addRewardNotification(text: String):
-	var instance = notification.instantiate()
-	rewards.add_child(instance)
-	instance.prepareReward(text)
+func addUpdateNotification(text: String):
+	var instance = update.instantiate()
+	updates.add_child(instance)
+	instance.prepare(text)
+
+func showAreaNotification(areaName: String, areaDescription: String):
+	area.prepare(areaName, areaDescription)
