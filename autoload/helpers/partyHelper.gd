@@ -1,5 +1,10 @@
 extends Node
 
+# Level one stats for each party member.
+@onready var aravixStats = preload("res://actors/party/aravix-stats.tres")
+@onready var aylikStats = preload("res://actors/party/aylik-stats.tres")
+@onready var tastyStats = preload("res://actors/party/tasty-stats.tres")
+
 func getPartyMemberCommands(player: Dictionary) -> Array:
 	var commands = []
 	
@@ -58,7 +63,7 @@ func getPartnerForMultitech(user, command):
 			pass
 	return partner
 
-func getPartyMemberStats(level: int, type: Enums.CHARACTER) -> Dictionary:
+func getPartyMemberStats(level: int, type: Enums.CHARACTER) -> Stats:
 	var stats = {}
 	match type:
 		Enums.CHARACTER.ARAVIX:
@@ -70,35 +75,11 @@ func getPartyMemberStats(level: int, type: Enums.CHARACTER) -> Dictionary:
 	
 	return stats
 
-func getAravixStats(_level: int) -> Dictionary:
-	var stats = {
-		"HP": 100,
-		"MP": 100,
-		"STR": 1,
-		"INT": 1,
-		"SPD": 4
-	}
-	
-	return stats
+func getAravixStats(_level: int) -> Stats:
+	return aravixStats
 
-func getAylikStats(_level: int) -> Dictionary:
-	var stats = {
-		"HP": 100,
-		"MP": 100,
-		"STR": 1,
-		"INT": 1,
-		"SPD": 3
-	}
-	
-	return stats
+func getAylikStats(_level: int) -> Stats:
+	return aylikStats
 
-func getTastyStats(_level: int) -> Dictionary:
-	var stats = {
-		"HP": 100,
-		"MP": 100,
-		"STR": 1,
-		"INT": 1,
-		"SPD": 2
-	}
-	
-	return stats
+func getTastyStats(_level: int) -> Stats:
+	return tastyStats

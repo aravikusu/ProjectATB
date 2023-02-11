@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Stats" load_steps=2 format=3 uid="uid://bxnaty0u4wonw"]
+
+[ext_resource type="Script" path="res://assets/resources/stats.gd" id="1_ds8vo"]
+
+[resource]
+script = ExtResource("1_ds8vo")
+HP = 125
+MP = 75
+ATK = 3
+MATK = 3
+DEF = 4
+MDEF = 2
+SPD = 3
+LUK = 2

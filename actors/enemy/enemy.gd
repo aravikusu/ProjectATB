@@ -2,6 +2,7 @@ extends CharacterBody3D
 
 # Used to store get the actual stats and abilities of said enemy.
 @export var displayName := ""
+@export var stats: Stats
 var playerControlled = false
 var forcedToMove = false
 var forceMoveTarget = Vector3(0, 0, 0)
@@ -9,12 +10,7 @@ var forceMoveTarget = Vector3(0, 0, 0)
 var speed := 3.0
 var gravity := 2.0
 
-var stats = {}
 var commands = []
-var maxHP = 100
-var currentHP = 100
-var maxMP = 100
-var currentMP = 100
 var ATB = 0
 var CHARACTER_BATTLE_STATE = Enums.CHARACTER_BATTLE_STATE.CHARGING
 var currentSprite = "overworld"
@@ -26,7 +22,6 @@ var showOutline = false
 @onready var sprite = $"%Sprite"
 
 func _ready():
-	stats = EnemyHelper.getEnemyStats(displayName)
 	commands = EnemyHelper.getEnemyCommands(displayName)
 	hitboxRadius = $CollisionShape3D.shape.radius
 

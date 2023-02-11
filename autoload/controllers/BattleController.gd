@@ -235,12 +235,12 @@ func commandHit(action, effectNumberPos, effectNumberDirection):
 		var damage = 1
 		
 		for target in action.target:
-			var prevHP = target.currentHP
-			var newHP = target.currentHP - damage
+			var prevHP = target.stats.HP
+			var newHP = target.stats.HP - damage
 			if newHP < 0:
-				target.currentHP = 0
+				target.stats.HP = 0
 			else:
-				target.currentHP = newHP
+				target.stats.HP = newHP
 			
 			if newHP == 0 && prevHP > 0:
 				target.CHARACTER_BATTLE_STATE = Enums.CHARACTER_BATTLE_STATE.DEAD
@@ -326,7 +326,7 @@ func checkForBattleEnd():
 func areYouDeadYet(dudes: Array):
 	var deadGuys = []
 	for actor in dudes:
-		if actor.currentHP == 0: deadGuys.append(dudes)
+		if actor.stats.HP == 0: deadGuys.append(dudes)
 	
 	if deadGuys.size() == dudes.size():
 		return true

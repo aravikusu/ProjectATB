@@ -21,12 +21,8 @@ var moveDelta: float
 
 var active = true
 
-var maxHP = 100
-var currentHP = 100
-var maxMP = 100
-var currentMP = 100
 var ATB = 0
-var stats = {}
+@export var stats: Stats
 var commands = []
 var CHARACTER_BATTLE_STATE = Enums.CHARACTER_BATTLE_STATE.CHARGING
 var currentSprite = "overworld"
@@ -131,10 +127,6 @@ func swapCharacter(player):
 	
 	characterType = player.type
 	stats = PartyHelper.getPartyMemberStats(player.level, player.type)
-	maxHP = stats.HP
-	maxMP = stats.MP
-	currentHP = player.currentHP
-	currentMP = player.currentMP
 	displayName = player.name
 	commands = PartyHelper.getPartyMemberCommands(player)
 
@@ -148,7 +140,7 @@ func flush():
 	loadedCharacter = {}
 	characterType = Enums.CHARACTER.NONE
 	CHARACTER_BATTLE_STATE = Enums.CHARACTER_BATTLE_STATE.CHARGING
-	stats = {}
+	stats = null
 	commands = []
 	currentSprite = "overworld"
 	ATB = 0

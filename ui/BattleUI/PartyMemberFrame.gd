@@ -18,8 +18,8 @@ var actorWasDeadLastFrame = false
 func setup(partymember: Object):
 	connectedPartyMember = partymember
 	
-	hp.max_value = connectedPartyMember.maxHP
-	mp.max_value = connectedPartyMember.maxMP
+	hp.max_value = connectedPartyMember.stats.maxHP
+	mp.max_value = connectedPartyMember.stats.maxMP
 	
 	match connectedPartyMember.characterType:
 		Enums.CHARACTER.ARAVIX:
@@ -45,11 +45,11 @@ func _process(delta):
 			stateIcon.setIcon(connectedPartyMember.CHARACTER_BATTLE_STATE)
 
 func barThings():
-	hp.value = connectedPartyMember.currentHP
-	mp.value = connectedPartyMember.currentMP
+	hp.value = connectedPartyMember.stats.HP
+	mp.value = connectedPartyMember.stats.MP
 	atb.value = connectedPartyMember.ATB
-	hpLabel.text = str(connectedPartyMember.currentHP) + "/" + str(connectedPartyMember.maxHP)
-	mpLabel.text = str(connectedPartyMember.currentMP) + "/" + str(connectedPartyMember.maxMP)
+	hpLabel.text = str(connectedPartyMember.stats.HP) + "/" + str(connectedPartyMember.stats.maxHP)
+	mpLabel.text = str(connectedPartyMember.stats.MP) + "/" + str(connectedPartyMember.stats.maxMP)
 	atbLabel.text = str(floor(connectedPartyMember.ATB)) + "/100"
 
 func clear():

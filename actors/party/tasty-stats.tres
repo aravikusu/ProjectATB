@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Stats" load_steps=2 format=3 uid="uid://dg5rsjb3j2usc"]
+
+[ext_resource type="Script" path="res://assets/resources/stats.gd" id="1_drb51"]
+
+[resource]
+script = ExtResource("1_drb51")
+HP = 150
+MP = 100
+ATK = 1
+MATK = 5
+DEF = 3
+MDEF = 7
+SPD = 2
+LUK = 1
