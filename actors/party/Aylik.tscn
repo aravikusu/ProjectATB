@@ -44,6 +44,6 @@ animations = [{
 [node name="Aylik" type="AnimatedSprite3D"]
 shaded = true
 alpha_cut = 1
-frames = SubResource("SpriteFrames_2tqdh")
+sprite_frames = SubResource("SpriteFrames_2tqdh")
 animation = &"overworld"
 script = ExtResource("3_56u8n")

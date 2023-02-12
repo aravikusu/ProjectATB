@@ -12,7 +12,7 @@ var save_path = SAVE_DIR + "save.dat"
 var config_path = "user://" + "config.dat"
 
 var gameOverScreen = preload("res://ui/GameOverScreen/GameOverScreen.tscn")
-var pauseScreen = preload("res://scenes/PauseMenu/PauseMenu.tscn")
+var pauseScreen = preload("res://ui/PauseMenu/PauseMenu.tscn")
 var canPause = false
 var paused = false
 
@@ -22,6 +22,7 @@ var playerIsDead = false
 @onready var partyMem1 = $PartyTrain/PartyMember1
 @onready var partyMem2 = $PartyTrain/PartyMember2
 @onready var partyMem3 = $PartyTrain/PartyMember3
+@onready var monster = $PartyTrain/Monster
 
 @onready var _GAME_STATE = Enums.GAME_STATE.TITLE_SCREEN
 
@@ -86,6 +87,14 @@ func default_save():
 				"acc": null
 			},
 			"partyPlace": 3
+		},
+		"monster": {
+			"name": "DummyMonster",
+			"level": 0,
+			"type": Enums.CHARACTER.MONSTER,
+			"currentHP": 100,
+			"currentMP": 100,
+			"partyPlace": 4
 		},
 		"inventory": [
 			
@@ -162,19 +171,21 @@ func get_player(number: int):
 
 # As above, but returns everything at once
 func get_party():
-	return [_save_file.player1, _save_file.player2, _save_file.player3]
+	return [_save_file.player1, _save_file.player2, _save_file.player3, _save_file.monster]
 
 func get_party_info_by_slot(slot):
 	match slot:
 		1: return _save_file.player1
 		2: return _save_file.player2
 		3: return _save_file.player3
+		4: return _save_file.monster
 
 func get_party_member_by_slot(slot):
 	match slot:
 		1: return partyMem1
 		2: return partyMem2
 		3: return partyMem3
+		4: return monster
 
 # This is not really efficient, but...
 func get_party_member_by_type(type):
@@ -187,6 +198,8 @@ func get_party_member_by_type(type):
 			partyMember = _save_file.player2
 		Enums.CHARACTER.TASTY:
 			partyMember = _save_file.player3
+		Enums.CHARACTER.MONSTER:
+			partyMember = _save_file.monster
 	
 	return get_party_member_by_slot(partyMember.partyPlace)
 
@@ -250,6 +263,7 @@ func partyFormationShuffler():
 			1: partyMem1.swapCharacter(member)
 			2: partyMem2.swapCharacter(member)
 			3: partyMem3.swapCharacter(member)
+			4: monster.swapCharacter(member)
 
 func set_pause(toggle: bool):
 	canPause = toggle
@@ -293,6 +307,7 @@ func set_party_position(coordinates: Vector3):
 	partyMem1.set_position(coordinates)
 	partyMem2.set_position(Vector3(coordinates.x + 0.01, coordinates.y + 0.01, coordinates.z + 0.01))
 	partyMem3.set_position(Vector3(coordinates.x + 0.3, coordinates.y + 0.2, coordinates.z + 0.2))
+	monster.set_position(Vector3(coordinates.x + 0.4, coordinates.y + 0.3, coordinates.z + 0.3))
 
 func set_party_member_collision(enable: bool):
 	if enable:

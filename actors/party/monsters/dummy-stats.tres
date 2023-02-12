@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="Stats" load_steps=2 format=3 uid="uid://bv7inc8jcxs7s"]
+
+[ext_resource type="Script" path="res://assets/resources/stats.gd" id="1_5omxv"]
+
+[resource]
+script = ExtResource("1_5omxv")
+Level = 0
+maxHP = 1
+HP = 1
+maxMP = 1
+MP = 1
+ATK = 1
+MATK = 1
+DEF = 1
+MDEF = 1
+SPD = 1
+LUK = 1
+Fire = 1
+Water = 1
+Ice = 1
+Lightning = 1
+Wind = 1
+Nature = 1
+Earth = 1
+Light = 1
+Dark = 1
+Anima = 1

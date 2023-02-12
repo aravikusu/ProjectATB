@@ -1,9 +1,10 @@
 class_name Stats
 extends Resource
 
-var maxHP: int
+@export var Level: int
+@export var maxHP: int
 @export var HP: int
-var maxMP: int
+@export var maxMP: int
 @export var MP: int
 @export var ATK: int
 @export var MATK: int
@@ -21,7 +22,3 @@ var maxMP: int
 @export var Light: Enums.ELEMENT_RESISTANCE = Enums.ELEMENT_RESISTANCE.NEUTRAL
 @export var Dark: Enums.ELEMENT_RESISTANCE = Enums.ELEMENT_RESISTANCE.NEUTRAL
 @export var Anima: Enums.ELEMENT_RESISTANCE = Enums.ELEMENT_RESISTANCE.NEUTRAL
-
-func _ready():
-	maxHP = HP
-	maxMP = MP

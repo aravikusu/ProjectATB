@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3i2dyurwrqf7"]
+
+[ext_resource type="Script" path="res://actors/party/Character.gd" id="1_lug0j"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wj8u1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}],
+"loop": true,
+"name": &"dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": null
+}],
+"loop": true,
+"name": &"overworld",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": null
+}],
+"loop": true,
+"name": &"ready",
+"speed": 5.0
+}]
+
+[node name="Dummy" type="AnimatedSprite3D"]
+sprite_frames = SubResource("SpriteFrames_wj8u1")
+animation = &"ready"
+script = ExtResource("1_lug0j")

@@ -61,4 +61,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -238, -155, 0)
 collision_mask = 11
 target = NodePath("../PartyMember2")
 
+[node name="Monster" parent="PartyTrain" node_paths=PackedStringArray("target") instance=ExtResource("3_emquo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -238, -155, 0)
+visible = false
+collision_mask = 11
+target = NodePath("../PartyMember3")
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

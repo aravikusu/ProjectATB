@@ -19,8 +19,6 @@ var targetLocation = Vector3.ZERO
 var moveDirection = Vector3.ZERO
 var moveDelta: float
 
-var active = true
-
 var ATB = 0
 @export var stats: Stats
 var commands = []
@@ -117,6 +115,10 @@ func swapCharacter(player):
 			character = load("res://actors/party/Aylik.tscn")
 			selector.color = Color("#218251")
 			highlight.color = Color("#218251")
+		Enums.CHARACTER.MONSTER:
+			character = load("res://actors/party/monsters/Dummy.tscn")
+			selector.color = Color("#774b2c")
+			highlight.color = Color("#774b2c")
 	
 	# Remove the old character if it exists, then save the new one
 	if loadedCharacter != {}:
@@ -180,3 +182,6 @@ func getHeight():
 
 func playDeadAnimation():
 	setDeadSprite()
+
+func setInactive():
+	set_collision_layer_value(2, false)

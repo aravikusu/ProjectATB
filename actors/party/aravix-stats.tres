@@ -4,7 +4,10 @@
 
 [resource]
 script = ExtResource("1_hw7uw")
+Level = 1
+maxHP = 175
 HP = 175
+maxMP = 25
 MP = 25
 ATK = 3
 MATK = 3
@@ -12,3 +15,13 @@ DEF = 4
 MDEF = 2
 SPD = 2
 LUK = 1
+Fire = 1
+Water = 1
+Ice = 1
+Lightning = 1
+Wind = 1
+Nature = 1
+Earth = 1
+Light = 1
+Dark = 1
+Anima = 1

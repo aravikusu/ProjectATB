@@ -72,7 +72,8 @@ func getPartyMemberStats(level: int, type: Enums.CHARACTER) -> Stats:
 			stats = getAylikStats(level)
 		Enums.CHARACTER.TASTY:
 			stats = getTastyStats(level)
-	
+		Enums.CHARACTER.MONSTER:
+			stats = getMonsterStats()
 	return stats
 
 func getAravixStats(_level: int) -> Stats:
@@ -83,3 +84,6 @@ func getAylikStats(_level: int) -> Stats:
 
 func getTastyStats(_level: int) -> Stats:
 	return tastyStats
+
+func getMonsterStats() -> Stats:
+	return load("res://actors/party/monsters/dummy-stats.tres")

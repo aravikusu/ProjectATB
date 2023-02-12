@@ -15,7 +15,6 @@ editor_description = "The main actors of the game. Can be a party leader (player
 collision_layer = 2
 collision_mask = 9
 script = ExtResource("1_jf6ms")
-partyLeader = null
 
 [node name="CameraAnchor" type="Node3D" parent="."]
 

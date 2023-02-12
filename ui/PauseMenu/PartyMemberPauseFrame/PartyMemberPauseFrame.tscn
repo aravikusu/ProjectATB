@@ -1,0 +1,121 @@
+[gd_scene load_steps=10 format=3 uid="uid://gdq5aimprug2"]
+
+[ext_resource type="Script" path="res://ui/PauseMenu/PartyMemberPauseFrame/PartyMemberPauseFrame.gd" id="1_qx5jt"]
+[ext_resource type="Texture2D" uid="uid://dqfgu8pk58u4k" path="res://assets/ui/partymemframe.png" id="1_x7xth"]
+[ext_resource type="Texture2D" uid="uid://rjokau8oa460" path="res://assets/ui/bar-under.png" id="2_33mk3"]
+[ext_resource type="Texture2D" uid="uid://ck30lh1xn5pr3" path="res://assets/ui/bar-hp.png" id="3_wcsvk"]
+[ext_resource type="Texture2D" uid="uid://dfixyqqu0qogq" path="res://assets/ui/bar-mp.png" id="4_60bth"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_jnm5r"]
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_314u0"]
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_7vhli"]
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 0
+
+[sub_resource type="LabelSettings" id="LabelSettings_rxyq1"]
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[node name="MarginContainer" type="Control"]
+custom_minimum_size = Vector2(204, 100)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_qx5jt")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+offset_right = 204.0
+offset_bottom = 100.0
+
+[node name="Icon" type="TextureRect" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("1_x7xth")
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="HP" type="TextureProgressBar" parent="HBoxContainer/MarginContainer/VBoxContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 0.0
+texture_under = ExtResource("2_33mk3")
+texture_progress = ExtResource("3_wcsvk")
+
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MP" type="TextureProgressBar" parent="HBoxContainer/MarginContainer/VBoxContainer/MarginContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 0.0
+texture_under = ExtResource("2_33mk3")
+texture_progress = ExtResource("4_60bth")
+
+[node name="Name" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+offset_left = 52.0
+offset_top = 4.0
+offset_right = 256.0
+offset_bottom = 30.0
+text = "Name"
+label_settings = SubResource("LabelSettings_jnm5r")
+horizontal_alignment = 1
+
+[node name="HPLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+offset_left = 104.0
+offset_top = 28.0
+offset_right = 204.0
+offset_bottom = 54.0
+text = "0 / 0"
+label_settings = SubResource("LabelSettings_314u0")
+horizontal_alignment = 1
+
+[node name="MPLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+offset_left = 104.0
+offset_top = 52.0
+offset_right = 204.0
+offset_bottom = 78.0
+text = "0 / 0"
+label_settings = SubResource("LabelSettings_314u0")
+horizontal_alignment = 1
+
+[node name="Level" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 23.0
+offset_top = 93.0
+offset_right = 68.0
+offset_bottom = 119.0
+text = "Level:"
+label_settings = SubResource("LabelSettings_7vhli")
+
+[node name="LevelNum" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 73.0
+offset_top = 93.0
+offset_right = 113.0
+offset_bottom = 119.0
+text = "0"
+label_settings = SubResource("LabelSettings_rxyq1")

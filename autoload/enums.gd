@@ -4,6 +4,7 @@ enum CHARACTER {
 	ARAVIX = 0,
 	AYLIK = 1,
 	TASTY = 2,
+	MONSTER = 3,
 	NONE = 99
 }
 
