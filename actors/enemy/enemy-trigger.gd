@@ -12,6 +12,8 @@ signal triggerBattle(battleData)
 @export var battleInitMessage = ""
 # Decides if the battle can be escaped or not.
 @export var canRun = true
+
+@export_range(0.0, 1.0, 0.01) var runChance
 # The camera of the battle. If none is found, it will use the default.
 @export var battleCamera: Camera3D
 
@@ -33,6 +35,7 @@ func entered(body):
 			"positions": partyPositions,
 			"initMessage": battleInitMessage,
 			"canRun": canRun,
+			"runChance": runChance,
 			"camera": cam
 		})
 		

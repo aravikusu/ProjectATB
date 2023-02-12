@@ -63,3 +63,12 @@ enum MULTITECH_TYPE {
 	TRIPLE = 3,
 	NONE = 99
 }
+
+enum ELEMENT_RESISTANCE {
+	NEUTRAL = 1,
+	WEAK = 2,
+	RESIST = 3,
+	NULL = 4,
+	DRAIN = 5,
+	REPEL = 6
+}

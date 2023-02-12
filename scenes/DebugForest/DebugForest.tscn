@@ -126,6 +126,7 @@ script = ExtResource("10_jls17")
 enemyGroup = "dummy"
 partyPositions = [Vector3(5.476, 4.7, -0.822), Vector3(4.269, 4.7, -1.665), Vector3(4.269, 4.7, 0.015)]
 battleInitMessage = "Battle Test, Run to quit"
+runChance = 1.0
 battleCamera = NodePath("../DummyBattleCamera")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DummyTrigger"]

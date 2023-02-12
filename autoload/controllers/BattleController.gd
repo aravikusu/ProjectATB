@@ -10,6 +10,9 @@ var commandForTargeting = {}
 var currentCommandTotalDamage = 0
 
 var escapeIsPossible : bool
+var runChance = 0.0
+
+var camera : Camera3D
 
 var ceaseEverything = false
 
@@ -53,7 +56,7 @@ func _process(_delta):
 									handleEnemyCommand(actor)
 					currentSlot += 1
 				checkActionQueue()
-			checkForBattleEnd()
+				checkForBattleEnd()
 		else:
 			endBattle()
 
@@ -67,12 +70,14 @@ func startBattle(battleData):
 	Global.set_game_state(Enums.GAME_STATE.BATTLE)
 	Global.set_party_member_collision(false)
 	escapeIsPossible = battleData.canRun
+	runChance = battleData.runChance
 	battleUI.startBattle()
 	if battleData.initMessage != "":
 		battleUI.showNotification(battleData.initMessage)
 	
 	# Transition to the battle camera...
-	TransitionCamera.transition(Global.get_player_camera(), battleData.camera)
+	camera = battleData.camera
+	TransitionCamera.transition(Global.get_player_camera(), camera)
 	
 	# Put all battle actors in an array...
 	actors.append_array(battleData.party)
@@ -282,11 +287,19 @@ func displayEffectText(type: String, location: Vector3):
 # Run has to be handled differently...
 func handleRun():
 	var success = false
-	#TODO: Actual handling of this. Discuss these details.
+	
+	# Do more thorough checking on this. Should speed be taken into account as well?
+	
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	
+	if rng.randf_range(0.0, 1.0) < runChance:
+		success = true
 	
 	if success:
 		# Do whatever is needed for escaping...
-		pass
+		battleUI.showNotification("... and managed to get away!")
+		BATTLE_END_STATE = Enums.BATTLE_END_STATE.RAN_AWAY
 	else:
 		if escapeIsPossible:
 			battleUI.showNotification("... but didn't manage to get away!")
@@ -354,16 +367,17 @@ func endBattle():
 				Global.show_game_over()
 				battleUI.clearPartyUI()
 			Enums.BATTLE_END_STATE.RAN_AWAY:
-				pass
+				postBattleCleanup(true)
 
 # Battle has ended in the players favor - reset all battle things
 # to default and reward the player
-func postBattleCleanup():
+func postBattleCleanup(ranAway = false):
 	# TODO: rewards
 	
 	battleUI.end()
 	await get_tree().create_timer(1.0).timeout
-	NotificationController.addUpdateotification("You got nothing...")
+	if !ranAway:
+		NotificationController.addUpdateotification("You got nothing...")
 	Global.set_game_state(Enums.GAME_STATE.ROAMING)
 	BATTLE_STATE = Enums.BATTLE_STATE.AWAITING_ACTION
 	BATTLE_END_STATE = Enums.BATTLE_END_STATE.ONGOING
@@ -373,4 +387,5 @@ func postBattleCleanup():
 	actors[2].postBattleClean()
 	actors.clear()
 	actionQueue.clear()
+	TransitionCamera.transition(camera, Global.get_player_camera())
 	ceaseEverything = false
