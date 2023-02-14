@@ -28,6 +28,8 @@ var hitboxRadius = 0
 
 var showOutline = false
 
+var active = true
+
 @export var partyLeader = false
 @export var target: CharacterBody3D
 

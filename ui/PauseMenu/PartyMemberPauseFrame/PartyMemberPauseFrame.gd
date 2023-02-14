@@ -26,7 +26,6 @@ func _ready():
 			icon.modulate = Color("#ba7ca7")
 		Enums.CHARACTER.MONSTER:
 			icon.modulate = Color("#774b2c")
-	print(connectedPartyMember.stats)
 	displayName.text = connectedPartyMember.displayName
 	hp.max_value = connectedPartyMember.stats.maxHP
 	mp.max_value = connectedPartyMember.stats.maxMP

@@ -5,6 +5,7 @@ extends Control
 @onready var actualMenu = $"%ActualMenu"
 
 @onready var overviewMenu = preload("res://ui/PauseMenu/OverviewScreen/OverviewScreen.tscn")
+@onready var settingsMenu = preload("res://ui/PauseMenu/SettingsScreen/SettingsScreen.tscn")
 
 var activeMenu : MarginContainer = null
 
@@ -21,18 +22,20 @@ func handleInputs():
 			categoryInputs()
 
 func categoryInputs():
-	if Input.is_action_just_pressed("ui_right"):
+	if Input.is_action_just_pressed("ui_category_right"):
 		categoryButtons[categoryIdx].inactivate()
 		if categoryIdx + 1 >= categoryButtons.size():
 			categoryIdx = 0
 		else:
 			categoryIdx += 1
-	if Input.is_action_just_pressed("ui_left"):
+		setActiveMenu()
+	if Input.is_action_just_pressed("ui_category_left"):
 		categoryButtons[categoryIdx].inactivate()
 		if categoryIdx - 1 < 0:
 			categoryIdx = categoryButtons.size() - 1
 		else:
 			categoryIdx -= 1
+		setActiveMenu()
 
 func _ready():
 	setActiveMenu()
@@ -73,17 +76,24 @@ func showCategoryHint():
 func setActiveMenu():
 	var menu: MarginContainer
 	
+	if activeMenu != null:
+		activeMenu.queue_free()
+		activeMenu = null
+	
 	match categoryIdx:
 		4: 
 			menu = overviewMenu.instantiate()
+		8:
+			menu = settingsMenu.instantiate()
 	
 	actualMenu.add_child(menu)
 	activeMenu = menu
 
-@onready var player = $AnimationPlayer
 func showPause():
 	visible = true
 
 func unpause():
+	Global.paused = false
 	get_tree().paused = false
+	await get_tree().create_timer(0.1).timeout
 	queue_free()

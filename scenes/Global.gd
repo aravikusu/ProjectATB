@@ -32,7 +32,8 @@ func handleInputs():
 	if _GAME_STATE == Enums.GAME_STATE.ROAMING:
 		if Input.is_action_just_pressed("pause"):
 			show_pause()
-			handle_pause()
+			paused = true
+			get_tree().paused = paused
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -106,8 +107,14 @@ func default_save():
 
 func default_config():
 	return {
-		"resolution": Vector2(1280, 720),
-		"vsync": true,
+		"resolution": 0,
+		"aa": 3,
+		"vsync": 1,
+		"music": 100,
+		"sfx": 100,
+		"ambiance": 100,
+		"voices": 100,
+		"atb": 0 
 	}
 
 func init_savegame():
@@ -205,6 +212,9 @@ func get_party_member_by_type(type):
 
 # GAME CONFIG FILE HELPERS
 
+func get_config():
+	return _config_file
+
 func get_game_config():
 	# Check if config exists first..
 	if !FileAccess.file_exists(config_path):
@@ -240,18 +250,24 @@ func load_config():
 			return false
 
 func set_config():
-	print(_config_file)
 	#get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_2D, SceneTree.STRETCH_ASPECT_EXPAND, _config_file.resolution)
-	DisplayServer.window_set_size(_config_file.resolution)
 	
-	if _config_file.vsync:
-		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)
-	else:
-		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
+	match _config_file.resolution:
+		0: get_tree().root.size = Vector2(1280, 720)
+		1: get_tree().root.size = Vector2(1920, 1080)
+	
+	match _config_file.vsync:
+		0: DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)
+		1: DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
+	
+	match _config_file.aa:
+		0: get_viewport().msaa_3d = Viewport.MSAA_DISABLED
+		1: get_viewport().msaa_3d = Viewport.MSAA_2X
+		2: get_viewport().msaa_3d = Viewport.MSAA_4X
+		3: get_viewport().msaa_3d = Viewport.MSAA_8X
 
 func update_config(values: Dictionary):
-	_config_file["resolution"] = values["resolution"]
-	_config_file["vsync"] = values["vsync"]
+	_config_file = values
 	save_config()
 	set_config()
 
@@ -276,10 +292,6 @@ func show_pause():
 		var pauseInstance = pauseScreen.instantiate()
 		$CanvasLayer.add_child(pauseInstance)
 		pauseInstance.showPause()
-
-func handle_pause():
-	paused = !paused
-	get_tree().paused = paused
 
 func get_game_state():
 	return _GAME_STATE

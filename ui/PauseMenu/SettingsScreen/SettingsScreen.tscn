@@ -1,0 +1,200 @@
+[gd_scene load_steps=6 format=3 uid="uid://gyui3jcepfkb"]
+
+[ext_resource type="PackedScene" uid="uid://do3mlklf7bvhc" path="res://ui/PauseMenu/SettingsScreen/MultiOptionSelector.tscn" id="1_nnmuh"]
+[ext_resource type="Script" path="res://ui/PauseMenu/SettingsScreen/SettingsScreen.gd" id="1_sby3p"]
+[ext_resource type="Script" path="res://ui/PauseMenu/CategoryButton.gd" id="2_bt21f"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_c25m3"]
+font_size = 25
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_00owv"]
+font_size = 20
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[node name="SettingsScreen" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sby3p")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Sound" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Sound"
+label_settings = SubResource("LabelSettings_c25m3")
+horizontal_alignment = 1
+
+[node name="SoundContainer" type="MarginContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_right = 200
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/SoundContainer"]
+layout_mode = 2
+
+[node name="Music" type="SplitContainer" parent="VBoxContainer/SoundContainer/VBoxContainer"]
+layout_mode = 2
+split_offset = 500
+dragger_visibility = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/SoundContainer/VBoxContainer/Music"]
+layout_mode = 2
+text = "Music"
+label_settings = SubResource("LabelSettings_00owv")
+script = ExtResource("2_bt21f")
+
+[node name="MusicSlider" type="HSlider" parent="VBoxContainer/SoundContainer/VBoxContainer/Music"]
+layout_mode = 2
+rounded = true
+
+[node name="SFX" type="SplitContainer" parent="VBoxContainer/SoundContainer/VBoxContainer"]
+layout_mode = 2
+split_offset = 500
+dragger_visibility = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/SoundContainer/VBoxContainer/SFX"]
+layout_mode = 2
+text = "Sound Effects"
+label_settings = SubResource("LabelSettings_00owv")
+script = ExtResource("2_bt21f")
+
+[node name="SFXSlider" type="HSlider" parent="VBoxContainer/SoundContainer/VBoxContainer/SFX"]
+layout_mode = 2
+rounded = true
+
+[node name="Voice" type="SplitContainer" parent="VBoxContainer/SoundContainer/VBoxContainer"]
+layout_mode = 2
+split_offset = 500
+dragger_visibility = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/SoundContainer/VBoxContainer/Voice"]
+layout_mode = 2
+text = "Voices"
+label_settings = SubResource("LabelSettings_00owv")
+script = ExtResource("2_bt21f")
+
+[node name="VoiceSlider" type="HSlider" parent="VBoxContainer/SoundContainer/VBoxContainer/Voice"]
+layout_mode = 2
+rounded = true
+
+[node name="Ambiance" type="SplitContainer" parent="VBoxContainer/SoundContainer/VBoxContainer"]
+layout_mode = 2
+split_offset = 500
+dragger_visibility = 1
+
+[node name="Ambiance" type="Label" parent="VBoxContainer/SoundContainer/VBoxContainer/Ambiance"]
+layout_mode = 2
+text = "Ambiance"
+label_settings = SubResource("LabelSettings_00owv")
+script = ExtResource("2_bt21f")
+
+[node name="AmbianceSlider" type="HSlider" parent="VBoxContainer/SoundContainer/VBoxContainer/Ambiance"]
+layout_mode = 2
+rounded = true
+
+[node name="Graphics" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Graphics"
+label_settings = SubResource("LabelSettings_c25m3")
+horizontal_alignment = 1
+
+[node name="GraphicsContainer" type="MarginContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_right = 200
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/GraphicsContainer"]
+layout_mode = 2
+
+[node name="Resolution" type="SplitContainer" parent="VBoxContainer/GraphicsContainer/VBoxContainer"]
+layout_mode = 2
+split_offset = 500
+dragger_visibility = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/GraphicsContainer/VBoxContainer/Resolution"]
+layout_mode = 2
+text = "Resolution"
+label_settings = SubResource("LabelSettings_00owv")
+script = ExtResource("2_bt21f")
+
+[node name="ResolutionOptions" parent="VBoxContainer/GraphicsContainer/VBoxContainer/Resolution" instance=ExtResource("1_nnmuh")]
+layout_mode = 2
+theme_override_constants/separation = 25
+texts = Array[String](["1280x720", "1920x1080"])
+
+[node name="AA" type="SplitContainer" parent="VBoxContainer/GraphicsContainer/VBoxContainer"]
+layout_mode = 2
+split_offset = 500
+dragger_visibility = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/GraphicsContainer/VBoxContainer/AA"]
+layout_mode = 2
+text = "Anti-aliasing"
+label_settings = SubResource("LabelSettings_00owv")
+script = ExtResource("2_bt21f")
+
+[node name="AAOptions" parent="VBoxContainer/GraphicsContainer/VBoxContainer/AA" instance=ExtResource("1_nnmuh")]
+layout_mode = 2
+theme_override_constants/separation = 25
+texts = Array[String](["None", "MSAAx2", "MSAAx4", "MSAAx8"])
+
+[node name="VSync" type="SplitContainer" parent="VBoxContainer/GraphicsContainer/VBoxContainer"]
+layout_mode = 2
+split_offset = 500
+dragger_visibility = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/GraphicsContainer/VBoxContainer/VSync"]
+layout_mode = 2
+text = "VSync"
+label_settings = SubResource("LabelSettings_00owv")
+script = ExtResource("2_bt21f")
+
+[node name="VSyncOptions" parent="VBoxContainer/GraphicsContainer/VBoxContainer/VSync" instance=ExtResource("1_nnmuh")]
+layout_mode = 2
+theme_override_constants/separation = 25
+texts = Array[String](["On", "Off"])
+
+[node name="Gameplay" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Gameplay"
+label_settings = SubResource("LabelSettings_c25m3")
+horizontal_alignment = 1
+
+[node name="GameplayContainer" type="MarginContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_right = 200
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/GameplayContainer"]
+layout_mode = 2
+
+[node name="ATB" type="SplitContainer" parent="VBoxContainer/GameplayContainer/VBoxContainer"]
+layout_mode = 2
+split_offset = 500
+dragger_visibility = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/GameplayContainer/VBoxContainer/ATB"]
+layout_mode = 2
+text = "ATB Mode"
+label_settings = SubResource("LabelSettings_00owv")
+script = ExtResource("2_bt21f")
+
+[node name="ATBOptions" parent="VBoxContainer/GameplayContainer/VBoxContainer/ATB" instance=ExtResource("1_nnmuh")]
+layout_mode = 2
+theme_override_constants/separation = 25
+texts = Array[String](["Active", "Wait"])
+
+[connection signal="sendValue" from="VBoxContainer/GraphicsContainer/VBoxContainer/Resolution/ResolutionOptions" to="." method="receiveMultiSelectorValue"]
+[connection signal="sendValue" from="VBoxContainer/GraphicsContainer/VBoxContainer/AA/AAOptions" to="." method="receiveMultiSelectorValue"]
+[connection signal="sendValue" from="VBoxContainer/GraphicsContainer/VBoxContainer/VSync/VSyncOptions" to="." method="receiveMultiSelectorValue"]
+[connection signal="sendValue" from="VBoxContainer/GameplayContainer/VBoxContainer/ATB/ATBOptions" to="." method="receiveMultiSelectorValue"]

@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=3 uid="uid://do3mlklf7bvhc"]
+
+[ext_resource type="Script" path="res://ui/PauseMenu/SettingsScreen/MultiOptionSelector.gd" id="1_7f2ko"]
+[ext_resource type="Script" path="res://ui/PauseMenu/CategoryButton.gd" id="2_6quqd"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_e75a5"]
+font_size = 20
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_uyhhr"]
+font_size = 20
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ueah8"]
+font_size = 20
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_bov81"]
+font_size = 20
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[node name="MultiOptionSelector" type="HBoxContainer"]
+alignment = 1
+script = ExtResource("1_7f2ko")
+
+[node name="Option1" type="Label" parent="."]
+visible = false
+layout_mode = 2
+text = "On"
+label_settings = SubResource("LabelSettings_e75a5")
+script = ExtResource("2_6quqd")
+
+[node name="Option2" type="Label" parent="."]
+visible = false
+layout_mode = 2
+text = "On"
+label_settings = SubResource("LabelSettings_uyhhr")
+script = ExtResource("2_6quqd")
+
+[node name="Option3" type="Label" parent="."]
+visible = false
+layout_mode = 2
+text = "On"
+label_settings = SubResource("LabelSettings_ueah8")
+script = ExtResource("2_6quqd")
+
+[node name="Option4" type="Label" parent="."]
+visible = false
+layout_mode = 2
+text = "On"
+label_settings = SubResource("LabelSettings_bov81")
+script = ExtResource("2_6quqd")
