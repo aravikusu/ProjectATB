@@ -34,7 +34,7 @@ func handle_inputs():
 	adjustMultiSelector()
 
 func incrementSlider():
-	var slider = allSettings[idx].get_child(1)
+	var slider = allSettings[idx].get_child(2)
 	if Input.is_action_pressed("ui_right"):
 		slider.value += 1
 		updateValue(slider.value, idx)
@@ -56,10 +56,10 @@ func _process(delta):
 	allSettings[idx].get_child(0).activate()
 
 func setValues():
-	allSettings[0].get_child(1).value = settings.music
-	allSettings[1].get_child(1).value = settings.sfx
-	allSettings[2].get_child(1).value = settings.voices
-	allSettings[3].get_child(1).value = settings.ambiance
+	allSettings[0].get_child(2).value = settings.music
+	allSettings[1].get_child(2).value = settings.sfx
+	allSettings[2].get_child(2).value = settings.voices
+	allSettings[3].get_child(2).value = settings.ambiance
 	allSettings[4].get_child(1).forceSet(settings.resolution)
 	allSettings[5].get_child(1).forceSet(settings.aa)
 	allSettings[6].get_child(1).forceSet(settings.vsync)
