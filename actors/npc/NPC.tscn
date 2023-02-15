@@ -41,6 +41,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("3_m2ens")
 dialogue_file = "res://assets/dialogue/NPCTest.txt"
+shorthands_override = "assets/dialogue"
 
 [connection signal="body_entered" from="InteractArea" to="." method="_on_interact_area_body_entered"]
 [connection signal="body_exited" from="InteractArea" to="." method="_on_interact_area_body_exited"]

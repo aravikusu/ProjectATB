@@ -6,6 +6,8 @@ extends MarginContainer
 @onready var amount = $"%Amount"
 @onready var description = $"%Description"
 
+var mode = "item"
+
 func setDetails(displayName: String, itemAmount: int, desc: String, ic: String):
 	itemName.text = displayName
 	amount.text = "x" + str(itemAmount)
