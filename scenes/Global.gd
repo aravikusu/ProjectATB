@@ -98,11 +98,15 @@ func default_save():
 			"partyPlace": 4
 		},
 		"inventory": [
-			
+			{
+				"item": Items.DUMMY,
+				"amount": 2
+			},
+			{
+				"item": Items.DUMMY2,
+				"amount": 1
+			}
 		],
-		"equipment": [
-			
-		]
 	}
 
 func default_config():
@@ -329,6 +333,9 @@ func set_party_member_collision(enable: bool):
 		partyMem2.set_collision_mask_value(2, false)
 		partyMem3.set_collision_mask_value(2, false)
 
+func get_inventory():
+	return _save_file.inventory
+
 # Opens a file - used in all of the handler files.
 func openFile(dataFile: String):
 	var file = FileAccess.open(dataFile, FileAccess.READ)
@@ -341,6 +348,7 @@ func openFile(dataFile: String):
 # Just resizes images. Currently used in ItemLists but can be extended if needed.
 func imageResize(folder_path, key, size = 64):
 	var texture = load("res://assets/" + folder_path + "/" + key + ".png")
+	print(texture)
 	var newTexture = ImageTexture.new()
 	if texture != null:
 		texture = texture.get_data()

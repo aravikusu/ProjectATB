@@ -19,17 +19,18 @@ config/icon="res://icon.svg"
 
 Global="*res://scenes/Global.tscn"
 Enums="*res://autoload/enums.gd"
-GenericCommands="*res://autoload/commands/genericCommands.gd"
-EnemyCommands="*res://autoload/commands/enemyCommands.gd"
+GenericCommands="*res://autoload/data/genericCommands.gd"
+EnemyCommands="*res://autoload/data/enemyCommands.gd"
 EnemyHelper="*res://autoload/helpers/enemyHelper.gd"
 PartyHelper="*res://autoload/helpers/partyHelper.gd"
-MultitechCommands="*res://autoload/commands/multitechCommands.gd"
-PartyCommands="*res://autoload/commands/partyCommands.gd"
+MultitechCommands="*res://autoload/data/multitechCommands.gd"
+PartyCommands="*res://autoload/data/partyCommands.gd"
 TransitionCamera="*res://autoload/TransitionCamera.tscn"
 BattleController="*res://autoload/controllers/BattleController.tscn"
 DialogueController="*res://autoload/controllers/DialogueController.tscn"
 AraVox="*res://addons/aravox/aravox.gd"
 NotificationController="*res://autoload/controllers/NotificationController.tscn"
+Items="*res://autoload/data/items.gd"
 
 [display]
 

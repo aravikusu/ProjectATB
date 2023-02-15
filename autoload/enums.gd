@@ -73,3 +73,13 @@ enum ELEMENT_RESISTANCE {
 	DRAIN = 5,
 	REPEL = 6
 }
+
+enum ITEM_TYPE {
+	USABLE = 0,
+	WEAPON = 1,
+	ARMOR = 2,
+	ACCESSORY = 3,
+	MATERIAL = 4,
+	KEY_ITEM = 5
+	
+}

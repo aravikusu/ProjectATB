@@ -1,0 +1,76 @@
+[gd_scene load_steps=5 format=3 uid="uid://dsm72ib24eu3p"]
+
+[ext_resource type="Script" path="res://ui/PauseMenu/ListItem/ListItem.gd" id="1_flxtm"]
+[ext_resource type="Script" path="res://ui/PauseMenu/CategoryButton.gd" id="2_n7q5w"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hduff"]
+font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_ujw3n"]
+font_size = 20
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[node name="ListItem" type="MarginContainer"]
+custom_minimum_size = Vector2(400, 150)
+script = ExtResource("1_flxtm")
+
+[node name="BG" type="ColorRect" parent="."]
+visible = false
+layout_mode = 2
+color = Color(0, 0, 0, 0.392157)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 13
+theme_override_constants/margin_bottom = 13
+
+[node name="Icon" type="TextureRect" parent="HBoxContainer/MarginContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+expand_mode = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="HBoxContainer/MarginContainer2/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "NAME"
+label_settings = SubResource("LabelSettings_hduff")
+script = ExtResource("2_n7q5w")
+
+[node name="spacer" type="Label" parent="HBoxContainer/MarginContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Amount" type="Label" parent="HBoxContainer/MarginContainer2/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "x0"
+label_settings = SubResource("LabelSettings_ujw3n")
+
+[node name="HSeparator" type="HSeparator" parent="HBoxContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Description" type="RichTextLabel" parent="HBoxContainer/MarginContainer2/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "[i]Description"
+fit_content = true
