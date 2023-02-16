@@ -1,10 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://gdq5aimprug2"]
+[gd_scene load_steps=17 format=3 uid="uid://gdq5aimprug2"]
 
 [ext_resource type="Script" path="res://ui/PauseMenu/PartyMemberPauseFrame/PartyMemberPauseFrame.gd" id="1_qx5jt"]
 [ext_resource type="Texture2D" uid="uid://dqfgu8pk58u4k" path="res://assets/ui/partymemframe.png" id="1_x7xth"]
 [ext_resource type="Texture2D" uid="uid://rjokau8oa460" path="res://assets/ui/bar-under.png" id="2_33mk3"]
 [ext_resource type="Texture2D" uid="uid://ck30lh1xn5pr3" path="res://assets/ui/bar-hp.png" id="3_wcsvk"]
 [ext_resource type="Texture2D" uid="uid://dfixyqqu0qogq" path="res://assets/ui/bar-mp.png" id="4_60bth"]
+[ext_resource type="Script" path="res://ui/PauseMenu/CategoryButton.gd" id="6_2niq1"]
+[ext_resource type="Texture2D" uid="uid://pa10wydpvhs7" path="res://assets/particles/flare_01.png" id="7_rjch3"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_jnm5r"]
 outline_size = 5
@@ -22,6 +24,35 @@ shadow_size = 0
 [sub_resource type="LabelSettings" id="LabelSettings_rxyq1"]
 outline_size = 5
 outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Gradient" id="Gradient_uhgur"]
+offsets = PackedFloat32Array(0, 0.19774, 0.853107, 1)
+colors = PackedColorArray(0.756863, 1, 0.568627, 0, 0.756863, 1, 0.568627, 1, 0.811809, 1, 0.666113, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_4gvy2"]
+gradient = SubResource("Gradient_uhgur")
+
+[sub_resource type="Curve" id="Curve_4grtd"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.331731, 1), 0.0, 0.0, 0, 0, Vector2(0.783654, 0.990909), 0.0, 0.0, 0, 0, Vector2(1, 0.0181818), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_xix0p"]
+curve = SubResource("Curve_4grtd")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fgn8k"]
+emission_shape = 3
+emission_box_extents = Vector3(50, 50, 1)
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+gravity = Vector3(0, 0, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.1
+scale_max = 0.1
+scale_curve = SubResource("CurveTexture_xix0p")
+color_ramp = SubResource("GradientTexture1D_4gvy2")
+hue_variation_min = -1.0
+hue_variation_max = 0.19
 
 [node name="MarginContainer" type="Control"]
 custom_minimum_size = Vector2(204, 100)
@@ -77,6 +108,7 @@ offset_bottom = 30.0
 text = "Name"
 label_settings = SubResource("LabelSettings_jnm5r")
 horizontal_alignment = 1
+script = ExtResource("6_2niq1")
 
 [node name="HPLabel" type="Label" parent="."]
 unique_name_in_owner = true
@@ -119,3 +151,11 @@ offset_right = 113.0
 offset_bottom = 119.0
 text = "0"
 label_settings = SubResource("LabelSettings_rxyq1")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(49, 50)
+emitting = false
+amount = 25
+process_material = SubResource("ParticleProcessMaterial_fgn8k")
+texture = ExtResource("7_rjch3")
+one_shot = true

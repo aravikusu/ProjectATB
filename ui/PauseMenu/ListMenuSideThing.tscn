@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbpy84v6pdfhh"]
+
+[ext_resource type="Script" path="res://ui/PauseMenu/ListMenuSideThing.gd" id="1_6v3ag"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_k6cms"]
+font_size = 20
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Sidething" type="MarginContainer"]
+size_flags_horizontal = 3
+script = ExtResource("1_6v3ag")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="VSeparator" type="VSeparator" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Excerpt from the Journal..."
+label_settings = SubResource("LabelSettings_k6cms")
+horizontal_alignment = 1
+
+[node name="BigIcon" type="TextureRect" parent="HBoxContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 512)
+layout_mode = 2
+expand_mode = 1
+
+[node name="HSeparator" type="HSeparator" parent="HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "[i]\"A short version of the journal entry goes here, specifically the part about its capabilities."

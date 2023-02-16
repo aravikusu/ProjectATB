@@ -100,11 +100,11 @@ func default_save():
 		"inventory": [
 			{
 				"item": Items.DUMMY,
-				"amount": 2
+				"amount": 1
 			},
 			{
 				"item": Items.DUMMY2,
-				"amount": 1
+				"amount": 2
 			}
 		],
 	}
@@ -335,6 +335,21 @@ func set_party_member_collision(enable: bool):
 
 func get_inventory():
 	return _save_file.inventory
+
+func use_inventory_item(itemName: String):
+	for item in _save_file.inventory:
+		if item.item.name == itemName:
+			item.amount -= 1
+
+func remove_inventory_item(itemName: String):
+	var idx = 0
+	
+	for item in _save_file.inventory:
+		if item.item.name == itemName:
+			break
+		idx += 1
+	
+	_save_file.inventory.remove_at(idx)
 
 # Opens a file - used in all of the handler files.
 func openFile(dataFile: String):

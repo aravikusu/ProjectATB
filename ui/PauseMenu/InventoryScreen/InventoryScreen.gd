@@ -10,7 +10,10 @@ extends MarginContainer
 @onready var materialsList = $"%MaterialsList"
 @onready var keyItemsList = $"%KeyItemsList"
 
-@onready var bigIcon = $"%BigIcon"
+@onready var sidething = $"%Sidething"
+
+@onready var overlay = $"%Overlay"
+@onready var useMenu = $"%UseMenu"
 
 var usables = []
 var weapons = []
@@ -22,6 +25,8 @@ var keyItems = []
 var activeMenu: Array
 var menuIdx = 0
 var itemIdx = 0
+
+var useMode = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -35,6 +40,7 @@ func _ready():
 			Enums.ITEM_TYPE.USABLE:
 				usableList.add_child(instance)
 				usables.append(instance)
+				instance.canUse = true
 			Enums.ITEM_TYPE.MATERIAL:
 				materialsList.add_child(instance)
 				materials.append(instance)
@@ -56,35 +62,43 @@ func _ready():
 	setActiveMenu()
 
 func handleInputs():
-	if Input.is_action_just_pressed("ui_right"):
-		if menuIdx + 1 >= 6:
-			menuIdx = 0
-		else:
-			menuIdx += 1
-		itemIdx = 0
-		setActiveMenu()
-	if Input.is_action_just_pressed("ui_left"):
-		if menuIdx - 1 < 0:
-			menuIdx = 5
-		else:
-			menuIdx -= 1
-		itemIdx = 0
-		setActiveMenu()
-	
-	if Input.is_action_just_pressed("ui_down"):
-		activeMenu[itemIdx].inactivate()
-		if itemIdx + 1 >= activeMenu.size():
+	if !useMode:
+		if Input.is_action_just_pressed("ui_select"):
+			if activeMenu.size() > 0:
+				if activeMenu[itemIdx].canUse:
+					handleUse()
+		
+		if Input.is_action_just_pressed("ui_right"):
+			if menuIdx + 1 >= 6:
+				menuIdx = 0
+			else:
+				menuIdx += 1
 			itemIdx = 0
-		else:
-			itemIdx += 1
-		updateSideStuff()
-	if Input.is_action_just_pressed("ui_up"):
-		activeMenu[itemIdx].inactivate()
-		if itemIdx - 1 < 0:
-			itemIdx = activeMenu.size() - 1
-		else:
-			itemIdx -= 1
-		updateSideStuff()
+			setActiveMenu()
+		if Input.is_action_just_pressed("ui_left"):
+			if menuIdx - 1 < 0:
+				menuIdx = 5
+			else:
+				menuIdx -= 1
+			itemIdx = 0
+			setActiveMenu()
+		
+		if Input.is_action_just_pressed("ui_down"):
+			if activeMenu.size() > 0:
+				activeMenu[itemIdx].inactivate()
+				if itemIdx + 1 >= activeMenu.size():
+					itemIdx = 0
+				else:
+					itemIdx += 1
+				updateSideStuff()
+		if Input.is_action_just_pressed("ui_up"):
+			if activeMenu.size() > 0:
+				activeMenu[itemIdx].inactivate()
+				if itemIdx - 1 < 0:
+					itemIdx = activeMenu.size() - 1
+				else:
+					itemIdx -= 1
+				updateSideStuff()
 
 func _process(_delta):
 	if activeMenu.size() > 0:
@@ -104,6 +118,25 @@ func setActiveMenu():
 
 func updateSideStuff():
 	if activeMenu.size() > 0:
-		bigIcon.texture = activeMenu[itemIdx].icon.texture
+		sidething.setStuff(activeMenu[itemIdx].icon.texture)
 	else:
-		bigIcon.texture = null
+		sidething.setStuff(null)
+
+func handleUse():
+	await get_tree().create_timer(0.1).timeout
+	overlay.show()
+	useMenu.show()
+	useMenu.setItem(activeMenu[itemIdx])
+	useMode = true
+
+func hideUse():
+	overlay.hide()
+	useMenu.hide()
+	useMode = false
+
+func _on_use_menu_no_more_items():
+	hideUse()
+	Global.remove_inventory_item(activeMenu[itemIdx].iName)
+	
+	activeMenu[itemIdx].queue_free()
+	activeMenu.erase(activeMenu[itemIdx])

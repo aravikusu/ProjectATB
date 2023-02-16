@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dsm72ib24eu3p"]
+[gd_scene load_steps=6 format=3 uid="uid://dsm72ib24eu3p"]
 
 [ext_resource type="Script" path="res://ui/PauseMenu/ListItem/ListItem.gd" id="1_flxtm"]
 [ext_resource type="Script" path="res://ui/PauseMenu/CategoryButton.gd" id="2_n7q5w"]
+[ext_resource type="PackedScene" uid="uid://cbjvmnq8kb75" path="res://ui/ButtonIcon/ButtonIcon.tscn" id="3_unk85"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_hduff"]
 font_size = 20
@@ -74,3 +75,26 @@ size_flags_vertical = 3
 bbcode_enabled = true
 text = "[i]Description"
 fit_content = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="spacer" type="Label" parent="HBoxContainer/MarginContainer2/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Use" type="Label" parent="HBoxContainer/MarginContainer2/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Use"
+horizontal_alignment = 2
+
+[node name="ButtonIcon" parent="HBoxContainer/MarginContainer2/VBoxContainer/HBoxContainer2" instance=ExtResource("3_unk85")]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+expand_mode = 1
+inputName = "ui_select"

@@ -6,4 +6,3 @@
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_n03ux")
-inputName = "ui_select"
