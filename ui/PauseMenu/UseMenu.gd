@@ -49,7 +49,7 @@ func use():
 	
 	activeItem.amountVal -= 1
 	activeMembers[idx].activateParticles()
-	Global.use_inventory_item(activeItem.iName)
+	Global.use_inventory_item(activeItem.item.name)
 	
 	if activeItem.amountVal == 0:
 		isActive = false
@@ -58,4 +58,4 @@ func use():
 func setItem(item: Object):
 	activeItem = item
 	isActive = true
-	useLabel.text = "Use " + activeItem.iName + " on..."
+	useLabel.text = "Use " + activeItem.item.name + " on..."

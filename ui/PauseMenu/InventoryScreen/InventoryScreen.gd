@@ -51,13 +51,13 @@ func _ready():
 				accessoriesList.add_child(instance)
 				accessories.append(instance)
 			Enums.ITEM_TYPE.WEAPON:
-				materialsList.add_child(instance)
-				materials.append(instance)
+				weaponsList.add_child(instance)
+				weapons.append(instance)
 			Enums.ITEM_TYPE.KEY_ITEM:
-				materialsList.add_child(instance)
-				materials.append(instance)
+				keyItemsList.add_child(instance)
+				keyItems.append(instance)
 		
-		instance.setDetails(data.name, item.amount, data.description, data.icon)
+		instance.setDetails(data, item.amount)
 	
 	setActiveMenu()
 
@@ -136,7 +136,7 @@ func hideUse():
 
 func _on_use_menu_no_more_items():
 	hideUse()
-	Global.remove_inventory_item(activeMenu[itemIdx].iName)
+	Global.remove_inventory_item(activeMenu[itemIdx].item.name)
 	
 	activeMenu[itemIdx].queue_free()
 	activeMenu.erase(activeMenu[itemIdx])

@@ -7,19 +7,21 @@ extends MarginContainer
 @onready var description = $"%Description"
 @onready var use = $"%Use"
 @onready var button = $"%ButtonIcon"
+@onready var disableOverlay = $"%Disable"
+@onready var icons = $"%Icons".get_children()
+@onready var wearingLabel = $"%WearingLabel"
 
-var mode = "item"
-
-var iName: String
+var item: Dictionary
 var amountVal: int
 var canUse = false
+var wearing = false
 
-func setDetails(displayName: String, itemAmount: int, desc: String, ic: String):
-	iName = displayName
-	itemName.text = displayName
+func setDetails(i: Dictionary, itemAmount: int):
+	item = i
+	itemName.text = item.name
 	amountVal = itemAmount
-	description.text = desc
-	icon.texture = load("res://assets/icons/" + ic + ".png")
+	description.text = item.description
+	icon.texture = load("res://assets/icons/" + item.icon + ".png")
 
 func _process(_delta):
 	amount.text = "x" + str(amountVal)
@@ -36,3 +38,27 @@ func inactivate():
 	bg.hide()
 	use.hide()
 	button.hide()
+
+func disable():
+	disableOverlay.show()
+	canUse = false
+
+func setEquipMode(isWearing: bool):
+	if isWearing:
+		use.text = "Already wearing"
+		button.hide()
+	else:
+		use.text = "Equip"
+		canUse = true
+
+func setEquipLabel(items: Array):
+	wearingLabel.show()
+	for character in items:
+		match character:
+			Enums.CHARACTER.ARAVIX: icons[0].show()
+			Enums.CHARACTER.AYLIK: icons[1].show()
+			Enums.CHARACTER.TASTY: icons[2].show()
+			_:
+				icons[0].show()
+				icons[1].show()
+				icons[2].show()

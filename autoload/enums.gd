@@ -5,6 +5,7 @@ enum CHARACTER {
 	AYLIK = 1,
 	TASTY = 2,
 	MONSTER = 3,
+	EVERYONE = 98,
 	NONE = 99
 }
 
@@ -81,5 +82,4 @@ enum ITEM_TYPE {
 	ACCESSORY = 3,
 	MATERIAL = 4,
 	KEY_ITEM = 5
-	
 }

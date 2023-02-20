@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://dm1qorrlsmhr8"]
+[gd_scene load_steps=14 format=3 uid="uid://dm1qorrlsmhr8"]
 
 [ext_resource type="Script" path="res://ui/PauseMenu/PauseMenu.gd" id="1_rakll"]
 [ext_resource type="Texture2D" uid="uid://bsj16eausjfkp" path="res://assets/backgrounds/forcefield_pattern.png" id="2_n2jtc"]
 [ext_resource type="Script" path="res://ui/PauseMenu/CategoryButton.gd" id="3_y77um"]
+[ext_resource type="PackedScene" uid="uid://cbjvmnq8kb75" path="res://ui/ButtonIcon/ButtonIcon.tscn" id="4_08e4p"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_hecc8"]
 font_size = 20
@@ -100,13 +101,23 @@ layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 
-[node name="CategoryButtons" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer/Categories"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer/Categories"]
+layout_mode = 2
+alignment = 1
+
+[node name="ButtonLeft" parent="MarginContainer/MarginContainer/VBoxContainer/Categories/HBoxContainer" instance=ExtResource("4_08e4p")]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+expand_mode = 1
+inputName = "ui_category_left"
+
+[node name="CategoryButtons" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer/Categories/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 alignment = 1
 
-[node name="Formation" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/Categories/CategoryButtons"]
+[node name="Formation" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/Categories/HBoxContainer/CategoryButtons"]
 custom_minimum_size = Vector2(125, 0)
 layout_mode = 2
 text = "Formation"
@@ -115,7 +126,7 @@ horizontal_alignment = 1
 clip_text = true
 script = ExtResource("3_y77um")
 
-[node name="Awakenings" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/Categories/CategoryButtons"]
+[node name="Awakenings" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/Categories/HBoxContainer/CategoryButtons"]
 custom_minimum_size = Vector2(125, 0)
 layout_mode = 2
 text = "Awakenings"
@@ -124,7 +135,7 @@ horizontal_alignment = 1
 clip_text = true
 script = ExtResource("3_y77um")
 
-[node name="Skills" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/Categories/CategoryButtons"]
+[node name="Skills" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/Categories/HBoxContainer/CategoryButtons"]
 custom_minimum_size = Vector2(125, 0)
 layout_mode = 2
 text = "Skills"
@@ -133,7 +144,7 @@ horizontal_alignment = 1
 clip_text = true
 script = ExtResource("3_y77um")
 
-[node name="Equipment" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/Categories/CategoryButtons"]
+[node name="Equipment" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/Categories/HBoxContainer/CategoryButtons"]
 custom_minimum_size = Vector2(125, 0)
 layout_mode = 2
 text = "Equipment"
@@ -142,7 +153,7 @@ horizontal_alignment = 1
 clip_text = true
 script = ExtResource("3_y77um")
 
-[node name="Overview" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/Categories/CategoryButtons"]
+[node name="Overview" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/Categories/HBoxContainer/CategoryButtons"]
 modulate = Color(0, 0, 0, 1)
 custom_minimum_size = Vector2(125, 0)
 layout_mode = 2
@@ -152,7 +163,7 @@ horizontal_alignment = 1
 clip_text = true
 script = ExtResource("3_y77um")
 
-[node name="Inventory" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/Categories/CategoryButtons"]
+[node name="Inventory" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/Categories/HBoxContainer/CategoryButtons"]
 custom_minimum_size = Vector2(125, 0)
 layout_mode = 2
 text = "Inventory"
@@ -161,7 +172,7 @@ horizontal_alignment = 1
 clip_text = true
 script = ExtResource("3_y77um")
 
-[node name="SkillTrees" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/Categories/CategoryButtons"]
+[node name="SkillTrees" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/Categories/HBoxContainer/CategoryButtons"]
 custom_minimum_size = Vector2(125, 0)
 layout_mode = 2
 text = "Skill Trees"
@@ -170,7 +181,7 @@ horizontal_alignment = 1
 clip_text = true
 script = ExtResource("3_y77um")
 
-[node name="Journal" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/Categories/CategoryButtons"]
+[node name="Journal" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/Categories/HBoxContainer/CategoryButtons"]
 custom_minimum_size = Vector2(125, 0)
 layout_mode = 2
 text = "Journal"
@@ -179,7 +190,7 @@ horizontal_alignment = 1
 clip_text = true
 script = ExtResource("3_y77um")
 
-[node name="Settings" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/Categories/CategoryButtons"]
+[node name="Settings" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/Categories/HBoxContainer/CategoryButtons"]
 custom_minimum_size = Vector2(125, 0)
 layout_mode = 2
 text = "Settings"
@@ -187,6 +198,12 @@ label_settings = SubResource("LabelSettings_gf5ex")
 horizontal_alignment = 1
 clip_text = true
 script = ExtResource("3_y77um")
+
+[node name="ButtonRight" parent="MarginContainer/MarginContainer/VBoxContainer/Categories/HBoxContainer" instance=ExtResource("4_08e4p")]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+expand_mode = 1
+inputName = "ui_category_right"
 
 [node name="HSeparator2" type="HSeparator" parent="MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2

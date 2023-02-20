@@ -1,0 +1,102 @@
+[gd_scene load_steps=6 format=3 uid="uid://ccf47kevq40fr"]
+
+[ext_resource type="Script" path="res://ui/PauseMenu/EquipmentScreen/EquipmentScreen.gd" id="1_06vgd"]
+[ext_resource type="PackedScene" uid="uid://gdq5aimprug2" path="res://ui/PauseMenu/PartyMemberPauseFrame/PartyMemberPauseFrame.tscn" id="1_k32tq"]
+[ext_resource type="PackedScene" uid="uid://b2de7bag5xiyd" path="res://ui/PauseMenu/EquipmentScreen/EquipmentPanel.tscn" id="2_e5505"]
+[ext_resource type="PackedScene" uid="uid://cbpy84v6pdfhh" path="res://ui/PauseMenu/ListMenuSideThing.tscn" id="4_guar4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_43ril"]
+
+[node name="EquipmentScreen" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_06vgd")
+
+[node name="EquipmentOverview" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="PartyScreen" type="MarginContainer" parent="EquipmentOverview"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_top = 25
+
+[node name="HBoxContainer" type="HBoxContainer" parent="EquipmentOverview/PartyScreen"]
+layout_mode = 2
+theme_override_constants/separation = 35
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="EquipmentOverview/PartyScreen/HBoxContainer"]
+layout_mode = 2
+
+[node name="PartyMemberPauseFrame" parent="EquipmentOverview/PartyScreen/HBoxContainer/VBoxContainer" instance=ExtResource("1_k32tq")]
+layout_mode = 2
+characterType = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="EquipmentOverview/PartyScreen/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 25
+
+[node name="AravixEquipment" parent="EquipmentOverview/PartyScreen/HBoxContainer/VBoxContainer/MarginContainer" instance=ExtResource("2_e5505")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="EquipmentOverview/PartyScreen/HBoxContainer"]
+layout_mode = 2
+
+[node name="PartyMemberPauseFrame2" parent="EquipmentOverview/PartyScreen/HBoxContainer/VBoxContainer2" instance=ExtResource("1_k32tq")]
+layout_mode = 2
+characterType = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="EquipmentOverview/PartyScreen/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/margin_top = 25
+
+[node name="AylikEquipment" parent="EquipmentOverview/PartyScreen/HBoxContainer/VBoxContainer2/MarginContainer" instance=ExtResource("2_e5505")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="EquipmentOverview/PartyScreen/HBoxContainer"]
+layout_mode = 2
+
+[node name="PartyMemberPauseFrame3" parent="EquipmentOverview/PartyScreen/HBoxContainer/VBoxContainer3" instance=ExtResource("1_k32tq")]
+layout_mode = 2
+characterType = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="EquipmentOverview/PartyScreen/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_constants/margin_top = 25
+
+[node name="TastyEquipment" parent="EquipmentOverview/PartyScreen/HBoxContainer/VBoxContainer3/MarginContainer" instance=ExtResource("2_e5505")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ListScreen" type="HBoxContainer" parent="EquipmentOverview"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Tabs" type="TabContainer" parent="EquipmentOverview/ListScreen"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(1280, 0)
+layout_mode = 2
+theme_override_colors/font_selected_color = Color(1, 0.843137, 0.552941, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/panel = SubResource("StyleBoxEmpty_43ril")
+
+[node name="List" type="MarginContainer" parent="EquipmentOverview/ListScreen/Tabs"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/margin_top = 5
+
+[node name="ItemList" type="VBoxContainer" parent="EquipmentOverview/ListScreen/Tabs/List"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Sidething" parent="EquipmentOverview/ListScreen" instance=ExtResource("4_guar4")]
+unique_name_in_owner = true
+layout_mode = 2

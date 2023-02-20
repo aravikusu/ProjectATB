@@ -56,10 +56,12 @@ func default_save():
 			"level": 1,
 			"currentHP": 100,
 			"currentMP": 100,
-			"equipped": {
-				"weapon": null,
-				"armor": null,
-				"acc": null
+			"equipment": {
+				"weapon": Items.ARMMODIFIER,
+				"armor": Items.ARMOR,
+				"accessory1": Items.ACCESSORY,
+				"accessory2": null,
+				"accessory3": null
 			},
 			"partyPlace": 1
 		},
@@ -69,10 +71,12 @@ func default_save():
 			"level": 1,
 			"currentHP": 100,
 			"currentMP": 100,
-			"equipped": {
-				"weapon": null,
-				"armor": null,
-				"acc": null
+			"equipment": {
+				"weapon": Items.SWORD,
+				"armor": Items.ARMOR,
+				"accessory1": Items.ACCESSORY,
+				"accessory2": null,
+				"accessory3": null
 			},
 			"partyPlace": 2
 		},
@@ -82,10 +86,12 @@ func default_save():
 			"level": 1,
 			"currentHP": 100,
 			"currentMP": 100,
-			"equipped": {
-				"weapon": null,
-				"armor": null,
-				"acc": null
+			"equipment": {
+				"weapon": Items.STAFF,
+				"armor": Items.ARMOR,
+				"accessory1": Items.ACCESSORY,
+				"accessory2": null,
+				"accessory3": null
 			},
 			"partyPlace": 3
 		},
@@ -105,6 +111,30 @@ func default_save():
 			{
 				"item": Items.DUMMY2,
 				"amount": 2
+			},
+			{
+				"item": Items.ARMMODIFIER,
+				"amount": 1
+			},
+			{
+				"item": Items.STAFF,
+				"amount": 1
+			},
+			{
+				"item": Items.SWORD,
+				"amount": 1
+			},
+			{
+				"item": Items.ARMOR,
+				"amount": 3
+			},
+			{
+				"item": Items.ACCESSORY,
+				"amount": 3
+			},
+			{
+				"item": Items.TESTACC2,
+				"amount": 1
 			}
 		],
 	}
@@ -213,6 +243,64 @@ func get_party_member_by_type(type):
 			partyMember = _save_file.monster
 	
 	return get_party_member_by_slot(partyMember.partyPlace)
+
+func get_equipment_by_type(type):
+	match type:
+		Enums.CHARACTER.ARAVIX:
+			return _save_file.player1.equipment
+		Enums.CHARACTER.AYLIK:
+			return _save_file.player2.equipment
+		Enums.CHARACTER.TASTY:
+			return _save_file.player3.equipment
+
+# Yeah this isn't the greatest code I've ever written
+func get_all_equipped_things() -> Array:
+	var stuff = [
+		get_equipment_by_type(Enums.CHARACTER.ARAVIX), 
+		get_equipment_by_type(Enums.CHARACTER.AYLIK),
+		get_equipment_by_type(Enums.CHARACTER.TASTY)
+	]
+	var all = []
+	
+	var character = 0
+	#Go through each character's stuff...
+	for equipped in stuff:
+		# Get the actual items from this character
+		for item in equipped.values():
+			if item != null:
+				var idx = 0
+				var alreadyFound = false
+				# ... now go through everything we've already found
+				for item2 in all:
+					if item2.item == item:
+						alreadyFound = true
+						break
+					idx += 1
+				
+				if alreadyFound:
+					all[idx].equippedBy.append(character)
+				else:
+					all.append({
+						"item": item,
+						"equippedBy": [character]
+					})
+		character += 1
+	return all
+
+func equip_new_item(character: Enums.CHARACTER, itemSlot: int, item):
+	var characterData = ""
+	
+	match character:
+		Enums.CHARACTER.ARAVIX: characterData = "player1"
+		Enums.CHARACTER.ARAVIX: characterData = "player2"
+		Enums.CHARACTER.ARAVIX: characterData = "player3"
+	
+	match itemSlot:
+		0: _save_file[characterData].equipment.weapon = item
+		1: _save_file[characterData].equipment.armor = item
+		2: _save_file[characterData].equipment.accessory1 = item
+		3: _save_file[characterData].equipment.accessory2 = item
+		4: _save_file[characterData].equipment.accessory3 = item
 
 # GAME CONFIG FILE HELPERS
 
