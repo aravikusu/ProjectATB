@@ -8,6 +8,7 @@ extends Control
 @onready var settingsMenu = preload("res://ui/PauseMenu/SettingsScreen/SettingsScreen.tscn")
 @onready var inventoryScreen = preload("res://ui/PauseMenu/InventoryScreen/InventoryScreen.tscn")
 @onready var equipmentScreen = preload("res://ui/PauseMenu/EquipmentScreen/EquipmentScreen.tscn")
+@onready var skillsScreen = preload("res://ui/PauseMenu/SkillsScreen/SkillsScreen.tscn")
 
 var activeMenu : MarginContainer = null
 
@@ -83,6 +84,8 @@ func setActiveMenu():
 		activeMenu = null
 	
 	match categoryIdx:
+		2:
+			menu = skillsScreen.instantiate()
 		3:
 			menu = equipmentScreen.instantiate()
 		4: 

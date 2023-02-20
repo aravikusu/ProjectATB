@@ -29,20 +29,23 @@ func _ready():
 				icon.modulate = Color("#ba7ca7")
 			Enums.CHARACTER.MONSTER:
 				icon.modulate = Color("#774b2c")
-		displayName.text = connectedPartyMember.displayName
-		hp.max_value = connectedPartyMember.stats.maxHP
-		mp.max_value = connectedPartyMember.stats.maxMP
-		hp.value = connectedPartyMember.stats.HP
-		mp.value = connectedPartyMember.stats.MP
-		hpLabel.text = str(connectedPartyMember.stats.HP) + "/" + str(connectedPartyMember.stats.maxHP)
-		mpLabel.text = str(connectedPartyMember.stats.MP) + "/" + str(connectedPartyMember.stats.maxMP)
-		lvlLabel.text = str(connectedPartyMember.stats.Level)
+		update()
 		
 		if characterType == Enums.CHARACTER.MONSTER:
 			lvlLabel.hide()
 			lvlText.hide()
 	else:
 		hide()
+
+func update():
+	displayName.text = connectedPartyMember.displayName
+	hp.max_value = connectedPartyMember.stats.maxHP
+	mp.max_value = connectedPartyMember.stats.maxMP
+	hp.value = connectedPartyMember.stats.HP
+	mp.value = connectedPartyMember.stats.MP
+	hpLabel.text = str(connectedPartyMember.stats.HP) + "/" + str(connectedPartyMember.stats.maxHP)
+	mpLabel.text = str(connectedPartyMember.stats.MP) + "/" + str(connectedPartyMember.stats.maxMP)
+	lvlLabel.text = str(connectedPartyMember.stats.Level)
 
 func activateParticles():
 	particles.emitting = true

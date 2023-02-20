@@ -38,6 +38,7 @@ func getUnlockedTastyCommands(level: int) -> Array:
 	
 	if level > 0:
 		commands.append(PartyCommands.HOLY)
+		commands.append(PartyCommands.HEAL)
 	
 	return commands
 

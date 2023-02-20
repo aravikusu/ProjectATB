@@ -302,6 +302,9 @@ func equip_new_item(character: Enums.CHARACTER, itemSlot: int, item):
 		3: _save_file[characterData].equipment.accessory2 = item
 		4: _save_file[characterData].equipment.accessory3 = item
 
+func get_all_commands():
+	return [partyMem1.commands, partyMem2.commands, partyMem3.commands, monster.commands]
+
 # GAME CONFIG FILE HELPERS
 
 func get_config():
@@ -405,7 +408,11 @@ func get_active_party():
 	
 	if partyMem2.active: arr.append(partyMem2)
 	if partyMem3.active: arr.append(partyMem3)
+	if monster.active: arr.append(monster)
 	return arr
+
+func get_all_party_members():
+	return [partyMem1, partyMem2, partyMem3, monster]
 
 func set_party_position(coordinates: Vector3):
 	partyMem1.set_position(coordinates)

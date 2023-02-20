@@ -12,6 +12,9 @@ var activeMembers = []
 var idx = 0
 
 var activeItem: Object
+var connectedCharacter: Object
+
+var skillMode = false
 
 func _ready():
 	for member in members:
@@ -34,7 +37,10 @@ func handleInputs():
 			else:
 				idx -= 1
 		if Input.is_action_just_pressed("ui_select"):
-			use()
+			if skillMode:
+				useSkill()
+			else:
+				use()
 		if Input.is_action_just_pressed("ui_cancel"):
 			isActive = false
 			emit_signal("cancel")
@@ -55,7 +61,16 @@ func use():
 		isActive = false
 		emit_signal("noMoreItems")
 
-func setItem(item: Object):
+func useSkill():
+	activeMembers[idx].activateParticles()
+	connectedCharacter.stats.reduceMP(activeItem.item.cost)
+	activeMembers[connectedCharacter.characterType].update()
+	
+	if connectedCharacter.stats.MP < activeItem.item.cost:
+		emit_signal("noMoreItems")
+
+func setItem(item: Object, character: Object = Object):
 	activeItem = item
 	isActive = true
+	connectedCharacter = character
 	useLabel.text = "Use " + activeItem.item.name + " on..."

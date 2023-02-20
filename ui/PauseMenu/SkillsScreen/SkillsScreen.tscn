@@ -1,0 +1,85 @@
+[gd_scene load_steps=6 format=3 uid="uid://nk0lq137hg5x"]
+
+[ext_resource type="Script" path="res://ui/PauseMenu/SkillsScreen/SkillsScreen.gd" id="1_5kspr"]
+[ext_resource type="PackedScene" uid="uid://dsm72ib24eu3p" path="res://ui/PauseMenu/ListItem/ListItem.tscn" id="2_fx4fu"]
+[ext_resource type="PackedScene" uid="uid://cbpy84v6pdfhh" path="res://ui/PauseMenu/ListMenuSideThing.tscn" id="2_vubju"]
+[ext_resource type="PackedScene" uid="uid://bxtvcafv0r5t6" path="res://ui/PauseMenu/UseMenu.tscn" id="3_jwv37"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p522s"]
+
+[node name="SkillsScreen" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5kspr")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Tabs" type="TabContainer" parent="HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(1280, 0)
+layout_mode = 2
+theme_override_colors/font_selected_color = Color(1, 0.843137, 0.552941, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/panel = SubResource("StyleBoxEmpty_p522s")
+
+[node name="Aravix" type="MarginContainer" parent="HBoxContainer/Tabs"]
+layout_mode = 2
+theme_override_constants/margin_top = 5
+
+[node name="AravixList" type="VBoxContainer" parent="HBoxContainer/Tabs/Aravix"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ListItem" parent="HBoxContainer/Tabs/Aravix/AravixList" instance=ExtResource("2_fx4fu")]
+layout_mode = 2
+
+[node name="Aylik" type="MarginContainer" parent="HBoxContainer/Tabs"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_top = 5
+
+[node name="AylikList" type="VBoxContainer" parent="HBoxContainer/Tabs/Aylik"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Tasty" type="MarginContainer" parent="HBoxContainer/Tabs"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_top = 5
+
+[node name="TastyList" type="VBoxContainer" parent="HBoxContainer/Tabs/Tasty"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Monster" type="MarginContainer" parent="HBoxContainer/Tabs"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_top = 5
+
+[node name="MonsterList" type="VBoxContainer" parent="HBoxContainer/Tabs/Monster"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Sidething" parent="HBoxContainer" instance=ExtResource("2_vubju")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Overlay" type="ColorRect" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+color = Color(0, 0, 0, 0.392157)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 2
+
+[node name="UseMenu" parent="Control" instance=ExtResource("3_jwv37")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+
+[connection signal="noMoreItems" from="Control/UseMenu" to="." method="_on_use_menu_no_more_items"]

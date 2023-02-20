@@ -15,16 +15,23 @@ var item: Dictionary
 var amountVal: int
 var canUse = false
 var wearing = false
+var amountPrefix = "x"
 
-func setDetails(i: Dictionary, itemAmount: int):
+var labelOverride = false
+
+func setDetails(i: Dictionary, itemAmount: int, prefix = "x"):
 	item = i
 	itemName.text = item.name
 	amountVal = itemAmount
 	description.text = item.description
 	icon.texture = load("res://assets/icons/" + item.icon + ".png")
+	amountPrefix = prefix
 
 func _process(_delta):
-	amount.text = "x" + str(amountVal)
+	if amountPrefix == "x":
+		amount.text = amountPrefix + str(amountVal)
+	else:
+		amount.text = str(amountVal) + amountPrefix
 
 func activate():
 	itemName.activate()
@@ -32,6 +39,9 @@ func activate():
 	if canUse:
 		use.show()
 		button.show()
+	
+	if labelOverride:
+		use.show()
 
 func inactivate():
 	itemName.altInactivate()
@@ -47,9 +57,15 @@ func setEquipMode(isWearing: bool):
 	if isWearing:
 		use.text = "Already wearing"
 		button.hide()
+		labelOverride = true
 	else:
 		use.text = "Equip"
 		canUse = true
+
+func setSkillLabel(text: String):
+	use.text = text
+	button.hide()
+	labelOverride = true
 
 func setEquipLabel(items: Array):
 	wearingLabel.show()
