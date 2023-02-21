@@ -13,7 +13,8 @@ var HOLY = {
 	"target": Enums.TARGET_TYPE.SHAPE,
 	"additionalTargetInfo": [Enums.TARGET_SHAPE.CIRCLE, 0.5],
 	"multitech": Enums.MULTITECH_TYPE.NONE,
-	"useInMenu": false
+	"useInMenu": false,
+	"animOverride": null
 }
 
 var ORAORA = {
@@ -27,7 +28,8 @@ var ORAORA = {
 	"target": Enums.TARGET_TYPE.ANY,
 	"additionalTargetInfo": [],
 	"multitech": Enums.MULTITECH_TYPE.NONE,
-	"useInMenu": false
+	"useInMenu": false,
+	"animOverride": null
 }
 
 var HEAL = {
@@ -41,5 +43,6 @@ var HEAL = {
 	"target": Enums.TARGET_TYPE.ANY,
 	"additionalTargetInfo": [],
 	"multitech": Enums.MULTITECH_TYPE.NONE,
-	"useInMenu": true
+	"useInMenu": true,
+	"animOverride": null
 }

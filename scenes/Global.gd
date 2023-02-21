@@ -435,6 +435,9 @@ func use_inventory_item(itemName: String):
 	for item in _save_file.inventory:
 		if item.item.name == itemName:
 			item.amount -= 1
+			
+			if item.amount <= 0:
+				remove_inventory_item(item.item.name)
 
 func remove_inventory_item(itemName: String):
 	var idx = 0

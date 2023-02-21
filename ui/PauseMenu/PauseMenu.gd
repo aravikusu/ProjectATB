@@ -9,6 +9,7 @@ extends Control
 @onready var inventoryScreen = preload("res://ui/PauseMenu/InventoryScreen/InventoryScreen.tscn")
 @onready var equipmentScreen = preload("res://ui/PauseMenu/EquipmentScreen/EquipmentScreen.tscn")
 @onready var skillsScreen = preload("res://ui/PauseMenu/SkillsScreen/SkillsScreen.tscn")
+@onready var statusScreen = preload("res://ui/PauseMenu/StatusScreen/StatusScreen.tscn")
 
 var activeMenu : MarginContainer = null
 
@@ -56,7 +57,7 @@ func showCategoryHint():
 	var text = "> "
 	match categoryIdx:
 		0:
-			text += "Change the order of your party."
+			text += "Get an overview of your party."
 		1:
 			text += "Manage the character-specific Awakening skills."
 		2:
@@ -84,6 +85,8 @@ func setActiveMenu():
 		activeMenu = null
 	
 	match categoryIdx:
+		0:
+			menu = statusScreen.instantiate()
 		2:
 			menu = skillsScreen.instantiate()
 		3:

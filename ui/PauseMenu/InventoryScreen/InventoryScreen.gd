@@ -136,7 +136,6 @@ func hideUse():
 
 func _on_use_menu_no_more_items():
 	hideUse()
-	Global.remove_inventory_item(activeMenu[itemIdx].item.name)
 	
 	activeMenu[itemIdx].queue_free()
 	activeMenu.erase(activeMenu[itemIdx])

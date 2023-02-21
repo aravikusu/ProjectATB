@@ -117,10 +117,10 @@ custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 alignment = 1
 
-[node name="Formation" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/Categories/HBoxContainer/CategoryButtons"]
+[node name="Status" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/Categories/HBoxContainer/CategoryButtons"]
 custom_minimum_size = Vector2(125, 0)
 layout_mode = 2
-text = "Formation"
+text = "Status"
 label_settings = SubResource("LabelSettings_hecc8")
 horizontal_alignment = 1
 clip_text = true

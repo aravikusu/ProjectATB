@@ -27,7 +27,7 @@ var useMode = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	useMenu.skillMode = true
-	var party = Global.get_active_party()
+	var party = Global.get_all_party_members()
 	var allTabs = tabs.get_children()
 	
 	var partyIdx = 0

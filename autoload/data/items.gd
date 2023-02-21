@@ -13,11 +13,17 @@ var DUMMY = {
 
 var DUMMY2 = {
 	"name": "ItemDummy",
-	"description": "Test item. Can be used in the menu to do nothing.",
+	"alternativeDisplayText": null,
+	"description": "Test item. Can be used to heal some HP.",
 	"icon": "dummy",
+	"hits": 1,
+	"hitPower": [1.0],
+	"target": Enums.TARGET_TYPE.ANY,
+	"additionalTargetInfo": [],
 	"category": Enums.ITEM_TYPE.USABLE,
-	"useInCombat": false,
-	"useInMenu": true
+	"useInCombat": true,
+	"useInMenu": true,
+	"animOverride": "HealGlimmer"
 }
 
 # Weapons

@@ -11,5 +11,6 @@ var X_STRIKE = {
 	"target": Enums.TARGET_TYPE.LINE,
 	"additionalTargetInfo": [],
 	"multitech": Enums.MULTITECH_TYPE.ARA_AYL,
-	"useInMenu": false
+	"useInMenu": false,
+	"animOverride": null
 }
