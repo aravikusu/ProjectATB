@@ -7,13 +7,13 @@ func start(action: Dictionary):
 	var startPos = action.actor.global_position
 	var partnerStart = action.partner.global_position
 	var targetPos = action.target[0].global_position
-	action.actor.moveToLocation(targetPos)
-	action.partner.moveToLocation(targetPos)
+	action.actor.forceMove(targetPos, 6)
+	action.partner.forceMove(targetPos, 6)
 	await get_tree().create_timer(1).timeout
 	emit_signal("hit", action, action.target[0].global_position, "right")
 	emit_signal("hit", action, action.target[0].global_position, "left")
-	action.actor.moveToLocation(startPos)
-	action.partner.moveToLocation(partnerStart)
+	action.actor.forceMove(startPos)
+	action.partner.forceMove(partnerStart)
 	await get_tree().create_timer(0.1).timeout
 	emit_signal("completed", action)
 	await get_tree().create_timer(1).timeout

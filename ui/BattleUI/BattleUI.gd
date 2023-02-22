@@ -35,8 +35,8 @@ func unstickNotification():
 func fillPartyData(slot, partyMember):
 	partyContainer.fillData(slot, partyMember)
 
-func commandTime(slot, command, partner):
-	var s = emit_signal("sendCommand", slot, command, partner)
+func commandTime(slot, command, partner, isItem):
+	var s = emit_signal("sendCommand", slot, command, partner, isItem)
 	
 	if s != OK:
 		Global.printSignalError("BattleUI", "commandTime", "sendCommand")

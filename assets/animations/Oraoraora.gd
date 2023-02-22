@@ -7,7 +7,7 @@ var hitSpeed = 0.08
 
 func start(action: Dictionary):
 	var startPos = action.actor.global_position
-	action.actor.moveToLocation(action.target[0].global_position)
+	action.actor.forceMove(action.target[0].global_position)
 	
 	var direction = "right"
 	for hit in 100:
@@ -20,7 +20,7 @@ func start(action: Dictionary):
 			direction = "right"
 		if hit % 25 == 0:
 			hitSpeed -= 0.02
-	action.actor.moveToLocation(startPos)
+	action.actor.forceMove(startPos)
 	await get_tree().create_timer(0.1).timeout
 	emit_signal("completed", action)
 	await get_tree().create_timer(1).timeout

@@ -4,8 +4,8 @@
 
 [node name="ExtendedCommandMenu" type="MarginContainer"]
 custom_minimum_size = Vector2(220, 155)
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 300.0
+offset_bottom = 155.0
 script = ExtResource("1_qw0i4")
 
 [node name="ColorRect" type="ColorRect" parent="."]

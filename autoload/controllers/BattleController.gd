@@ -136,12 +136,13 @@ func addToActionQueue(command):
 	actionQueue.append(command)
 
 # We come here after having selected a command.
-func prepareTargeting(slot, command, partner):
+func prepareTargeting(slot, command, partner, isItem: bool):
 	commandForTargeting = {
 		"actor": actors[slot - 1],
 		"command": command,
 		"target": null,
-		"partner": partner
+		"partner": partner,
+		"isItem": isItem
 	}
 	match commandForTargeting.command.target:
 		Enums.TARGET_TYPE.ANY, \
@@ -218,8 +219,16 @@ func executeCommand(action):
 			battleUI.showNotification(action.command.name, action.actor.displayName)
 		
 		# TODO: Deduct costs and what not...
+		if action.isItem:
+			Global.use_inventory_item(action.command.name)
+		else:
+			action.actor.stats.reduceMP(action.command.cost)
 		
-		var animation = load("res://assets/animations/" + action.command.name + ".tscn").instantiate()
+		var animation
+		if action.command.animOverride != null:
+			animation = load("res://assets/animations/overrides/" + action.command.animOverride + ".tscn").instantiate()
+		else:
+			animation = load("res://assets/animations/" + action.command.name + ".tscn").instantiate()
 		add_child(animation)
 		animation.connect("hit", Callable(self, "commandHit"))
 		animation.connect("completed", Callable(self, "finishCommand"))
@@ -377,7 +386,7 @@ func postBattleCleanup(ranAway = false):
 	battleUI.end()
 	await get_tree().create_timer(1.0).timeout
 	if !ranAway:
-		NotificationController.addUpdateotification("You got nothing...")
+		NotificationController.addUpdateNotification("You got nothing...")
 	Global.set_game_state(Enums.GAME_STATE.ROAMING)
 	BATTLE_STATE = Enums.BATTLE_STATE.AWAITING_ACTION
 	BATTLE_END_STATE = Enums.BATTLE_END_STATE.ONGOING

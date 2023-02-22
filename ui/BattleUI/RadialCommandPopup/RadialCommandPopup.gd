@@ -1,6 +1,6 @@
 extends Control
 
-signal whatDo(command, partner)
+signal whatDo(command, partner, isItem)
 signal passTurn(slot)
 
 @onready var radial = $"%MainRadial"
@@ -19,7 +19,7 @@ func handleInputs():
 		if Input.is_action_just_pressed("battle_skill"):
 			populateExtendedMenu("skill")
 		if Input.is_action_just_pressed("battle_item"):
-			pass
+			populateExtendedMenu("item")
 		if Input.is_action_just_pressed("battle_special"):
 			pass
 		if Input.is_action_just_pressed("battle_run"):
@@ -44,18 +44,21 @@ func _process(_delta):
 
 func populateExtendedMenu(type: String):
 	extendedMenu.clear()
+	radial.hide()
 	await get_tree().create_timer(0.1).timeout
+	var partyMem = Global.get_party_member_by_slot(slot)
 	match type:
 		"skill":
-			var partyMem = Global.get_party_member_by_slot(slot)
-			extendedMenu.populate(partyMem)
+			extendedMenu.populateSkill(partyMem)
 		"item":
-			pass
+			extendedMenu.populateItem(partyMem)
 	showExtendedMenu = true
 
 # Player exited out of the extended menu
 func hideExtendedMenu():
+	print("yes")
 	showExtendedMenu = false
+	radial.show()
 
 func setup(partyMemSlot: int):
 	canAct = true
@@ -77,9 +80,9 @@ func setColor(characterType):
 		Enums.CHARACTER.TASTY:
 			BG.modulate = Color("#ba7ca7")
 
-func actionize(command: Dictionary, partner : Object = null):
+func actionize(command: Dictionary, partner : Object = null, isItem: bool = false):
 	hide()
 	canAct = false
-	var s = emit_signal("whatDo", slot, command, partner)
+	var s = emit_signal("whatDo", slot, command, partner, isItem)
 	if s != OK:
 		Global.printSignalError("RadialCommandPopup", "actionize", "whatDo")

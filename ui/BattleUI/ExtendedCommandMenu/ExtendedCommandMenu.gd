@@ -1,6 +1,6 @@
 extends MarginContainer
 
-signal selected(command, partner)
+signal selected(command, partner, isItem)
 signal cancel
 
 var allItems = []
@@ -14,8 +14,9 @@ var active = false
 func handleInputs():
 	if active:
 		if Input.is_action_just_pressed("ui_select"):
-			if !allItems[currentIndex].disabled:
-				select(allItems[currentIndex])
+			if allItems.size() > 0:
+				if !allItems[currentIndex].disabled:
+					select(allItems[currentIndex])
 		if Input.is_action_just_pressed("ui_cancel"):
 			active = false
 			
@@ -36,11 +37,13 @@ func handleInputs():
 func _process(_delta):
 	if active:
 		handleInputs()
-		for item in allItems:
-			item.unhighlight()
-		allItems[currentIndex].highlight()
+		if allItems.size() > 0:
+			for item in allItems:
+				item.unhighlight()
+			
+			allItems[currentIndex].highlight()
 
-func populate(partyMem) -> void:
+func populateSkill(partyMem) -> void:
 	for command in partyMem.commands:
 		var instance = extendedCommand.instantiate()
 		grid.add_child(instance)
@@ -57,7 +60,20 @@ func populate(partyMem) -> void:
 			Enums.MULTITECH_TYPE.TRIPLE:
 				description += "TRIPLE TECH.\n"
 		description += command.description
-		instance.prepare(partyMem, command, description)
+		instance.prepare(partyMem, command, description, command.cost)
+		allItems.append(instance)
+	active = true
+
+func populateItem(partyMem) -> void:
+	var usables = Global.get_inventory().filter(func(item): return item.item.category == Enums.ITEM_TYPE.USABLE)
+	print(usables)
+	
+	for item in usables:
+		var instance = extendedCommand.instantiate()
+		grid.add_child(instance)
+		instance.itemMode = true
+		
+		instance.prepare(partyMem, item.item, item.item.description, item.amount)
 		allItems.append(instance)
 	active = true
 
@@ -68,6 +84,6 @@ func clear():
 
 func select(command):
 	active = false
-	var s = emit_signal("selected", command.skill, command.partner)
+	var s = emit_signal("selected", command.skill, command.partner, allItems[currentIndex].itemMode)
 	if s != OK:
 		Global.printSignalError("ExtendedCommandMenu", "select", "selected")

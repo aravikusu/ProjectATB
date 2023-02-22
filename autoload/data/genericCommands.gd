@@ -21,7 +21,7 @@ var DEFEND = {
 	"name": "Defend",
 	"alternativeDisplayText": null,
 	"description": "If you see this, you should prepare yourself. It'll hurt otherwise.",
-	"icon": "dummy"
+	"icon": "dummy",
 	"hits": 0,
 	"hitPower": null,
 	"cost": 0,
