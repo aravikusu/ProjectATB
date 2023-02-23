@@ -74,8 +74,8 @@ func stringifyResistEnum(value: Enums.ELEMENT_RESISTANCE):
 			return "Resist"
 		Enums.ELEMENT_RESISTANCE.NULL:
 			return "Null"
-		Enums.ELEMENT_RESISTANCE.DRAIN:
-			return "Drain"
+		Enums.ELEMENT_RESISTANCE.ABSORB:
+			return "Absorb"
 		Enums.ELEMENT_RESISTANCE.REPEL:
 			return "Repel"
 		Enums.ELEMENT_RESISTANCE.WEAK:

@@ -50,7 +50,7 @@ offset_top = 222.0
 offset_right = 371.0
 offset_bottom = 232.0
 command = 0
-button = 0
+inputName = "battle_attack"
 
 [node name="Item" parent="MainRadial/RightSide" instance=ExtResource("2_g6wq5")]
 unique_name_in_owner = true
@@ -60,7 +60,7 @@ offset_top = 156.0
 offset_right = 292.0
 offset_bottom = 166.0
 command = 3
-button = 3
+inputName = "battle_item"
 
 [node name="Special" parent="MainRadial/RightSide" instance=ExtResource("2_g6wq5")]
 unique_name_in_owner = true
@@ -69,7 +69,7 @@ offset_left = 306.0
 offset_top = 156.0
 offset_right = 436.0
 offset_bottom = 166.0
-button = 2
+inputName = "battle_special"
 
 [node name="Skill" parent="MainRadial/RightSide" instance=ExtResource("2_g6wq5")]
 unique_name_in_owner = true
@@ -79,7 +79,7 @@ offset_top = 89.0
 offset_right = 370.0
 offset_bottom = 99.0
 command = 2
-button = 1
+inputName = "battle_skill"
 
 [node name="LeftSide" type="Control" parent="MainRadial"]
 layout_mode = 3
@@ -117,7 +117,7 @@ command = 5
 
 [node name="ExtendedMenu" parent="." instance=ExtResource("3_ptc7x")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(300, 155)
+custom_minimum_size = Vector2(300, 200)
 layout_mode = 0
 offset_left = 1.0
 offset_top = -160.0

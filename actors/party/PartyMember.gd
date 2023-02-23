@@ -138,6 +138,8 @@ func postBattleClean():
 	ATB = 0
 	CHARACTER_BATTLE_STATE = Enums.CHARACTER_BATTLE_STATE.CHARGING
 	setOverworldSprite()
+	selector.hide()
+	highlight.hide()
 
 func flush():
 	loadedCharacter.queue_free()

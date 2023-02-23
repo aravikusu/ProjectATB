@@ -31,6 +31,7 @@ DialogueController="*res://autoload/controllers/DialogueController.tscn"
 AraVox="*res://addons/aravox/aravox.gd"
 NotificationController="*res://autoload/controllers/NotificationController.tscn"
 Items="*res://autoload/data/items.gd"
+BattleHelper="*res://autoload/helpers/battleHelper.gd"
 
 [display]
 

@@ -8,6 +8,9 @@ var controllerButton
 var keyboardButton
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	setButton()
+
+func setButton():
 	var input =  InputMap.action_get_events(inputName)
 	
 	for event in input:

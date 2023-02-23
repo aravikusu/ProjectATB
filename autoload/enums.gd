@@ -71,8 +71,22 @@ enum ELEMENT_RESISTANCE {
 	WEAK = 2,
 	RESIST = 3,
 	NULL = 4,
-	DRAIN = 5,
+	ABSORB = 5,
 	REPEL = 6
+}
+
+enum ELEMENT {
+	FIRE = 0,
+	WATER = 1,
+	ICE = 2,
+	WIND = 3,
+	LIGHTNING = 4,
+	NATURE = 5,
+	EARTH = 6,
+	LIGHT = 7,
+	DARK = 8,
+	ANIMA = 9,
+	PHYSICAL = 10
 }
 
 enum ITEM_TYPE {
@@ -82,4 +96,25 @@ enum ITEM_TYPE {
 	ACCESSORY = 3,
 	MATERIAL = 4,
 	KEY_ITEM = 5
+}
+
+enum COMMAND_EFFECT_TYPE {
+	HP_DAMAGE = 0,
+	MP_DAMAGE = 1,
+	ALL_DAMAGE = 2,
+	HP_HEAL = 3,
+	MP_HEAL = 4,
+	ALL_HEAL = 5,
+	HP_DRAIN = 6,
+	MP_DRAIN = 7,
+	ALL_DRAIN = 8,
+	GRAVITY = 9,
+	NONE = 99
+}
+
+enum BATTLE_CALCULATED_VALUE {
+	HP = 0,
+	MP = 1,
+	HP_DRAIN = 2,
+	MP_DRAIN = 3
 }

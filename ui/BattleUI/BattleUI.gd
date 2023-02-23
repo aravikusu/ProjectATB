@@ -19,6 +19,7 @@ func startBattle():
 
 func end():
 	player.play("end")
+	hideRadialMenu()
 
 func clearPartyUI():
 	partyContainer.clearParty()

@@ -1,20 +1,20 @@
-@tool
 extends Control
 
 @onready var commandText = $"%CommandText"
 @onready var icon = $"%Button"
 @onready var description = $"%Description"
+@onready var button = $"%Button"
 
 @export_enum("Attack", "Defend", "Skill", "Item", "Run", "Pass", "Alchemy", "Taming", "Magic") var command:
 	set(newCommand):
 		command = newCommand
 
-@export_enum("X", "Triangle", "Circle", "Square") var button:
-	set(newButton):
-		button = newButton
+@export var inputName = ""
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	button.inputName = inputName
+	button.setButton()
 	setup()
 
 func _process(_delta):
@@ -41,16 +41,6 @@ func setup():
 		5:
 			commandText.text = "Pass"
 			description.text = "Pass to the next in line"
-	
-	match button:
-		0:
-			icon.texture = load("res://assets/ui/button-cross.png")
-		1:
-			icon.texture = load("res://assets/ui/button-triangle.png")
-		2:
-			icon.texture = load("res://assets/ui/button-circle.png")
-		3:
-			icon.texture = load("res://assets/ui/button-square.png")
 
 func setSpecialButton(characterType: Enums.CHARACTER):
 	match characterType:

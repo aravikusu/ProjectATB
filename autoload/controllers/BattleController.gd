@@ -7,6 +7,7 @@ var actors = []
 var actionQueue = []
 
 var commandForTargeting = {}
+var currentCommandHitsSoFar = 0
 var currentCommandTotalDamage = 0
 
 var escapeIsPossible : bool
@@ -249,22 +250,18 @@ func commandHit(action, effectNumberPos, effectNumberDirection):
 		var damage = 1
 		
 		for target in action.target:
-			var prevHP = target.stats.HP
-			var newHP = target.stats.HP - damage
-			if newHP < 0:
-				target.stats.HP = 0
-			else:
-				target.stats.HP = newHP
+			var resolvedDamage = BattleHelper.calculateHit(action, target, currentCommandHitsSoFar)
 			
-			if newHP == 0 && prevHP > 0:
+			if resolvedDamage.didTargetDie:
 				target.CHARACTER_BATTLE_STATE = Enums.CHARACTER_BATTLE_STATE.DEAD
 				target.ATB = 0
 				displayEffectText("dead", effectNumberPos)
 				target.playDeadAnimation()
 			
+			currentCommandHitsSoFar += 1
 			currentCommandTotalDamage += damage
 			
-			displayEffectNumber(effectNumberPos, damage, effectNumberDirection)
+			displayEffectNumber(effectNumberPos, resolvedDamage.value, effectNumberDirection)
 
 # We come here after animations have finished playing.
 # Everything post-attack is handled here; states, ui things, etc.
@@ -279,6 +276,7 @@ func finishCommand(action):
 			action.partner.CHARACTER_BATTLE_STATE = Enums.CHARACTER_BATTLE_STATE.CHARGING
 	
 	BATTLE_STATE = Enums.BATTLE_STATE.AWAITING_ACTION
+	currentCommandHitsSoFar = 0
 	currentCommandTotalDamage = 0
 
 func displayEffectNumber(startPosition: Vector3, value: int, direction: String):
