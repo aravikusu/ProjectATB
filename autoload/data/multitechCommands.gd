@@ -9,7 +9,7 @@ var X_STRIKE = {
 	"cost": 20,
 	"element": Enums.ELEMENT.PHYSICAL,
 	"effectType": Enums.COMMAND_EFFECT_TYPE.HP_DAMAGE,
-	"effectValues": [1.0],
+	"effectValues": [[1.0]],
 	"target": Enums.TARGET_TYPE.LINE,
 	"additionalTargetInfo": [],
 	"multitech": Enums.MULTITECH_TYPE.ARA_AYL,

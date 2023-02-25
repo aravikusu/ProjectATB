@@ -36,17 +36,17 @@ func calculateHit(actor: Object, command: Dictionary, target: Object, hit: int) 
 		Enums.COMMAND_EFFECT_TYPE.HP_DAMAGE, \
 		Enums.COMMAND_EFFECT_TYPE.MP_DAMAGE, \
 		Enums.COMMAND_EFFECT_TYPE.ALL_DAMAGE:
-			resolved.calculated = handleDamage(actor, target, command, resistMultiplier, effectValues[0], absorb)
+			resolved.calculated = handleDamage(actor, target, command, resistMultiplier, effectValues, absorb)
 		Enums.COMMAND_EFFECT_TYPE.HP_HEAL, \
 		Enums.COMMAND_EFFECT_TYPE.MP_HEAL, \
 		Enums.COMMAND_EFFECT_TYPE.ALL_HEAL:
-			resolved.calculated = handleHeal(actor, target, command, effectValues[0])
+			resolved.calculated = handleHeal(actor, target, command, effectValues)
 		Enums.COMMAND_EFFECT_TYPE.HP_DRAIN, \
 		Enums.COMMAND_EFFECT_TYPE.MP_DRAIN, \
 		Enums.COMMAND_EFFECT_TYPE.ALL_DRAIN:
-			resolved.calculated = handleDrain(actor, target, command, resistMultiplier, effectValues[0])
+			resolved.calculated = handleDrain(actor, target, command, resistMultiplier, effectValues)
 		Enums.COMMAND_EFFECT_TYPE.GRAVITY:
-			resolved.calculated = handleGravity(target, effectValues[0], absorb)
+			resolved.calculated = handleGravity(target, effectValues, absorb)
 	
 	if prevHP != 0 && target.stats.HP == 0:
 		resolved.didTargetDie = true
@@ -62,22 +62,22 @@ func handleDamage(actor: Object, target: Object, command: Dictionary, resistMult
 	var actorStrength = actor.stats.ATK if command.element == Enums.ELEMENT.PHYSICAL else actor.stats.MATK
 	var targetDefense = target.stats.DEF if command.element == Enums.ELEMENT.PHYSICAL else target.stats.MDEF
 	
-	var calculated = damageFormula(actor.stats.level, actorStrength, targetDefense, effectValues[0], resistMultiplier)
+	var calculated = damageFormula(actor.stats.Level, actorStrength, targetDefense, effectValues[0], resistMultiplier)
 	
 	match command.effectType:
 		Enums.COMMAND_EFFECT_TYPE.HP_DAMAGE:
 			target.stats.reduceHP(calculated)
-			calculatedValues.append(createCalculatedValue(calculated, Enums.BATTLE_CALCULATED_VALUE.HP))
+			calculatedValues.append(createCalculatedValue(calculated, Enums.BATTLE_CALCULATED_VALUE.HP, "damage"))
 		Enums.COMMAND_EFFECT_TYPE.MP_DAMAGE:
 			target.stats.reduceMP(calculated)
-			calculatedValues.append(createCalculatedValue(calculated, Enums.BATTLE_CALCULATED_VALUE.MP))
+			calculatedValues.append(createCalculatedValue(calculated, Enums.BATTLE_CALCULATED_VALUE.MP, "damage"))
 		Enums.COMMAND_EFFECT_TYPE.ALL_DAMAGE:
 			target.stats.reduceHP(calculated)
-			calculatedValues.append(createCalculatedValue(calculated, Enums.BATTLE_CALCULATED_VALUE.HP))
+			calculatedValues.append(createCalculatedValue(calculated, Enums.BATTLE_CALCULATED_VALUE.HP, "damage"))
 			
 			var calc2 = damageFormula(actor.stats.level, actorStrength, targetDefense, effectValues[1], resistMultiplier)
 			target.stats.reduceMP(calc2)
-			calculatedValues.append(createCalculatedValue(calculated, Enums.BATTLE_CALCULATED_VALUE.MP))
+			calculatedValues.append(createCalculatedValue(calculated, Enums.BATTLE_CALCULATED_VALUE.MP, "damage"))
 	
 	return calculatedValues
 
@@ -96,26 +96,25 @@ func handleHeal(actor: Object, target: Object, command: Dictionary, effectValues
 	if miss:
 		calculated = "miss"
 	else:
-		calculated = healFormula(actor.stats.level, actorStrength, effectValues[0])
+		calculated = healFormula(actor.stats.Level, actorStrength, effectValues[0])
 	
-	calculatedValues.append(calculated)
 	match command.effectType:
 		Enums.COMMAND_EFFECT_TYPE.HP_HEAL:
 			if !miss:
 				target.stats.increaseHP(calculated)
-			calculatedValues.append(createCalculatedValue(calculated, Enums.BATTLE_CALCULATED_VALUE.HP))
+			calculatedValues.append(createCalculatedValue(calculated, Enums.BATTLE_CALCULATED_VALUE.HP, "heal"))
 		Enums.COMMAND_EFFECT_TYPE.MP_HEAL:
 			target.stats.increaseMP(calculated)
-			calculatedValues.append(createCalculatedValue(calculated, Enums.BATTLE_CALCULATED_VALUE.MP))
+			calculatedValues.append(createCalculatedValue(calculated, Enums.BATTLE_CALCULATED_VALUE.MP, "heal"))
 		Enums.COMMAND_EFFECT_TYPE.ALL_HEAL:
 			if !miss:
 				target.stats.increaseHP(calculated)
-			calculatedValues.append(createCalculatedValue(calculated, Enums.BATTLE_CALCULATED_VALUE.HP))
+			calculatedValues.append(createCalculatedValue(calculated, Enums.BATTLE_CALCULATED_VALUE.HP, "heal"))
 			
 			if !miss:
 				var calc2 = healFormula(actor.stats.level, actorStrength, effectValues[1])
-				target.stats.reduceMP(calc2)
-				calculatedValues.append(createCalculatedValue(calculated, Enums.BATTLE_CALCULATED_VALUE.MP))
+				target.stats.increaseMP(calc2)
+				calculatedValues.append(createCalculatedValue(calculated, Enums.BATTLE_CALCULATED_VALUE.MP, "heal"))
 	
 	return calculatedValues
 
@@ -128,31 +127,31 @@ func handleDrain(actor: Object, target: Object, command: Dictionary, resistMulti
 	var actorStrength = actor.stats.ATK if command.element == Enums.ELEMENT.PHYSICAL else actor.stats.MATK
 	var targetDefense = target.stats.DEF if command.element == Enums.ELEMENT.PHYSICAL else target.stats.MDEF
 	
-	var calculated = damageFormula(actor.stats.level, actorStrength, targetDefense, effectValues[0], resistMultiplier)
+	var calculated = damageFormula(actor.stats.Level, actorStrength, targetDefense, effectValues[0], resistMultiplier)
 	var drain = floor(calculated * effectValues[1])
 	match command.effectType:
 		Enums.COMMAND_EFFECT_TYPE.HP_DRAIN:
 			target.stats.reduceHP(calculated)
 			actor.stats.increaseHP(drain)
 			
-			calculatedValues.append(createCalculatedValue(calculated, Enums.BATTLE_CALCULATED_VALUE.HP))
-			calculatedValues.append(createCalculatedValue(drain, Enums.BATTLE_CALCULATED_VALUE.HP_DRAIN))
+			calculatedValues.append(createCalculatedValue(calculated, Enums.BATTLE_CALCULATED_VALUE.HP, "heal"))
+			calculatedValues.append(createCalculatedValue(drain, Enums.BATTLE_CALCULATED_VALUE.HP_DRAIN, "heal"))
 		Enums.COMMAND_EFFECT_TYPE.MP_DRAIN:
 			target.stats.reduceMP(calculated)
 			actor.stats.increaseMP(drain)
 			
-			calculatedValues.append(createCalculatedValue(calculated, Enums.BATTLE_CALCULATED_VALUE.MP))
-			calculatedValues.append(createCalculatedValue(drain, Enums.BATTLE_CALCULATED_VALUE.MP_DRAIN))
+			calculatedValues.append(createCalculatedValue(calculated, Enums.BATTLE_CALCULATED_VALUE.MP, "heal"))
+			calculatedValues.append(createCalculatedValue(drain, Enums.BATTLE_CALCULATED_VALUE.MP_DRAIN, "heal"))
 		Enums.COMMAND_EFFECT_TYPE.ALL_DRAIN:
 			target.stats.reduceHP(calculated)
 			actor.stats.increaseHP(drain)
 			
-			calculatedValues.append(createCalculatedValue(calculated, Enums.BATTLE_CALCULATED_VALUE.HP))
-			calculatedValues.append(createCalculatedValue(drain, Enums.BATTLE_CALCULATED_VALUE.HP_DRAIN))
+			calculatedValues.append(createCalculatedValue(calculated, Enums.BATTLE_CALCULATED_VALUE.HP, "heal"))
+			calculatedValues.append(createCalculatedValue(drain, Enums.BATTLE_CALCULATED_VALUE.HP_DRAIN, "heal"))
 			
 			var drain2 = floor(calculated * effectValues[2])
 			actor.stats.increaseMP(drain2)
-			calculatedValues.append(createCalculatedValue(drain2, Enums.BATTLE_CALCULATED_VALUE.MP_DRAIN))
+			calculatedValues.append(createCalculatedValue(drain2, Enums.BATTLE_CALCULATED_VALUE.MP_DRAIN, "heal"))
 	
 	return calculatedValues
 
@@ -162,7 +161,7 @@ func handleGravity(target: Object, effectValues: Array, absorb: bool):
 	
 	# Right now gravity type attacks can only deal set percentages.
 	var calculated = target.stats.HP / effectValues[0]
-	calculatedValues.append(createCalculatedValue(calculated, Enums.BATTLE_CALCULATED_VALUE.HP))
+	calculatedValues.append(createCalculatedValue(calculated, Enums.BATTLE_CALCULATED_VALUE.HP, "damage"))
 	
 	return calculatedValues
 
@@ -189,10 +188,11 @@ func getActorResistance(actor: Object, resistance: Enums.ELEMENT):
 		Enums.ELEMENT.ANIMA:
 			return actor.stats.Anima
 
-func createCalculatedValue(value: int, type: Enums.BATTLE_CALCULATED_VALUE):
+func createCalculatedValue(value: int, type: Enums.BATTLE_CALCULATED_VALUE, mode: String):
 	return {
 		"calculated": value,
-		"type": type
+		"type": type,
+		"mode": mode
 	}
 
 func damageFormula(actorLevel: int, actorStrength: int, targetDefense: int, power: int, resistMultiplier: float) -> int:

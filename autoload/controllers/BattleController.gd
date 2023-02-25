@@ -19,7 +19,8 @@ var ceaseEverything = false
 
 @onready var battleUI = $BattleUI
 @onready var targetUI = $TargetUI
-@onready var effectNumbers = preload("res://ui/EffectNumbers/EffectNumbers.tscn")
+@onready var damageNumbers = preload("res://ui/Numbers/DamageNumbers/DamageNumbers.tscn")
+@onready var healNumbers = preload("res://ui/Numbers/HealNumbers/HealNumbers.tscn")
 @onready var effectText = preload("res://ui/EffectText/EffectText.tscn")
 
 func handle_inputs():
@@ -239,7 +240,7 @@ func executeCommand(action):
 		battleUI.showNotification("... %a cancels their attack!", action.actor.displayName)
 		BATTLE_STATE = Enums.BATTLE_STATE.AWAITING_ACTION
 
-# Called during animations. Damage calculations, EffectNumbers
+# Called during animations. Damage calculations, DamageNumbers
 func commandHit(action, effectNumberPos, effectNumberDirection):
 	
 	if action.command.name == "Run":
@@ -250,7 +251,7 @@ func commandHit(action, effectNumberPos, effectNumberDirection):
 		var damage = 1
 		
 		for target in action.target:
-			var resolvedDamage = BattleHelper.calculateHit(action, target, currentCommandHitsSoFar)
+			var resolvedDamage = BattleHelper.calculateHit(action.actor, action.command, target, currentCommandHitsSoFar)
 			
 			if resolvedDamage.didTargetDie:
 				target.CHARACTER_BATTLE_STATE = Enums.CHARACTER_BATTLE_STATE.DEAD
@@ -261,7 +262,19 @@ func commandHit(action, effectNumberPos, effectNumberDirection):
 			currentCommandHitsSoFar += 1
 			currentCommandTotalDamage += damage
 			
-			displayEffectNumber(effectNumberPos, resolvedDamage.value, effectNumberDirection)
+			for calculated in resolvedDamage.calculated:
+				if calculated.mode == "damage":
+					match calculated.type:
+						Enums.BATTLE_CALCULATED_VALUE.HP:
+							displayDamageNumber(effectNumberPos, calculated.calculated, effectNumberDirection)
+						Enums.BATTLE_CALCULATED_VALUE.MP:
+							displayDamageNumber(effectNumberPos, calculated.calculated, effectNumberDirection, true)
+				else:
+					match calculated.type:
+						Enums.BATTLE_CALCULATED_VALUE.HP:
+							displayHealNumber(effectNumberPos, calculated.calculated, "hp")
+						Enums.BATTLE_CALCULATED_VALUE.MP:
+							displayHealNumber(effectNumberPos, calculated.calculated, "mp")
 
 # We come here after animations have finished playing.
 # Everything post-attack is handled here; states, ui things, etc.
@@ -279,10 +292,17 @@ func finishCommand(action):
 	currentCommandHitsSoFar = 0
 	currentCommandTotalDamage = 0
 
-func displayEffectNumber(startPosition: Vector3, value: int, direction: String):
-	var numberInstance = effectNumbers.instantiate()
+func displayDamageNumber(startPosition: Vector3, value: int, direction: String, mp = false):
+	var numberInstance = damageNumbers.instantiate()
 	add_child(numberInstance)
+	if mp:
+		numberInstance.setMPMode()
 	numberInstance.prepare(startPosition, value, direction)
+
+func displayHealNumber(startPosition: Vector3, value: int, mode):
+	var numberInstance = healNumbers.instantiate()
+	add_child(numberInstance)
+	numberInstance.prepare(startPosition, value, mode)
 
 func displayEffectText(type: String, location: Vector3):
 	var textInstance = effectText.instantiate()

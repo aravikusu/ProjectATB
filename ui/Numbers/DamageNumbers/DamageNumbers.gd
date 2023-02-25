@@ -20,6 +20,9 @@ func _process(delta):
 		fading = true
 		player.play("fade")
 
+func setMPMode():
+	modulate = Color("#770078")
+
 func prepare(start: Vector3, value: int, direction: String):
 	text = str(value)
 	p0 = start

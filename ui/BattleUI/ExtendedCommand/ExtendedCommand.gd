@@ -12,6 +12,21 @@ var disabled = true
 var hovering
 var itemMode = false
 
+func _ready():
+	skillName.label_settings = getFont(1)
+	amount.label_settings = getFont(1)
+	description.label_settings = getFont(2)
+
+func getFont(which: int):
+	var mat = LabelSettings.new()
+	mat.font_color = Color("#d5d5d5")
+	if which == 1:
+		mat.font = load("res://assets/fonts/Roboto-BoldItalic.ttf")
+	else:
+		mat.font = load("res://assets/fonts/Roboto-Italic.ttf")
+		mat.font_size = 13
+	return mat
+
 # This process function checks command requirements and enables/disables them.
 func _process(_delta):
 	if skill != null:

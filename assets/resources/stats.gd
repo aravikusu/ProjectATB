@@ -23,8 +23,26 @@ extends Resource
 @export var Dark: Enums.ELEMENT_RESISTANCE = Enums.ELEMENT_RESISTANCE.NEUTRAL
 @export var Anima: Enums.ELEMENT_RESISTANCE = Enums.ELEMENT_RESISTANCE.NEUTRAL
 
-func reduceMP(cost: int):
-	MP = MP - cost
+func increaseHP(amount: int):
+	HP = HP + amount
+
+	if HP > maxHP:
+		HP = maxHP
+
+func reduceHP(amount: int):
+	HP = HP - amount
+
+	if HP < 0:
+		HP = 0
+
+func increaseMP(amount: int):
+	MP = MP + amount
+
+	if MP > maxMP:
+		MP = maxMP
+
+func reduceMP(amount: int):
+	MP = MP - amount
 
 	if MP < 0:
 		MP = 0

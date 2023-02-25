@@ -11,7 +11,7 @@ var HOLY = {
 	"cost": 15,
 	"element": Enums.ELEMENT.LIGHT,
 	"effectType": Enums.COMMAND_EFFECT_TYPE.HP_DAMAGE,
-	"effectValues": [1.0],
+	"effectValues": [[1.0]],
 	"target": Enums.TARGET_TYPE.SHAPE,
 	"additionalTargetInfo": [Enums.TARGET_SHAPE.CIRCLE, 0.5],
 	"multitech": Enums.MULTITECH_TYPE.NONE,
@@ -28,7 +28,7 @@ var ORAORA = {
 	"cost": 25,
 	"element": Enums.ELEMENT.PHYSICAL,
 	"effectType": Enums.COMMAND_EFFECT_TYPE.HP_DAMAGE,
-	"effectValues": [1.0],
+	"effectValues": [[1.0]],
 	"target": Enums.TARGET_TYPE.ANY,
 	"additionalTargetInfo": [],
 	"multitech": Enums.MULTITECH_TYPE.NONE,
@@ -45,10 +45,10 @@ var HEAL = {
 	"cost": 35,
 	"element": Enums.ELEMENT.ANIMA,
 	"effectType": Enums.COMMAND_EFFECT_TYPE.HP_HEAL,
-	"effectValues": [1.0],
+	"effectValues": [[100]],
 	"target": Enums.TARGET_TYPE.ANY,
 	"additionalTargetInfo": [],
 	"multitech": Enums.MULTITECH_TYPE.NONE,
 	"useInMenu": true,
-	"animOverride": null
+	"animOverride": "HealGlimmer"
 }
