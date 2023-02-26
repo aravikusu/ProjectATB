@@ -53,6 +53,14 @@ func _process(_delta):
 func use():
 	# TODO: Apply effect
 	
+	var character = activeMembers[idx].connectedPartyMember
+	var value = activeItem.item.effectValues[0][0]
+	match activeItem.item.effectType:
+		Enums.COMMAND_EFFECT_TYPE.STATIC_HP_HEAL:
+			character.stats.increaseHP(value)
+		Enums.COMMAND_EFFECT_TYPE.STATIC_MP_HEAL:
+			character.stats.increaseMP(value)
+	
 	activeItem.amountVal -= 1
 	activeMembers[idx].activateParticles()
 	Global.use_inventory_item(activeItem.item.name)

@@ -5,8 +5,7 @@ extends Node3D
 func prepare(location, value, mode):
 	label.text = str(value)
 	position = Vector3(location.x, location.y + 0.5, location.z)
-	player.play("hp")
+	player.play(mode)
 
 func _on_animation_player_animation_finished(_anim_name):
-	print("bruh")
 	queue_free()
