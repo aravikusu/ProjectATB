@@ -3,7 +3,6 @@ extends Node3D
 signal completed(action)
 signal hit(action, location, direction)
 
-@onready var player = $AnimationPlayer
 func start(action: Dictionary):
 	global_position = action.target[0].global_position
 	$GPUParticles3D.emitting = true

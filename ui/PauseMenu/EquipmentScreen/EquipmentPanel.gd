@@ -28,7 +28,7 @@ func handleInputs():
 				idx -= 1
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if isActive:
 		equipped[idx].activate()
 	handleInputs()

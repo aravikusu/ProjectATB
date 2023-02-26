@@ -51,7 +51,7 @@ func adjustMultiSelector():
 		allSettings[idx].get_child(1).isActive = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	handle_inputs()
 	allSettings[idx].get_child(0).activate()
 

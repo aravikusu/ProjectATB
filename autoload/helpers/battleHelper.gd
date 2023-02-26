@@ -47,7 +47,12 @@ func calculateHit(actor: Object, command: Dictionary, target: Object, hit: int) 
 			resolved.calculated = handleDrain(actor, target, command, resistMultiplier, effectValues)
 		Enums.COMMAND_EFFECT_TYPE.GRAVITY:
 			resolved.calculated = handleGravity(target, effectValues, absorb)
-	
+		Enums.COMMAND_EFFECT_TYPE.STATIC_HP_DAMAGE, \
+		Enums.COMMAND_EFFECT_TYPE.STATIC_MP_DAMAGE:
+			resolved.calculated = handleStaticDamage(target, command, effectValues, absorb)
+		Enums.COMMAND_EFFECT_TYPE.STATIC_HP_HEAL, \
+		Enums.COMMAND_EFFECT_TYPE.STATIC_MP_HEAL:
+			resolved.calculated = handleStaticHeal(target, command, effectValues, absorb)
 	if prevHP != 0 && target.stats.HP == 0:
 		resolved.didTargetDie = true
 	
@@ -163,6 +168,42 @@ func handleGravity(target: Object, effectValues: Array, absorb: bool):
 	var calculated = target.stats.HP / effectValues[0]
 	calculatedValues.append(createCalculatedValue(calculated, Enums.BATTLE_CALCULATED_VALUE.HP, "damage"))
 	
+	return calculatedValues
+
+func handleStaticDamage(target: Object, command: Dictionary, effectValues: Array, absorb: bool):
+	var calculatedValues = []
+	#TODO: miss, absorb
+	
+	var calculated = effectValues[0]
+	var type
+	
+	if command.effectType == Enums.COMMAND_EFFECT_TYPE.STATIC_HP_DAMAGE:
+		target.stats.reduceHP(calculated)
+		type = Enums.BATTLE_CALCULATED_VALUE.HP
+	else:
+		target.stats.reduceMP(calculated)
+		type = Enums.BATTLE_CALCULATED_VALUE.MP
+	
+	calculatedValues.append(createCalculatedValue(calculated, type, "damage"))
+	return calculatedValues
+
+# Static damage/healing will always do the same amount, even if resist/weak.
+# Unless absorb/miss, that is
+func handleStaticHeal(target: Object, command: Dictionary, effectValues: Array, absorb: bool):
+	var calculatedValues = []
+	#TODO: miss, absorb
+	
+	var calculated = effectValues[0]
+	var type
+	
+	if command.effectType == Enums.COMMAND_EFFECT_TYPE.STATIC_HP_HEAL:
+		target.stats.increaseHP(calculated)
+		type = Enums.BATTLE_CALCULATED_VALUE.HP
+	else:
+		target.stats.increaseMP(calculated)
+		type = Enums.BATTLE_CALCULATED_VALUE.MP
+	
+	calculatedValues.append(createCalculatedValue(calculated, type, "heal"))
 	return calculatedValues
 
 func getActorResistance(actor: Object, resistance: Enums.ELEMENT):

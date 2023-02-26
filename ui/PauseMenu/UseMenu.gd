@@ -46,7 +46,7 @@ func handleInputs():
 			emit_signal("cancel")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	activeMembers[idx].activate()
 	handleInputs()
 

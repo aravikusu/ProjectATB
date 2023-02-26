@@ -242,13 +242,14 @@ func executeCommand(action):
 		BATTLE_STATE = Enums.BATTLE_STATE.AWAITING_ACTION
 
 # Called during animations. Damage calculations, DamageNumbers
-func commandHit(action, effectNumberPos, effectNumberDirection):
+func commandHit(action: Dictionary, effectNumberPos: Vector3, effectNumberDirection: String):
 	
 	if action.command.name == "Run":
 		# A BEAUTIFUL WAY OF HANDLING THIS AND NOT A HACK I PROMISE
 		handleRun()
 	else:
-		# TODO: Everything?? Damage calculations, status hits, EVERYTHING
+		effectNumberPos.z += 0.1
+		# TODO: Status hits
 		var damage = 1
 		
 		for target in action.target:
