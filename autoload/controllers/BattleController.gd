@@ -27,7 +27,8 @@ func handle_inputs():
 	if Global.BATTLE_TARGETING_MODE:
 		if Input.is_action_just_pressed("ui_cancel"):
 			endTargeting()
-			battleUI.reappearRadialMenu()
+			var showExtended = commandForTargeting.command.name != "Attack"
+			battleUI.reappearRadialMenu(showExtended)
  
 func _process(_delta):
 	if Global.get_game_state() == Enums.GAME_STATE.BATTLE:
