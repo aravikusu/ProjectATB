@@ -1,6 +1,14 @@
 class_name Stats
 extends Resource
 
+### If it's a player character, specify it here.
+@export var Player: Enums.CHARACTER = Enums.CHARACTER.NONE
+
+### If it's a monster or enemy, put it here instead.
+@export var OtherCreature: CharacterBody3D
+
+var BaseStats: Stats
+
 @export var Level: int
 @export var maxHP: int
 @export var HP: int
@@ -22,6 +30,26 @@ extends Resource
 @export var Light: Enums.ELEMENT_RESISTANCE = Enums.ELEMENT_RESISTANCE.NEUTRAL
 @export var Dark: Enums.ELEMENT_RESISTANCE = Enums.ELEMENT_RESISTANCE.NEUTRAL
 @export var Anima: Enums.ELEMENT_RESISTANCE = Enums.ELEMENT_RESISTANCE.NEUTRAL
+
+# Polled by a global script all the time. Ensures stats are always up to date with
+# equipment and buffs.
+func update():
+	BaseStats = PartyHelper.getPartyMemberStats(Level, Player)
+	var equipment = Global.get_equipment_by_type(Player)
+	
+	if Player != Enums.CHARACTER.MONSTER:
+		for equip in equipment.values():
+			if equip != null:
+				var stats = equip.stats
+				
+				maxHP += stats.HP
+				maxMP += stats.MP
+				ATK += stats.ATK
+				MATK += stats.MATK
+				DEF += stats.DEF
+				MDEF += stats.MDEF
+				SPD += stats.SPD
+				LUK += stats.LUK
 
 func increaseHP(amount: int):
 	HP = HP + amount

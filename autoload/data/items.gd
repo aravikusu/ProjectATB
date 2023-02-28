@@ -37,7 +37,17 @@ var ARMMODIFIER = {
 	"category": Enums.ITEM_TYPE.WEAPON,
 	"useInCombat": false,
 	"useInMenu": true,
-	"canWear": [Enums.CHARACTER.ARAVIX]
+	"canWear": [Enums.CHARACTER.ARAVIX],
+	"stats": {
+		"HP": 0,
+		"MP": 0,
+		"ATK": 10,
+		"MATK": 0,
+		"DEF": 0,
+		"MDEF": 0,
+		"SPD": 0,
+		"LUK": 0
+	}
 }
 
 var STAFF = {
@@ -47,7 +57,17 @@ var STAFF = {
 	"category": Enums.ITEM_TYPE.WEAPON,
 	"useInCombat": false,
 	"useInMenu": true,
-	"canWear": [Enums.CHARACTER.TASTY]
+	"canWear": [Enums.CHARACTER.TASTY],
+	"stats": {
+		"HP": 0,
+		"MP": 0,
+		"ATK": 0,
+		"MATK": 10,
+		"DEF": 0,
+		"MDEF": 0,
+		"SPD": 0,
+		"LUK": 0
+	}
 }
 
 var SWORD = {
@@ -57,7 +77,17 @@ var SWORD = {
 	"category": Enums.ITEM_TYPE.WEAPON,
 	"useInCombat": false,
 	"useInMenu": true,
-	"canWear": [Enums.CHARACTER.AYLIK]
+	"canWear": [Enums.CHARACTER.AYLIK],
+	"stats": {
+		"HP": 0,
+		"MP": 0,
+		"ATK": 7,
+		"MATK": 3,
+		"DEF": 0,
+		"MDEF": 0,
+		"SPD": 0,
+		"LUK": 0
+	}
 }
 
 # ARMOR
@@ -69,7 +99,17 @@ var ARMOR = {
 	"category": Enums.ITEM_TYPE.ARMOR,
 	"useInCombat": false,
 	"useInMenu": true,
-	"canWear": [Enums.CHARACTER.EVERYONE]
+	"canWear": [Enums.CHARACTER.EVERYONE],
+	"stats": {
+		"HP": 0,
+		"MP": 0,
+		"ATK": 0,
+		"MATK": 0,
+		"DEF": 5,
+		"MDEF": 5,
+		"SPD": 0,
+		"LUK": 0
+	}
 }
 
 # ACCESSORY
@@ -81,7 +121,17 @@ var ACCESSORY = {
 	"category": Enums.ITEM_TYPE.ACCESSORY,
 	"useInCombat": false,
 	"useInMenu": true,
-	"canWear": [Enums.CHARACTER.EVERYONE]
+	"canWear": [Enums.CHARACTER.EVERYONE],
+	"stats": {
+		"HP": 0,
+		"MP": 0,
+		"ATK": 0,
+		"MATK": 0,
+		"DEF": 0,
+		"MDEF": 0,
+		"SPD": 1,
+		"LUK": 0
+	}
 }
 
 var TESTACC2 = {
@@ -91,5 +141,15 @@ var TESTACC2 = {
 	"category": Enums.ITEM_TYPE.ACCESSORY,
 	"useInCombat": false,
 	"useInMenu": true,
-	"canWear": [Enums.CHARACTER.EVERYONE]
+	"canWear": [Enums.CHARACTER.EVERYONE],
+	"stats": {
+		"HP": 0,
+		"MP": 0,
+		"ATK": 0,
+		"MATK": 0,
+		"DEF": 0,
+		"MDEF": 0,
+		"SPD": 0,
+		"LUK": 1
+	}
 }

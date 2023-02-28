@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="Stats" load_steps=2 format=3 uid="uid://dx078m3ndarjq"]
+
+[ext_resource type="Script" path="res://assets/resources/stats.gd" id="1_a44gu"]
+
+[resource]
+script = ExtResource("1_a44gu")
+Player = 1
+Level = 1
+maxHP = 125
+HP = 125
+maxMP = 75
+MP = 75
+ATK = 3
+MATK = 3
+DEF = 5
+MDEF = 2
+SPD = 4
+LUK = 1
+Fire = 1
+Water = 1
+Ice = 1
+Lightning = 1
+Wind = 1
+Nature = 1
+Earth = 1
+Light = 1
+Dark = 1
+Anima = 1

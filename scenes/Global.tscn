@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://0qfpvccb5706"]
+[gd_scene load_steps=10 format=3 uid="uid://0qfpvccb5706"]
 
 [ext_resource type="Script" path="res://scenes/Global.gd" id="1"]
+[ext_resource type="Script" path="res://assets/resources/stats.gd" id="3_2dfve"]
 [ext_resource type="PackedScene" uid="uid://nbvs5vklklkd" path="res://actors/party/PartyMember.tscn" id="3_emquo"]
+[ext_resource type="Resource" uid="uid://cduttruv8mwci" path="res://actors/party/monsters/dummy-stats.tres" id="4_uea8v"]
 
 [sub_resource type="Animation" id="Animation_f07xo"]
 tracks/0/type = "value"
@@ -21,6 +23,81 @@ tracks/0/keys = {
 _data = {
 "SceneFade": SubResource("Animation_f07xo")
 }
+
+[sub_resource type="Resource" id="Resource_6hnjl"]
+script = ExtResource("3_2dfve")
+Player = 0
+Level = 1
+maxHP = 100
+HP = 100
+maxMP = 25
+MP = 25
+ATK = 5
+MATK = 2
+DEF = 3
+MDEF = 7
+SPD = 2
+LUK = 1
+Fire = 1
+Water = 1
+Ice = 1
+Lightning = 1
+Wind = 1
+Nature = 1
+Earth = 1
+Light = 1
+Dark = 1
+Anima = 1
+
+[sub_resource type="Resource" id="Resource_bty3b"]
+script = ExtResource("3_2dfve")
+Player = 1
+Level = 1
+maxHP = 125
+HP = 125
+maxMP = 75
+MP = 75
+ATK = 3
+MATK = 3
+DEF = 5
+MDEF = 2
+SPD = 4
+LUK = 1
+Fire = 1
+Water = 1
+Ice = 1
+Lightning = 1
+Wind = 1
+Nature = 1
+Earth = 1
+Light = 1
+Dark = 1
+Anima = 1
+
+[sub_resource type="Resource" id="Resource_vv5j5"]
+script = ExtResource("3_2dfve")
+Player = 2
+Level = 1
+maxHP = 75
+HP = 75
+maxMP = 125
+MP = 125
+ATK = 1
+MATK = 7
+DEF = 2
+MDEF = 7
+SPD = 2
+LUK = 1
+Fire = 1
+Water = 1
+Ice = 1
+Lightning = 1
+Wind = 1
+Nature = 1
+Earth = 1
+Light = 1
+Dark = 1
+Anima = 1
 
 [node name="Global" type="Node"]
 process_mode = 1
@@ -49,22 +126,26 @@ editor_description = "The PartyTrain contains every party member. PartyMember1 i
 
 [node name="PartyMember1" parent="PartyTrain" instance=ExtResource("3_emquo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -251, -162, 0)
+stats = SubResource("Resource_6hnjl")
 partyLeader = true
 
 [node name="PartyMember2" parent="PartyTrain" node_paths=PackedStringArray("target") instance=ExtResource("3_emquo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -240, -157, 0)
 collision_mask = 11
+stats = SubResource("Resource_bty3b")
 target = NodePath("../PartyMember1")
 
 [node name="PartyMember3" parent="PartyTrain" node_paths=PackedStringArray("target") instance=ExtResource("3_emquo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -238, -155, 0)
 collision_mask = 11
+stats = SubResource("Resource_vv5j5")
 target = NodePath("../PartyMember2")
 
 [node name="Monster" parent="PartyTrain" node_paths=PackedStringArray("target") instance=ExtResource("3_emquo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -238, -155, 0)
 visible = false
 collision_mask = 11
+stats = ExtResource("4_uea8v")
 target = NodePath("../PartyMember3")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

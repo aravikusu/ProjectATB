@@ -1,22 +1,23 @@
 [gd_scene load_steps=7 format=3 uid="uid://cnnk3gjseublj"]
 
 [ext_resource type="Script" path="res://actors/enemy/enemy.gd" id="1_itp2w"]
-[ext_resource type="Script" path="res://assets/resources/stats.gd" id="2_hhny0"]
+[ext_resource type="Script" path="res://assets/resources/stats.gd" id="2_ebrry"]
 [ext_resource type="Texture2D" uid="uid://cyelbt5281oyw" path="res://assets/sprites/debugdummy.png" id="3_g0f4o"]
 
-[sub_resource type="Resource" id="Resource_ke82j"]
-script = ExtResource("2_hhny0")
-Level = 1
-maxHP = 100
-HP = 100
-maxMP = 100
-MP = 100
-ATK = 1
-MATK = 1
-DEF = 1
-MDEF = 1
+[sub_resource type="Resource" id="Resource_wxf6e"]
+script = ExtResource("2_ebrry")
+Player = 99
+Level = 0
+maxHP = 0
+HP = 0
+maxMP = 0
+MP = 0
+ATK = 0
+MATK = 0
+DEF = 0
+MDEF = 0
 SPD = 0
-LUK = 1
+LUK = 0
 Fire = 1
 Water = 1
 Ice = 1
@@ -62,7 +63,7 @@ collision_layer = 4
 collision_mask = 9
 script = ExtResource("1_itp2w")
 displayName = "dummy"
-stats = SubResource("Resource_ke82j")
+stats = SubResource("Resource_wxf6e")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CylinderShape3D_0i4lb")

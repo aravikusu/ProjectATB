@@ -1,9 +1,9 @@
 extends Node
 
 # Level one stats for each party member.
-@onready var aravixStats = preload("res://actors/party/aravix-stats.tres")
-@onready var aylikStats = preload("res://actors/party/aylik-stats.tres")
-@onready var tastyStats = preload("res://actors/party/tasty-stats.tres")
+var aravixStats = load("res://actors/party/defaults/aravix-stats.tres")
+var aylikStats = load("res://actors/party/defaults/aylik-stats.tres")
+var tastyStats = load("res://actors/party/defaults/tasty-stats.tres")
 
 func getPartyMemberCommands(player: Dictionary) -> Array:
 	var commands = []

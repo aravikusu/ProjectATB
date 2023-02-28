@@ -130,7 +130,7 @@ func swapCharacter(player):
 	loadedCharacter = instance
 	
 	characterType = player.type
-	stats = PartyHelper.getPartyMemberStats(player.level, player.type)
+	stats.update()
 	displayName = player.name
 	commands = PartyHelper.getPartyMemberCommands(player)
 
